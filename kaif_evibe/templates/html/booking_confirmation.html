@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation - EVibe</title>
+    <link rel="stylesheet" href="/kaif_evibe/templates/css/booking_confirmation.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <h1>EVibe</h1>
+        </div>
+        
+        <div class="nav-menu">
+            <a href="customer_dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="customer_events.html"><i class="fas fa-calendar"></i> Events</a>
+            <a href="customer_bookings.html"><i class="fas fa-ticket-alt"></i> My Bookings</a>
+            <a href="customer_favorites.html"><i class="fas fa-heart"></i> Favorites</a>
+            <a href="customer_chat.html"><i class="fas fa-comments"></i> Messages</a>
+            <div class="nav-profile">
+                
+                <div class="profile-dropdown">
+                    <a href="customer_profile.html"><i class="fas fa-user"></i> Profile</a>
+                    <a href="customer_settings.html"><i class="fas fa-cog"></i> Settings</a>
+                    <a href="customer_payments.html"><i class="fas fa-credit-card"></i> Payments</a>
+                    <a href="../php/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="confirmation-container">
+            <!-- Success Message -->
+            <div class="success-message">
+                <i class="fas fa-check-circle"></i>
+                <h1>Booking Confirmed!</h1>
+                <p>Thank you for your booking. Your tickets have been sent to your email.</p>
+            </div>
+
+            <!-- Booking Details -->
+            <div class="booking-details">
+                <h2>Booking Details</h2>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <span class="label">Booking ID</span>
+                        <span class="value" id="booking-id"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Booking Date</span>
+                        <span class="value" id="booking-date"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Status</span>
+                        <span class="value" id="booking-status"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Payment Method</span>
+                        <span class="value" id="payment-method"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Event Details -->
+            <div class="event-details">
+                <h2>Event Details</h2>
+                <div class="event-info">
+                    <div class="event-image">
+                        <img src="" alt="Event Image" id="event-image">
+                    </div>
+                    <div class="event-content">
+                        <h3 id="event-title"></h3>
+                        <div class="event-meta">
+                            <div class="meta-item">
+                                <i class="far fa-calendar-alt"></i>
+                                <span id="event-date"></span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span id="event-location"></span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span id="event-time"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ticket Details -->
+            <div class="ticket-details">
+                <h2>Ticket Details</h2>
+                <div class="tickets-list" id="tickets-list">
+                    <!-- Tickets will be loaded dynamically -->
+                </div>
+                <div class="ticket-summary">
+                    <div class="summary-item">
+                        <span>Subtotal</span>
+                        <span id="subtotal"></span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Service Fee</span>
+                        <span id="service-fee"></span>
+                    </div>
+                    <div class="summary-item total">
+                        <span>Total</span>
+                        <span id="total"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="actions">
+                <button class="download-tickets" onclick="downloadTickets()">
+                    <i class="fas fa-download"></i> Download Tickets
+                </button>
+                <button class="share-booking" onclick="shareBooking()">
+                    <i class="fas fa-share-alt"></i> Share Booking
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script src="/evibe_database-update_with_php/templates/js/booking_confirmation.js"></script>
+</body>
+</html> 

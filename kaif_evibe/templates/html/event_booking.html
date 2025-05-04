@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Event - EVibe</title>
+    <link rel="stylesheet" href="/kaif_evibe/templates/css/event_booking.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <h1>EVibe</h1>
+        </div>
+        
+        <div class="nav-menu">
+            <a href="customer_dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="customer_events.html"><i class="fas fa-calendar"></i> Events</a>
+            <a href="customer_bookings.html"><i class="fas fa-ticket-alt"></i> My Bookings</a>
+            <a href="customer_favorites.html"><i class="fas fa-heart"></i> Favorites</a>
+            <a href="customer_chat.html"><i class="fas fa-comments"></i> Messages</a>
+            <div class="nav-profile">
+                <img src="/evibe_database-update_with_php/templates/images/default-avatar.png" alt="Profile">
+                <div class="profile-dropdown">
+                    <a href="customer_profile.html"><i class="fas fa-user"></i> Profile</a>
+                    <a href="customer_settings.html"><i class="fas fa-cog"></i> Settings</a>
+                    <a href="customer_payments.html"><i class="fas fa-credit-card"></i> Payments</a>
+                    <a href="../php/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="booking-container">
+            <!-- Event Summary -->
+            <section class="event-summary">
+                <div class="event-image">
+                    <img src="" alt="Event Image" id="event-image">
+                </div>
+                <div class="event-info">
+                    <h1 id="event-title"></h1>
+                    <div class="event-meta">
+                        <div class="meta-item">
+                            <i class="far fa-calendar-alt"></i>
+                            <span id="event-date"></span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span id="event-location"></span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span id="event-time"></span>
+                        </div>
+                    </div>
+                    <div class="event-description" id="event-description"></div>
+                </div>
+            </section>
+
+            <!-- Booking Form -->
+            <section class="booking-form">
+                <h2>Book Your Tickets</h2>
+                <form id="booking-form">
+                    <!-- Ticket Selection -->
+                    <div class="form-section">
+                        <h3>Select Tickets</h3>
+                        <div class="ticket-types" id="ticket-types">
+                            <!-- Ticket types will be loaded dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Personal Information -->
+                    <div class="form-section">
+                        <h3>Personal Information</h3>
+                        <div class="form-group">
+                            <label for="full-name">Full Name</label>
+                            <input type="text" id="full-name" name="full-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                    </div>
+
+                    <!-- Payment Method -->
+                    <div class="form-section">
+                        <h3>Payment Method</h3>
+                        <div class="payment-methods">
+                            <div class="payment-method">
+                                <input type="radio" id="credit-card" name="payment" value="credit-card" checked>
+                                <label for="credit-card">
+                                    <i class="fas fa-credit-card"></i>
+                                    Credit Card
+                                </label>
+                            </div>
+                            <div class="payment-method">
+                                <input type="radio" id="debit-card" name="payment" value="debit-card">
+                                <label for="debit-card">
+                                    <i class="fas fa-credit-card"></i>
+                                    Debit Card
+                                </label>
+                            </div>
+                            <div class="payment-method">
+                                <input type="radio" id="bank-transfer" name="payment" value="bank-transfer">
+                                <label for="bank-transfer">
+                                    <i class="fas fa-university"></i>
+                                    Bank Transfer
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Credit Card Details -->
+                        <div id="credit-card-details" class="payment-details">
+                            <div class="form-group">
+                                <label for="card-number">Card Number</label>
+                                <input type="text" id="card-number" name="card-number" placeholder="1234 5678 9012 3456">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="expiry">Expiry Date</label>
+                                    <input type="text" id="expiry" name="expiry" placeholder="MM/YY">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cvv">CVV</label>
+                                    <input type="text" id="cvv" name="cvv" placeholder="123">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bank Transfer Details -->
+                        <div id="bank-transfer-details" class="payment-details" style="display: none;">
+                            <div class="bank-info">
+                                <p>Please transfer the amount to the following account:</p>
+                                <div class="account-details">
+                                    <p><strong>Bank:</strong> HBL Bank</p>
+                                    <p><strong>Account Title:</strong> EVibe Events</p>
+                                    <p><strong>Account Number:</strong> 1234-5678-9012-3456</p>
+                                    <p><strong>IBAN:</strong> PK36HABB0000123456789012</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Order Summary -->
+                    <div class="order-summary">
+                        <h3>Order Summary</h3>
+                        <div class="summary-items">
+                            <div class="summary-item">
+                                <span>Subtotal</span>
+                                <span id="subtotal">PKR 0</span>
+                            </div>
+                            <div class="summary-item">
+                                <span>Service Fee</span>
+                                <span id="service-fee">PKR 0</span>
+                            </div>
+                            <div class="summary-item total">
+                                <span>Total</span>
+                                <span id="total">PKR 0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="book-button">
+                        <i class="fas fa-lock"></i> Confirm Booking
+                    </button>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <script src="/evibe_database-update_with_php/templates/js/event_booking.js"></script>
+</body>
+</html> 

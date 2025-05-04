@@ -1,0 +1,376 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Background Container */
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('/kaif_evibe/templates/images/bg.jpg') no-repeat center center/cover;
+    filter: blur(5px) brightness(0.7);
+    z-index: -1;
+}
+
+body {
+    color: #fff;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Navigation Bar */
+.Nav-1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    margin: 0;
+}
+
+.Nav-1 h1 {
+    color: #ffcc00;
+    font-weight: 600;
+}
+.Nav-Element {
+    margin-left: 100px;
+    display: flex;
+    gap: 20px; /* Space between navigation items */
+    align-items: center;
+}
+
+.Nav-Element ul {
+    list-style: none;
+    display: flex;
+    gap: 50px; /* Space between menu items */
+    padding: 0;
+    margin: 0;
+}
+
+.Nav-Element ul a {
+    text-decoration: none;
+    color: black;
+}
+
+.notifications {
+    margin-left: auto; /* Push notifications and profile to the right */
+    padding: 0 15px;
+}
+
+#notify-img {
+    width: 30px; /* Adjust size if needed */
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+#notify-img:hover {
+    background-color: rgba(255, 255, 0, 0.753);
+    border-radius: 50%; /* Make it look smoother */
+    padding: 5px;
+}
+
+.profile {
+    width: 40px;
+    height: 40px;
+    background: gray; /* Placeholder for profile picture */
+    border-radius: 50%;
+    margin-left: 20px;
+}
+
+.btn-logout {
+    margin-left: 20px;
+    padding: 10px 20px;
+    background-color: #ffcc00;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.btn-logout:hover {
+    background-color: #ffd633;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 204, 0, 0.4);
+}
+
+.btn-logout:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.Search-bar {
+    margin-left: 70px;
+    margin-right: 20px;
+    width: 300px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+
+#srch{
+    height: 40px;
+    width: 60px;
+}
+.Search-bar input {
+    border: none;
+    outline: none;
+    height: 30px; /* Increase height */
+    
+        min-width: 290px; /* Ensures enough space */
+    
+    
+    font-size: 14px; /* Increase font size for better visibility */
+    padding-left: 10px; /* Add some padding */
+}
+
+
+.Nav-Element ul {
+    display: flex;
+    list-style: none;
+}
+
+.Nav-Element ul a {
+    text-decoration: none;
+    color: #fff;
+    margin: 0 10px;
+    transition: 0.3s;
+}
+
+.Nav-Element ul a:hover {
+    color: #ffcc00;
+}
+
+/* Logout Button */
+.btn-logout {
+    background: #ffcc00;
+    border: none;
+    padding: 8px 15px;
+    font-size: 16px;
+    color: black;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-logout:hover {
+    background: #e6b800;
+}
+
+/* Form Container */
+.form-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+h2 {
+    text-align: center;
+    color: #ffcc00;
+    margin-bottom: 30px;
+    font-size: 2rem;
+}
+
+/* Form Styling */
+form {
+    width: 100%;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="datetime-local"],
+input[type="url"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 14px;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="datetime-local"]:focus,
+input[type="url"]:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #ffcc00;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+input[type="file"] {
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+/* Radio and Checkbox Styling */
+input[type="radio"],
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+/* Section Headers */
+h3 {
+    color: #ffcc00;
+    margin: 20px 0 10px;
+    font-size: 1.2rem;
+}
+
+/* Button Group */
+.button-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.button-group button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.button-group button[type="submit"] {
+    background: #ffcc00;
+    color: #000;
+}
+
+.button-group button[type="submit"]:hover {
+    background: #e6b800;
+}
+
+.button-group button[type="button"] {
+    background: #ff4444;
+    color: #fff;
+}
+
+.button-group button[type="button"]:hover {
+    background: #cc0000;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .Nav-Element {
+        margin-left: 20px;
+    }
+
+    .Search-bar {
+        margin-left: 20px;
+        width: 200px;
+    }
+
+    .form-container {
+        margin: 20px;
+        padding: 15px;
+    }
+
+    .Nav-1 {
+        flex-wrap: wrap;
+        padding: 10px;
+    }
+
+    .Nav-Element ul {
+        gap: 20px;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+}
+
+/* Payment Methods Section */
+.payment-methods {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 15px 0;
+}
+
+.payment-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.payment-option:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.payment-option input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.payment-option label {
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+/* Reduce spacing between form elements */
+form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+form input[type="text"],
+form input[type="number"],
+form input[type="datetime-local"],
+form input[type="url"],
+form select,
+form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    color: #fff;
+}
+
+form input[type="radio"] {
+    margin-right: 5px;
+}
+
+form input[type="radio"] + label {
+    display: inline;
+    margin-right: 20px;
+}

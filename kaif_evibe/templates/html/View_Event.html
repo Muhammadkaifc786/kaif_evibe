@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Event - EVibe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Import Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Background Container */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/kaif_evibe/templates/images/bg.jpg') no-repeat center center/cover;
+            filter: blur(5px) brightness(0.7);
+            z-index: -1;
+        }
+
+        body {
+            color: #fff;
+            position: relative;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navigation Bar */
+        .Nav-1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.7);
+            width: 100%;
+            margin: 0;
+        }
+
+        .Nav-1 h1 {
+            color: #ffcc00;
+            font-weight: 600;
+        }
+
+        .Nav-Element {
+            margin-left: 100px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .Nav-Element ul {
+            list-style: none;
+            display: flex;
+            gap: 50px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .Nav-Element ul a {
+            text-decoration: none;
+            color: #fff;
+            transition: 0.3s;
+        }
+
+        .Nav-Element ul a:hover {
+            color: #ffcc00;
+        }
+
+        /* Search Bar */
+        .Search-bar {
+            margin-left: 70px;
+            margin-right: 20px;
+            width: 300px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            background: #fff;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .Search-bar input {
+            border: none;
+            outline: none;
+            height: 30px;
+            min-width: 290px;
+            font-size: 14px;
+            padding-left: 10px;
+        }
+
+        /* Profile and Logout */
+        .profile {
+            width: 40px;
+            height: 40px;
+            background: gray;
+            border-radius: 50%;
+            margin-left: 20px;
+        }
+
+        /* Logout Button */
+        .btn-logout {
+            background-color: #ffcc00;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-left: 20px;
+        }
+
+        .btn-logout:hover {
+            background-color: #ffd633;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3);
+        }
+
+        /* Event Details Container */
+        .event-details-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .event-header {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .event-image {
+            width: 400px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .event-info {
+            flex: 1;
+        }
+
+        .event-title {
+            font-size: 2.5rem;
+            color: #ffcc00;
+            margin-bottom: 1rem;
+        }
+
+        .event-meta {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .meta-item i {
+            color: #ffcc00;
+            font-size: 1.2rem;
+        }
+
+        .event-description {
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .ticket-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .ticket-price {
+            font-size: 1.5rem;
+            color: #ffcc00;
+            margin-bottom: 1rem;
+        }
+
+        .ticket-availability {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: #ffcc00;
+            transition: width 0.3s ease;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .action-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .book-btn {
+            background-color: #ffcc00;
+            color: #000;
+        }
+
+        .book-btn:hover {
+            background-color: #e6b800;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 204, 0, 0.3);
+        }
+
+        .back-btn {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .back-btn:hover {
+            background-color: #5a6268;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 117, 125, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .event-header {
+                flex-direction: column;
+            }
+
+            .event-image {
+                width: 100%;
+                height: 250px;
+            }
+
+            .event-title {
+                font-size: 2rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .action-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container"></div>
+    
+    <!-- Navigation -->
+    <div class="Nav-1">
+        <h1>EVibe</h1>
+        
+        <div class="Search-bar">
+            <input type="text" name="search" id="srch" placeholder="search here">
+        </div>
+        
+        <div class="Nav-Element">
+            <ul>
+                <a href="organizer.html"><li id="home">Home</li></a>
+                <a href="post-event.html"><li id="post">Post Event</li></a>
+                <a href="manage-event.html"><li id="manage">Manage Events</li></a>
+                <a href="my-event.html"><li id="events">My Events</li></a>
+            </ul>
+        </div>
+        <div class="profile"></div>
+        <button class="btn-logout" id="logoutBtn">Logout</button>
+    </div>
+
+    <!-- Event Details -->
+    <div class="event-details-container">
+        <div class="event-header">
+            <img id="eventImage" class="event-image" src="" alt="Event Image">
+            <div class="event-info">
+                <h1 id="eventTitle" class="event-title"></h1>
+                <div class="event-meta">
+                    <div class="meta-item">
+                        <i class="fas fa-calendar"></i>
+                        <span id="eventDate"></span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span id="eventVenue"></span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-tag"></i>
+                        <span id="eventCategory"></span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-info-circle"></i>
+                        <span id="eventStatus"></span>
+                    </div>
+                </div>
+                <div class="event-description" id="eventDescription"></div>
+                <div class="ticket-info">
+                    <div class="ticket-price" id="ticketPrice"></div>
+                    <div class="ticket-availability">
+                        <span id="ticketCount"></span>
+                        <div class="progress-bar">
+                            <div class="progress" id="ticketProgress"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <!-- Buttons will be dynamically added by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Check if user is logged in
+            $.ajax({
+                url: '../php/check_session.php',
+                method: 'GET',
+                success: function(response) {
+                    if (!response.logged_in) {
+                        window.location.href = 'login.html';
+                    }
+                },
+                error: function() {
+                    window.location.href = 'login.html';
+                }
+            });
+
+            // Handle logout
+            $('#logoutBtn').on('click', function() {
+                $.ajax({
+                    url: '../php/logout.php',
+                    method: 'POST',
+                    dataType: 'json',
+                    success: function(response) {
+                        if(response && response.success) {
+                            window.location.href = 'login.html';
+                        } else {
+                            alert('Error logging out: ' + (response ? response.message : 'Unknown error'));
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Logout error:', error);
+                        alert('Error connecting to server');
+                    }
+                });
+            });
+
+            // Get event ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const eventId = urlParams.get('id');
+
+            if (!eventId) {
+                alert('No event ID provided');
+                window.location.href = 'organizer.html';
+                return;
+            }
+
+            // Load event details
+            $.ajax({
+                url: '../php/get_event_details.php',
+                method: 'POST',
+                data: { event_id: eventId },
+                success: function(response) {
+                    if (response.success && response.event) {
+                        const event = response.event;
+                        
+                        // Update page title
+                        document.title = `${event.title} - EVibe`;
+                        
+                        // Update event details
+                        $('#eventImage').attr('src', `/kaif_evibe/templates/${event.image_url}`);
+                        $('#eventTitle').text(event.title);
+                        $('#eventDate').text(new Date(event.event_date).toLocaleString());
+                        $('#eventVenue').text(event.venue);
+                        $('#eventCategory').text(event.category_name);
+                        $('#eventStatus').text(event.status.charAt(0).toUpperCase() + event.status.slice(1));
+                        $('#eventDescription').text(event.description);
+                        $('#ticketPrice').text(`Price: $${parseFloat(event.ticket_price).toFixed(2)}`);
+                        
+                        // Calculate ticket availability
+                        const totalTickets = parseInt(event.total_tickets);
+                        const availableTickets = parseInt(event.available_tickets);
+                        const soldTickets = totalTickets - availableTickets;
+                        const percentageSold = (soldTickets / totalTickets) * 100;
+                        
+                        $('#ticketCount').text(`${soldTickets} of ${totalTickets} tickets sold`);
+                        $('#ticketProgress').css('width', `${percentageSold}%`);
+
+                        // Update action buttons based on user type
+                        const actionButtons = $('.action-buttons');
+                        actionButtons.empty();
+
+                        if (response.is_organizer) {
+                            // Show organizer buttons
+                            actionButtons.append(`
+                                <button class="action-btn edit-btn" onclick="window.location.href='edit-event.html?id=${eventId}'">Edit Event</button>
+                                <button class="action-btn back-btn" onclick="window.location.href='organizer.html'">Back to Events</button>
+                            `);
+                        } else {
+                            // Show user buttons - only Book Now and Back to Events
+                            actionButtons.append(`
+                                <button class="action-btn book-btn" onclick="window.location.href='book_event.html?id=${eventId}'">Book Now</button>
+                                <button class="action-btn back-btn" onclick="window.location.href='user_panel.html'">Back to Events</button>
+                            `);
+                        }
+                    } else {
+                        alert('Error: ' + (response.message || 'Event not found'));
+                        window.location.href = 'organizer.html';
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                    alert('Error loading event details');
+                    window.location.href = 'organizer.html';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

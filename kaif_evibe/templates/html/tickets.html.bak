@@ -1,0 +1,423 @@
+<?php 
+// Try to include the organizer check file
+$organizer_check_path = '../php/check_organizer.php';
+if (file_exists($organizer_check_path)) {
+    require_once $organizer_check_path;
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tickets - EVibe</title>
+    <!-- Use root-relative paths that work with your XAMPP structure -->
+    <link rel="stylesheet" href="/kaif_evibe/templates/css/tickets.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/kaif_evibe/templates/js/navbar.js"></script>
+    <style>
+        /* Fallback styles in case CSS file fails to load */
+        :root {
+            --primary: #4a6cfa;
+            --secondary: #ffcc00;
+            --dark: #1e2033;
+            --light: #f8f9fa;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text-dark: #333;
+            --text-light: #f8f9fa;
+            --text-muted: #94a3b8;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-light);
+            background-color: var(--dark);
+        }
+        
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(30, 32, 51, 0.8), rgba(30, 32, 51, 0.9));
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+<script>
+    // Check if PHP session is active and user_id is set
+    window.currentUserId = "<?php echo isset($_SESSION) && isset($_SESSION['user_id']) ? htmlspecialchars($_SESSION['user_id'], ENT_QUOTES, 'UTF-8') : ''; ?>";
+    
+    // If accessing without PHP processing, try to load from localStorage as fallback
+    if (!window.currentUserId) {
+        try {
+            const storedUserId = localStorage.getItem('userId');
+            if (storedUserId) {
+                window.currentUserId = storedUserId;
+            }
+        } catch (e) {
+            console.error('Error accessing localStorage:', e);
+        }
+    }
+</script>
+
+    <!-- Background Container -->
+    <div class="background-container"></div>
+
+    <div class="main-1"><!-- main div-->
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <div class="logo">
+                <h1>EVibe</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.php">Home</a></li>
+                <li><a href="events.php">Events</a></li>
+                <li><a href="organizer.php">Organizer</a></li>
+                <li><a href="tickets.php" class="active">Tickets</a></li>
+                <li><a href="venue_config.php">Venues</a></li>
+                <li><a href="about.php">About</a></li>
+                <li class="profile-container">
+                    <a href="profile.php" class="profile-btn">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </nav>
+
+        <div class="Name"><!--Host Name-->
+            <h1>Manage Your <span>Tickets</span></h1>
+        </div>
+
+        <!-- Tickets Section -->
+        <h2 class="section-heading">Tickets Dashboard</h2>
+        
+        <div class="tickets-container">
+            <!-- Ticket Search and Filter Section -->
+            <div class="ticket-search-section">
+                <div class="ticket-search">
+                    <input type="text" id="ticketSearchInput" placeholder="Search by Ticket ID">
+                    <button id="ticketSearchBtn" class="ticket-search-btn"><i class="fas fa-search"></i> Search</button>
+                </div>
+                
+                <div class="ticket-filter">
+                    <select id="categoryFilter" class="category-filter">
+                        <option value="">All Categories</option>
+                        <option value="Music">Music</option>
+                        <option value="Tech">Tech</option>
+                        <option value="Art">Art</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Food">Food</option>
+                        <option value="Business">Business</option>
+                    </select>
+                    
+                    <select id="dateFilter" class="date-filter">
+                        <option value="">All Dates</option>
+                        <option value="upcoming">Upcoming</option>
+                        <option value="past">Past</option>
+                        <option value="today">Today</option>
+                        <option value="week">This Week</option>
+                        <option value="month">This Month</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Ticket Verification Section -->
+            <div class="ticket-verification">
+                <h3>Verify Ticket</h3>
+                <div class="verification-form">
+                    <input type="text" id="verifyTicketId" placeholder="Enter Ticket ID to verify">
+                    <button id="verifyBtn" class="verify-btn"><i class="fas fa-check-circle"></i> Verify</button>
+                </div>
+                
+                <!-- Verification Result (hidden by default) -->
+                <div id="verificationResult" class="verification-result" style="display: none;">
+                    <div class="verification-header">
+                        <h4>Ticket Verification Result</h4>
+                        <span id="verificationStatus" class="verification-status">Valid</span>
+                    </div>
+                    <div class="verification-details">
+                        <div class="user-info">
+                            <img id="userAvatar" src="/kaif_evibe/templates/images/default-avatar.png" alt="User Avatar">
+                            <div>
+                                <h5 id="userName">User Name</h5>
+                                <p id="userEmail">user@example.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="ticket-verification-details">
+                            <p><i class="fas fa-ticket-alt"></i> <strong>Ticket ID:</strong> <span id="verifyTicketIdDisplay"></span></p>
+                            <p><i class="fas fa-calendar"></i> <strong>Event Date:</strong> <span id="verifyEventDate"></span></p>
+                            <p><i class="fas fa-clock"></i> <strong>Event Time:</strong> <span id="verifyEventTime"></span></p>
+                            <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> <span id="verifyLocation"></span></p>
+                            <p><i class="fas fa-users"></i> <strong>Ticket Count:</strong> <span id="verifyTicketCount"></span></p>
+                            <p><i class="fas fa-tag"></i> <strong>Total Amount:</strong> <span id="verifyAmount"></span></p>
+                            <p><i class="fas fa-calendar-check"></i> <strong>Booking Date:</strong> <span id="verifyBookingDate"></span></p>
+                        </div>
+                        
+                        <div class="verification-actions">
+                            <button id="confirmAttendanceBtn" class="confirm-btn"><i class="fas fa-check"></i> Confirm Attendance</button>
+                            <button id="cancelVerificationBtn" class="cancel-verify-btn"><i class="fas fa-times"></i> Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tickets-tabs">
+                <div class="tab active" data-tab="all">All Tickets</div>
+                <div class="tab" data-tab="valid">Valid</div>
+                <div class="tab" data-tab="used">Used</div>
+                <div class="tab" data-tab="expired">Expired</div>
+            </div>
+            
+            <div class="tickets-grid" id="ticketsGrid">
+                <!-- This will be populated with ticket cards via JavaScript -->
+                
+                <!-- Sample Ticket Card 1 -->
+                <div class="ticket-card" data-status="valid" data-category="Music">
+                    <div class="ticket-header">
+                        <h3 class="ticket-event-name">Qawali Night</h3>
+                        <div class="ticket-date"><i class="fas fa-calendar"></i> April 25, 2024</div>
+                        <span class="ticket-status status-valid">Valid</span>
+                    </div>
+                    <div class="ticket-body">
+                        <div class="ticket-qr">
+                            <i class="fas fa-qrcode"></i>
+                        </div>
+                        <div class="ticket-id">TICKET-ID: QN2024-AB7890</div>
+                        <div class="ticket-details">
+                            <p><i class="fas fa-map-marker-alt"></i> Venue: Alhamra Hall, Lahore</p>
+                            <p><i class="fas fa-user"></i> Attendee: John Doe</p>
+                            <p><i class="fas fa-envelope"></i> Email: john.doe@example.com</p>
+                            <p><i class="fas fa-phone"></i> Phone: +92 300 1234567</p>
+                            <p><i class="fas fa-couch"></i> Seat: VIP-A12</p>
+                            <p><i class="fas fa-ticket-alt"></i> Type: VIP Pass</p>
+                            <p><i class="fas fa-ticket-alt"></i> Ticket Count: 2</p>
+                            <p><i class="fas fa-tag"></i> Price: $50.00</p>
+                            <p><i class="fas fa-calendar-check"></i> Booking Date: April 15, 2024</p>
+                        </div>
+                        <div class="ticket-actions">
+                            <button class="ticket-btn download-btn"><i class="fas fa-download"></i> Download</button>
+                            <button class="ticket-btn view-btn"><i class="fas fa-eye"></i> View</button>
+                            <button class="ticket-btn verify-ticket-btn" data-ticket-id="QN2024-AB7890"><i class="fas fa-check-circle"></i> Verify</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sample Ticket Card 2 -->
+                <div class="ticket-card" data-status="used" data-category="Tech">
+                    <div class="ticket-header">
+                        <h3 class="ticket-event-name">Tech Summit 2024</h3>
+                        <div class="ticket-date"><i class="fas fa-calendar"></i> March 15, 2024</div>
+                        <span class="ticket-status status-used">Used</span>
+                    </div>
+                    <div class="ticket-body">
+                        <div class="ticket-qr">
+                            <i class="fas fa-qrcode"></i>
+                        </div>
+                        <div class="ticket-id">TICKET-ID: TS2024-CD5678</div>
+                        <div class="ticket-details">
+                            <p><i class="fas fa-map-marker-alt"></i> Venue: Convention Center, Karachi</p>
+                            <p><i class="fas fa-user"></i> Attendee: Sarah Khan</p>
+                            <p><i class="fas fa-envelope"></i> Email: sarah.khan@example.com</p>
+                            <p><i class="fas fa-phone"></i> Phone: +92 333 7654321</p>
+                            <p><i class="fas fa-couch"></i> Seat: General-B22</p>
+                            <p><i class="fas fa-ticket-alt"></i> Type: Standard Pass</p>
+                            <p><i class="fas fa-ticket-alt"></i> Ticket Count: 1</p>
+                            <p><i class="fas fa-tag"></i> Price: $35.00</p>
+                            <p><i class="fas fa-calendar-check"></i> Booking Date: March 10, 2024</p>
+                        </div>
+                        <div class="ticket-actions">
+                            <button class="ticket-btn download-btn"><i class="fas fa-download"></i> Download</button>
+                            <button class="ticket-btn view-btn"><i class="fas fa-eye"></i> View</button>
+                            <button class="ticket-btn verify-ticket-btn" data-ticket-id="TS2024-CD5678"><i class="fas fa-check-circle"></i> Verify</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sample Ticket Card 3 -->
+                <div class="ticket-card" data-status="expired" data-category="Art">
+                    <div class="ticket-header">
+                        <h3 class="ticket-event-name">Art Exhibition</h3>
+                        <div class="ticket-date"><i class="fas fa-calendar"></i> February 10, 2024</div>
+                        <span class="ticket-status status-expired">Expired</span>
+                    </div>
+                    <div class="ticket-body">
+                        <div class="ticket-qr">
+                            <i class="fas fa-qrcode"></i>
+                        </div>
+                        <div class="ticket-id">TICKET-ID: AE2024-XY1234</div>
+                        <div class="ticket-details">
+                            <p><i class="fas fa-map-marker-alt"></i> Venue: National Art Gallery, Islamabad</p>
+                            <p><i class="fas fa-user"></i> Attendee: Ali Hassan</p>
+                            <p><i class="fas fa-envelope"></i> Email: ali.hassan@example.com</p>
+                            <p><i class="fas fa-phone"></i> Phone: +92 321 9876543</p>
+                            <p><i class="fas fa-couch"></i> Seat: N/A</p>
+                            <p><i class="fas fa-ticket-alt"></i> Type: Day Pass</p>
+                            <p><i class="fas fa-ticket-alt"></i> Ticket Count: 3</p>
+                            <p><i class="fas fa-tag"></i> Price: $20.00</p>
+                            <p><i class="fas fa-calendar-check"></i> Booking Date: February 5, 2024</p>
+                        </div>
+                        <div class="ticket-actions">
+                            <button class="ticket-btn download-btn"><i class="fas fa-download"></i> Download</button>
+                            <button class="ticket-btn view-btn"><i class="fas fa-eye"></i> View</button>
+                            <button class="ticket-btn verify-ticket-btn" data-ticket-id="AE2024-XY1234"><i class="fas fa-check-circle"></i> Verify</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Empty State (Hidden by default, shown when no tickets) -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <i class="fas fa-ticket-alt"></i>
+                <h3>No Tickets Found</h3>
+                <p>No tickets match your search criteria or you don't have any tickets yet.</p>
+                <a href="events.html" class="browse-btn">Browse Events</a>
+            </div>
+        </div>
+        
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About EVibe</h3>
+                    <p>Your one-stop platform for event management and ticket booking.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 EVibe. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Tab functionality
+            $('.tab').on('click', function() {
+                const tabType = $(this).data('tab');
+                
+                // Update active tab
+                $('.tab').removeClass('active');
+                $(this).addClass('active');
+                
+                // Filter tickets based on tab
+                if (tabType === 'all') {
+                    $('.ticket-card').show();
+                } else {
+                    $('.ticket-card').hide();
+                    $(`.ticket-card[data-status="${tabType}"]`).show();
+                    
+                    // Show empty state if no tickets match the filter
+                    if ($(`.ticket-card[data-status="${tabType}"]`).length === 0) {
+                        $('#emptyState').show();
+                    } else {
+                        $('#emptyState').hide();
+                    }
+                }
+            });
+            
+            // Download ticket functionality
+            $('.download-btn').on('click', function() {
+                // In a real implementation, this would generate a PDF ticket
+                alert('Downloading ticket...');
+            });
+            
+            // View ticket details
+            $('.view-btn').on('click', function() {
+                const ticketCard = $(this).closest('.ticket-card');
+                const ticketId = ticketCard.find('.ticket-id').text().split(': ')[1];
+                alert(`Viewing ticket details for ${ticketId}`);
+                // This would typically open a modal with full ticket details
+            });
+            
+            // Check if there are any tickets at all
+            if ($('.ticket-card').length === 0) {
+                $('#emptyState').show();
+            }
+            
+            // Load tickets from database (sample implementation)
+            function loadTickets() {
+                // This would be replaced with an actual AJAX call to the backend
+                $.ajax({
+                    url: '../php/get_tickets.php', // This file doesn't exist yet and would need to be created
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response && response.success) {
+                            displayTickets(response.tickets);
+                        } else {
+                            // If there's an error or no tickets, show empty state
+                            $('#ticketsGrid').empty();
+                            $('#emptyState').show();
+                        }
+                    },
+                    error: function() {
+                        // On error, show sample data (for development only)
+                        console.log('Error loading tickets or endpoint not available yet.');
+                    }
+                });
+            }
+            
+            // Function to display tickets
+            function displayTickets(tickets) {
+                // This would be used to display tickets from the database
+                // For now, we're using the sample tickets in the HTML
+            }
+            
+            // Handle logout
+            $('#logoutBtn').on('click', function() {
+                $.ajax({
+                    url: '../php/logout.php',
+                    method: 'POST',
+                    success: function(response) {
+                        window.location.href = 'login.html';
+                    }
+                });
+            });
+            
+            // Handle search
+            $('#searchButton').on('click', function() {
+                const query = $('#srch').val().trim();
+                if (query) {
+                    window.location.href = `search_results.html?q=${encodeURIComponent(query)}`;
+                }
+            });
+            
+            // Search on enter key
+            $('#srch').keypress(function(e) {
+                if (e.which === 13) {
+                    $('#searchButton').click();
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

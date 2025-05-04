@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Events - EVibe</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="Nav-1">
+        <h1>EVibe</h1>
+        
+        <div class="Nav-Element">
+            <ul>
+                <a href="organizer.html"><i class="fas fa-home"></i> Home</a>
+                <a href="post-event.html"><i class="fas fa-plus-circle"></i> Post Event</a>
+                <a href="manage-event.html"><i class="fas fa-cog"></i> Manage Events</a>
+                <a href="my-event.html" class="active"><i class="fas fa-calendar-check"></i> My Events</a>
+                <a href="tickets.html"><li id="tickets">Tickets</li></a>
+               
+                <a href="logout.php" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="my-events-container">
+            <h2>My Events</h2>
+            
+            <div class="event-filters">
+                <select id="statusFilter" onchange="filterEvents()">
+                    <option value="all">All Events</option>
+                    <option value="pending">Pending</option>
+                    <option value="approved">Approved</option>
+                    <option value="rejected">Rejected</option>
+                </select>
+                
+                <select id="categoryFilter" onchange="filterEvents()">
+                    <option value="all">All Categories</option>
+                </select>
+            </div>
+
+            <div class="event-grid">
+                <!-- Events will be loaded here dynamically -->
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Load categories for filter
+        function loadCategories() {
+            fetch('../php/get_categories.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const categoryFilter = document.getElementById('categoryFilter');
+                        data.categories.forEach(category => {
+                            const option = document.createElement('option');
+                            option.value = category.category_id;
+                            option.textContent = category.name;
+                            categoryFilter.appendChild(option);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        // Load organizer's events
+        function loadOrganizerEvents() {
+            fetch('../php/manage_events.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const eventGrid = document.querySelector('.event-grid');
+                        eventGrid.innerHTML = '';
+                        
+                        data.events.forEach(event => {
+                            const eventCard = `
+                                <div class="event-card ${event.status}">
+                                    <div class="event-image">
+                                        <img src="/evibe_database-update_with_php/${event.image_url || 'templates/images/default-event.jpg'}" alt="${event.title}">
+                                    </div>
+                                    <div class="event-details">
+                                        <span class="event-date"><i class="far fa-calendar-alt"></i> ${new Date(event.event_date).toLocaleDateString()}</span>
+                                        <h3 class="event-title">${event.title}</h3>
+                                        <div class="event-location">
+                                            <i class="fas fa-map-marker-alt"></i> ${event.venue}
+                                        </div>
+                                        <div class="event-price">PKR ${event.ticket_price}</div>
+                                        <div class="event-status ${event.status}">${event.status.charAt(0).toUpperCase() + event.status.slice(1)}</div>
+                                        <div class="event-stats">
+                                            <span><i class="fas fa-ticket-alt"></i> ${event.available_tickets}/${event.total_tickets} tickets left</span>
+                                            <span><i class="fas fa-calendar-check"></i> ${event.category_name}</span>
+                                        </div>
+                                        <div class="event-actions">
+                                            <a href="edit-event.html?id=${event.event_id}" class="edit-btn">Edit</a>
+                                            <button onclick="deleteEvent(${event.event_id})" class="delete-btn">Delete</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            eventGrid.innerHTML += eventCard;
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        // Filter events based on status and category
+        function filterEvents() {
+            const statusFilter = document.getElementById('statusFilter').value;
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const eventCards = document.querySelectorAll('.event-card');
+            
+            eventCards.forEach(card => {
+                const status = card.classList.contains('pending') ? 'pending' :
+                             card.classList.contains('approved') ? 'approved' :
+                             card.classList.contains('rejected') ? 'rejected' : '';
+                
+                const category = card.querySelector('.event-stats span:last-child').textContent.trim();
+                const categoryId = card.dataset.categoryId;
+                
+                const statusMatch = statusFilter === 'all' || status === statusFilter;
+                const categoryMatch = categoryFilter === 'all' || categoryId === categoryFilter;
+                
+                card.style.display = statusMatch && categoryMatch ? 'block' : 'none';
+            });
+        }
+
+        // Function to delete an event
+        function deleteEvent(eventId) {
+            if (confirm('Are you sure you want to delete this event?')) {
+                const formData = new FormData();
+                formData.append('action', 'delete');
+                formData.append('event_id', eventId);
+
+                fetch('../php/manage_events.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Event deleted successfully');
+                        loadOrganizerEvents(); // Reload events
+                    } else {
+                        alert('Error deleting event: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error deleting event');
+                });
+            }
+        }
+
+        // Load data when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCategories();
+            loadOrganizerEvents();
+        });
+    </script>
+</body>
+</html> 

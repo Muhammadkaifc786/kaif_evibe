@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" href="/kaif_evibe/templates/css/chat.css">
+</head>
+<body>
+    <div class="background-container"></div>
+    <div class="Nav-1">  <!-- Nav bar div-->
+        <h1>EVibe</h1>
+        
+        <div class="Search-bar"> <!-- Searchbar div-->
+            <img src="../images/srch.png" alt="search">
+            <input type="text" name="search" id="srch" placeholder="search here">
+        </div>                                   
+        <div class="Nav-Element">
+            <ul>
+                <a href="organizer.html"><li id="home">Home</li></a>
+                <a href="Post-Event.html"><li id="post">Post Event</li></a>
+                <a href="manage-event.html"><li id="manage">Manage Events</li></a>
+                <a href="My_events.html"><li id="events">My Events</li></a>
+            </ul>
+        </div>
+        <div class="profile"></div>
+        <button class="btn-logout">Logout</button>
+    </div>
+
+    <div class="chat-container">
+        <!-- Chat Main Area -->
+        <div class="chat-main">
+            <!-- Chat Header -->
+            <div class="chat-header">
+                <div class="chat-avatar">AI</div>
+                <div class="chat-header-info">
+                    <h3>EVibe Assistant</h3>
+                    <p>Online</p>
+                </div>
+            </div>
+
+            <!-- Chat Messages -->
+            <div class="chat-messages">
+                <!-- Welcome Message -->
+                <div class="message received">
+                    <div class="message-content">
+                        Hello! I'm your EVibe Assistant. How can I help you today?
+                        <ul class="ai-features">
+                            <li>Get information about events</li>
+                            <li>Help with ticket booking</li>
+                            <li>Answer general inquiries</li>
+                            <li>Provide event recommendations</li>
+                        </ul>
+                    </div>
+                    <div class="message-time">Just now</div>
+                </div>
+            </div>
+
+            <!-- Chat Input -->
+            <div class="chat-input">
+                <input type="text" placeholder="Type your message...">
+                <button>Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

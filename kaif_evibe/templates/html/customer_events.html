@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - EVibe</title>
+    <link rel="stylesheet" href="/kaif_evibe/templates/css/customer_events.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <h1>EVibe</h1>
+        </div>
+        
+        <div class="nav-search">
+            <input type="text" placeholder="Search events...">
+            <button><i class="fas fa-search"></i></button>
+        </div>
+        
+        <div class="nav-menu">
+            <a href="customer_dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="customer_events.html" class="active"><i class="fas fa-calendar"></i> Events</a>
+            <a href="customer_bookings.html"><i class="fas fa-ticket-alt"></i> My Bookings</a>
+            <a href="customer_favorites.html"><i class="fas fa-heart"></i> Favorites</a>
+            <a href="customer_chat.html"><i class="fas fa-comments"></i> Messages</a>
+            <div class="nav-profile">
+                <img src="/evibe_database-update_with_php/templates/images/default-avatar.png" alt="Profile">
+                <div class="profile-dropdown">
+                    <a href="customer_profile.html"><i class="fas fa-user"></i> Profile</a>
+                    <a href="customer_settings.html"><i class="fas fa-cog"></i> Settings</a>
+                    <a href="customer_payments.html"><i class="fas fa-credit-card"></i> Payments</a>
+                    <a href="../php/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Filters Section -->
+        <section class="filters-section">
+            <div class="filters-container">
+                <div class="filter-group">
+                    <label for="category-filter">Category</label>
+                    <select id="category-filter">
+                        <option value="">All Categories</option>
+                        <option value="concerts">Concerts</option>
+                        <option value="sports">Sports</option>
+                        <option value="education">Education</option>
+                        <option value="technology">Technology</option>
+                        <option value="food">Food & Dining</option>
+                        <option value="arts">Arts & Theatre</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="date-filter">Date</label>
+                    <select id="date-filter">
+                        <option value="">Any Date</option>
+                        <option value="today">Today</option>
+                        <option value="week">This Week</option>
+                        <option value="month">This Month</option>
+                        <option value="year">This Year</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="price-filter">Price Range</label>
+                    <select id="price-filter">
+                        <option value="">Any Price</option>
+                        <option value="0-1000">Under PKR 1,000</option>
+                        <option value="1000-5000">PKR 1,000 - 5,000</option>
+                        <option value="5000-10000">PKR 5,000 - 10,000</option>
+                        <option value="10000+">Over PKR 10,000</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="location-filter">Location</label>
+                    <select id="location-filter">
+                        <option value="">All Locations</option>
+                        <option value="karachi">Karachi</option>
+                        <option value="lahore">Lahore</option>
+                        <option value="islamabad">Islamabad</option>
+                        <option value="rawalpindi">Rawalpindi</option>
+                    </select>
+                </div>
+
+                <button class="apply-filters">
+                    <i class="fas fa-filter"></i> Apply Filters
+                </button>
+            </div>
+        </section>
+
+        <!-- Events Grid -->
+        <section class="events-section">
+            <div class="section-header">
+                <h2>All Events</h2>
+                <div class="view-options">
+                    <button class="view-grid active" title="Grid View">
+                        <i class="fas fa-th-large"></i>
+                    </button>
+                    <button class="view-list" title="List View">
+                        <i class="fas fa-list"></i>
+                    </button>
+                    <button class="view-map" title="Map View">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="events-grid" id="events-grid">
+                <!-- Events will be loaded dynamically -->
+            </div>
+
+            <div class="events-list" id="events-list" style="display: none;">
+                <!-- List view will be loaded dynamically -->
+            </div>
+
+            <div class="events-map" id="events-map" style="display: none;">
+                <!-- Map will be loaded dynamically -->
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="prev-page" disabled>
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="page-numbers">
+                    <button class="active">1</button>
+                    <button>2</button>
+                    <button>3</button>
+                    <span>...</span>
+                    <button>10</button>
+                </div>
+                <button class="next-page">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- AI Chatbot -->
+    <div class="chatbot-container">
+        <button class="chatbot-toggle" id="chatbot-toggle">
+            <i class="fas fa-robot"></i>
+            <span>Need Help?</span>
+        </button>
+        <div class="chatbot-window" id="chatbot-window">
+            <div class="chatbot-header">
+                <h3>EVibe Assistant</h3>
+                <button class="close-chatbot"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="chatbot-messages" id="chatbot-messages">
+                <!-- Messages will be loaded dynamically -->
+            </div>
+            <div class="chatbot-input">
+                <input type="text" placeholder="Type your message...">
+                <button><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/evibe_database-update_with_php/templates/js/customer_events.js"></script>
+</body>
+</html> 

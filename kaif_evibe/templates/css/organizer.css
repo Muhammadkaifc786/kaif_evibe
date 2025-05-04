@@ -1,0 +1,1365 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Background Container */
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('/kaif_evibe/templates/images/bg.jpg') no-repeat center center/cover;
+    filter: blur(5px) brightness(0.7); /* Blur and darken the background */
+    z-index: -1; /* Place it behind everything */
+}
+
+body {
+    color: #fff;
+    position: relative;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+/* Main Container */
+.main-1 {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+}
+
+/* Navigation Bar */
+.Nav-1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    margin: 0;
+}
+
+.Nav-1 h1 {
+    color: #ffcc00;
+    font-weight: 600;
+}
+.Nav-Element {
+    margin-left: 100px;
+    display: flex;
+    gap: 20px; /* Space between navigation items */
+    align-items: center;
+}
+
+.Nav-Element ul {
+    list-style: none;
+    display: flex;
+    gap: 50px; /* Space between menu items */
+    padding: 0;
+    margin: 0;
+}
+
+.Nav-Element ul a {
+    text-decoration: none;
+    color: black;
+}
+
+.notifications {
+    margin-left: auto; /* Push notifications and profile to the right */
+    padding: 0 15px;
+}
+
+#notify-img {
+    width: 30px; /* Adjust size if needed */
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+#notify-img:hover {
+    background-color: rgba(255, 255, 0, 0.753);
+    border-radius: 50%; /* Make it look smoother */
+    padding: 5px;
+}
+
+.profile {
+    width: 40px;
+    height: 40px;
+    background: gray; /* Placeholder for profile picture */
+    border-radius: 50%;
+    margin-left: 20px;
+}
+.btn-logout {
+    background-color: #ffcc00;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin-left: 20px;
+}
+
+.btn-logout:hover {
+    background-color: #ffd633;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3);
+}
+
+/* Search Bar Styling */
+.Search-bar {
+    position: relative;
+    margin: 0 20px;
+    width: 300px;
+    display: flex;
+    align-items: center;
+}
+
+.Search-bar input {
+    width: 100%;
+    padding: 10px 40px 10px 15px;
+    border: 2px solid rgba(255, 204, 0, 0.3);
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.search-button {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #ffcc00;
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.search-button:hover {
+    background: #ffd633;
+    transform: translateY(-50%) scale(1.05);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.search-button:active {
+    transform: translateY(-50%) scale(0.95);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.search-button i {
+    color: #333;
+    font-size: 14px;
+}
+
+.Search-bar input:focus {
+    outline: none;
+    border-color: #ffcc00;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 10px rgba(255, 204, 0, 0.2);
+}
+
+.Search-bar input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.Search-bar::before {
+    content: '\f002';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+}
+
+/* Search Results Styling */
+.search-results-list {
+    max-height: 400px;
+    overflow-y: auto;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin-top: 5px;
+    z-index: 1000;
+}
+
+.search-result-item {
+    display: flex;
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.search-result-item:hover {
+    background-color: #f8f9fa;
+}
+
+.search-result-image {
+    width: 80px;
+    height: 80px;
+    margin-right: 15px;
+    border-radius: 6px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.search-result-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.search-result-content {
+    flex: 1;
+}
+
+.search-result-title {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.search-result-details {
+    font-size: 14px;
+    color: #666;
+}
+
+.search-result-details p {
+    margin: 3px 0;
+}
+
+.search-results.active {
+    display: block;
+}
+
+.search-results:not(.active) {
+    display: none;
+}
+
+.Nav-Element ul {
+    display: flex;
+    list-style: none;
+}
+
+.Nav-Element ul a {
+    text-decoration: none;
+    color: #fff;
+    margin: 0 10px;
+    transition: 0.3s;
+}
+
+.Nav-Element ul a:hover {
+    color: #ffcc00;
+}
+
+
+.Name {
+    text-align: center; /* Center the text */
+    margin-top: 20px;
+}
+
+.Name h1 {
+    font-size: 36px; /* Increase font size */
+    font-weight: bold;
+    color: white; /* White text */
+}
+
+#dashboard-txt {
+    text-align: center; /* Center the text */
+    font-size: 28px; /* Bigger size */
+    font-weight: 600;
+    color: white; /* White text */
+    margin-top: 10px;
+    text-transform: uppercase; /* Make it more professional */
+    letter-spacing: 1.5px; /* Slight spacing for a premium look */
+    border-bottom: 3px solid #f4b400; /* Add a colored underline */
+    display: block; /* Ensures it takes full width */
+    padding-bottom: 5px;
+    width: fit-content; /* Only as wide as the text */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* Dashboard */
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.dashboard div {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    text-align: center;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.dashboard div:hover {
+    background: #ffcc00;
+    color: #000;
+}
+
+.dashboard img {
+    width: 50px;  /* Adjust image size */
+    height: 50px; /* Maintain aspect ratio */
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+.dashboard h3 {
+    font-size: 16px;
+    margin: 5px 0;
+    color: white;
+}
+
+.dashboard p {
+    font-size: 14px;
+    color: white;
+}
+
+/* Event Cards */
+.Your-events, .Trending-events {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+#your-event, #trending-event, #manage-text {
+    text-align: center;
+    margin: 30px auto;
+    font-size: 28px;
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-bottom: 3px solid #f4b400;
+    display: block;
+    padding-bottom: 5px;
+    width: fit-content;
+}
+
+#rating{
+height: 50px;
+width: 170px;
+margin: 0;
+}
+
+.Your-events .event-1, .Your-events .event-2, .Your-events .event-3, 
+.Your-events .event-4, .Your-events .event-5, .Your-events .event-6, 
+.Your-events .event-7, .Your-events .event-8 {
+    background: rgba(255, 255, 255, 0.107);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    transition: 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    margin-left: 10px;
+    height: 400px;
+    
+}
+.Trending-events .event {
+    background: rgba(255, 255, 255, 0.107);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    transition: 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    margin-left: 10px;
+    height: 300px;
+    
+}
+.Your-events img, .Trending-events img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.Your-events h3, .Trending-events h3 {
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+.Your-events button, .Trending-events button {
+    background: #ffcc00;
+    border: none;
+    padding: 8px 15px;
+    font-size: 16px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.Your-events button:hover, .Trending-events button:hover {
+    background: #ffa500;
+}
+
+/* Floating Button */
+.Floating-button button {
+    background: #ffcc00;
+    border: none;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    border-radius: 50%;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.Floating-button button:hover {
+    background: #ffa500;
+}
+.Manage-events h2 {
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+/* Cards Container */
+.cards-container {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    padding: 50px;
+    padding-left: 80px;
+}
+
+/* Individual Cards */
+.card {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 25px;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    color: #ffcc00;
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    color: #ffcc00;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.card p {
+    color: #fff;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.card-stats {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 15px 0;
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+.card-stats span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.card-stats i {
+    color: #ffcc00;
+}
+
+.card-link {
+    display: inline-block;
+    padding: 8px 20px;
+    background: #ffcc00;
+    color: #000;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s;
+    font-weight: 500;
+}
+
+.card-link:hover {
+    background: #e6b800;
+}
+
+/* Events Grid */
+
+
+/* Event Card */
+
+
+.event-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+
+
+
+
+.event-details {
+    padding: 22px 24px 18px 24px;
+    display: flex;
+    font-size: 30px;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.event-details p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+}
+
+.event-price {
+    color: #ffcc00;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 10px 0;
+}
+
+
+
+/* Status Badge */
+.status-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.status-active {
+    background: #4CAF50;
+    color: #fff;
+}
+
+.status-pending {
+    background: #FFC107;
+    color: #000;
+}
+
+.status-cancelled {
+    background: #f44336;
+    color: #fff;
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+    .events-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 1100px) {
+    .events-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .events-grid {
+        grid-template-columns: 1fr;
+        padding: 15px;
+    }
+
+    .event-actions {
+        flex-direction: column;
+    }
+}
+
+/* Trending Events Section */
+.trending-grid {
+    margin-top: 30px;
+}
+
+.trending-card {
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(255, 204, 0, 0.2);
+}
+
+.trending-card:hover {
+    border-color: #ffcc00;
+}
+
+.trending-card .status-badge {
+    background: #ff4444;
+    color: #fff;
+}
+
+.trending-card .event-title {
+    color: #ffcc00;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.trending-card .event-details {
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.trending-card .event-details p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+}
+
+.trending-card .event-price {
+    color: #ffcc00;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 10px 0;
+}
+
+/* Remove old trending events styles */
+.Trending-events {
+    display: none;
+}
+
+/* Responsive Design for Trending Events */
+@media (max-width: 1400px) {
+    .trending-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 1100px) {
+    .trending-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .trending-grid {
+        grid-template-columns: 1fr;
+        padding: 15px;
+    }
+}
+
+/* Chat Section Enhancement */
+.Chat {
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 30px auto;
+    max-width: 800px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.chat-header h2 {
+    color: #ffcc00;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+}
+
+.chat-badge {
+    background: #ff4444;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.9rem;
+}
+
+.chat-preview {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.chat-preview img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.chat-info h3 {
+    color: #ffcc00;
+    margin-bottom: 5px;
+}
+
+.chat-info p {
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+.chat-link {
+    display: inline-block;
+    padding: 10px 25px;
+    background: #ffcc00;
+    color: #000;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s;
+    font-weight: 500;
+}
+
+.chat-link:hover {
+    background: #e6b800;
+}
+
+/* Footer Styles */
+.footer {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 40px 0 20px;
+    margin-top: 50px;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    padding: 0 20px;
+}
+
+.footer-section h3 {
+    color: #ffcc00;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.footer-section p {
+    color: #fff;
+    line-height: 1.6;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-section ul a:hover {
+    color: #ffcc00;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+}
+
+.social-links a {
+    color: #fff;
+    font-size: 1.5rem;
+    transition: color 0.3s;
+}
+
+.social-links a:hover {
+    color: #ffcc00;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-bottom p {
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+/* Floating Button Enhancement */
+.Floating-button button {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #ffcc00;
+    border: none;
+    color: #000;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.3s, background 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Floating-button button:hover {
+    transform: scale(1.1);
+    background: #e6b800;
+}
+
+/* Responsive Design Updates */
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+
+    .chat-preview {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .card-stats {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+}
+
+.trending-events {
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    margin: 2rem 0;
+}
+
+.trending-events h2 {
+    color: #fff;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+
+
+.event-card:hover .event-image img {
+    transform: scale(1.05);
+}
+
+.event-category {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(255, 204, 0, 0.9);
+    color: #000;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.event-date, .event-location, .event-organizer {
+    color: #666;
+    margin: 0.5rem 0;
+    font-size: 0.95rem;
+}
+
+.event-date i, .event-location i, .event-organizer i {
+    color: #ffcc00;
+    margin-right: 0.5rem;
+}
+
+.event-stats {
+    margin: 1rem 0;
+    padding: 1rem 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.ticket-sales {
+    margin-bottom: 1rem;
+}
+
+.ticket-sales .label, .event-price .label {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.ticket-sales .value, .event-price .value {
+    color: #333;
+    font-weight: 600;
+    margin-left: 0.5rem;
+}
+
+.progress-bar {
+    background: #eee;
+    height: 8px;
+    border-radius: 4px;
+    margin-top: 0.5rem;
+    overflow: hidden;
+}
+
+.progress {
+    background: #ffcc00;
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.view-event-btn {
+    background: #ffcc00;
+    color: #000;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.view-event-btn:hover {
+    background: #ffd633;
+}
+
+.no-events {
+    text-align: center;
+    color: #fff;
+    padding: 2rem;
+    font-size: 1.2rem;
+}
+
+.event-button, .cancel-btn {
+    display: inline-block !important;
+    padding: 8px 22px !important;
+    margin: 10px 8px 0 0 !important;
+    border-radius: 6px !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s !important;
+    border: none !important;
+    cursor: pointer !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
+}
+.event-button {
+    background: linear-gradient(90deg, #ffcc00 60%, #ffe066 100%) !important;
+    color: #222 !important;
+}
+.event-button:hover {
+    background: linear-gradient(90deg, #ffe066 60%, #ffcc00 100%) !important;
+    color: #111 !important;
+    box-shadow: 0 4px 16px rgba(255, 204, 0, 0.18) !important;
+}
+.cancel-btn {
+    background: linear-gradient(90deg, #ff3b3b 60%, #ff7b7b 100%) !important;
+    color: #fff !important;
+}
+.cancel-btn:hover {
+    background: linear-gradient(90deg, #ff7b7b 60%, #ff3b3b 100%) !important;
+    color: #fff !important;
+    box-shadow: 0 4px 16px rgba(255, 59, 59, 0.18) !important;
+}
+
+/* Booked_event.html specific event card style */
+body:has(#bookedEventsContainer) .event-card, #bookedEventsContainer .event-card {
+    max-width: 220px;
+    width: 100%;
+    background: rgba(10, 10, 10, 0.85); /* Stronger black glassmorphism */
+    border-radius: 18px;
+    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.45);
+    backdrop-filter: blur(10px) saturate(140%);
+    -webkit-backdrop-filter: blur(10px) saturate(140%);
+    border: 1px solid rgba(255,255,255,0.10);
+    margin: 18px auto;
+    transition: box-shadow 0.3s, transform 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    overflow: hidden;
+}
+
+/* Event Category */
+.event-category {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    background: var(--secondary);
+    color: var(--text-dark);
+    z-index: 1;
+}
+
+/* Progress Bar */
+.progress-bar {
+    background: rgba(255, 255, 255, 0.1);
+    height: 8px;
+    border-radius: 4px;
+    margin-top: 8px;
+    overflow: hidden;
+}
+
+.progress {
+    background: var(--secondary);
+    height: 100%;
+    border-radius: 4px;
+}
+
+/* Event Stats */
+.event-stats {
+    margin: 12px 0;
+    padding: 12px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.ticket-sales {
+    margin-bottom: 10px;
+}
+
+.ticket-sales .label, .event-price .label {
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.ticket-sales .value, .event-price .value {
+    color: var(--text-light);
+    font-weight: 600;
+    margin-left: 5px;
+}
+
+/* View Event Button */
+.view-event-btn {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 0;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 15px;
+    transition: all 0.3s ease;
+}
+
+.view-event-btn:hover {
+    background-color: #3a5bd9;
+    transform: translateY(-2px);
+}
+
+/* No Events */
+.no-events {
+    text-align: center;
+    padding: 30px;
+    color: var(--text-muted);
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+/* Location, Date, Organizer */
+.event-date, .event-location, .event-organizer {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: var(--text-muted);
+}
+
+.event-date i, .event-location i, .event-organizer i {
+    color: var(--secondary);
+    margin-right: 10px;
+    font-size: 14px;
+    min-width: 20px;
+    text-align: center;
+}
+
+/* Chat Section */
+.Chat {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 25px;
+    margin: 40px 40px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.chat-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+}
+
+.chat-header h2 i {
+    color: var(--secondary);
+    margin-right: 10px;
+}
+
+.chat-badge {
+    background: var(--danger);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.chat-preview {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    background: rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.chat-preview img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.chat-info h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--text-light);
+}
+
+.chat-info p {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.chat-link {
+    display: inline-block;
+    padding: 10px 25px;
+    background: var(--primary);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-align: center;
+    width: 100%;
+}
+
+.chat-link:hover {
+    background: #3a5bd9;
+    transform: translateY(-2px);
+}
+
+/* Floating Button */
+.Floating-button button {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: var(--primary);
+    border: none;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 100;
+}
+
+.Floating-button button:hover {
+    transform: scale(1.1) rotate(90deg);
+    background: #3a5bd9;
+}
+
+/* Message Button Badge */
+.unread-badge {
+    background: var(--danger);
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 11px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5px;
+}
+
+/* Add some depth to event cards */
+
+.event-card img {
+    transition: transform 0.6s ease, filter 0.6s ease;
+}
+
+.event-card:hover img {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+/* Improve the responsive design for smaller screens */
+@media (max-width: 576px) {
+    .Chat {
+        margin: 30px 20px;
+        padding: 20px;
+    }
+    
+    .dashboard {
+        padding: 20px;
+    }
+    
+    .dashboard div {
+        min-width: 100%;
+        margin-bottom: 15px;
+    }
+    
+    .event-actions {
+        flex-direction: column;
+    }
+    
+    .event-actions button {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+    
+    .Floating-button button {
+        width: 50px;
+        height: 50px;
+        bottom: 20px;
+        right: 20px;
+    }
+}
+
+/* --- Enhanced Professional Search Bar (Final Polish) --- */
+.search-bar-pro {
+    display: flex;
+    align-items: center;
+    width: 370px;
+    background: rgba(30, 30, 30, 0.35);
+    border-radius: 999px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+    padding: 5px 10px 5px 24px;
+    margin: 0 20px;
+    backdrop-filter: blur(12px) saturate(180%);
+    border: 1.5px solid rgba(255,255,255,0.18);
+    transition: box-shadow 0.2s, border 0.2s;
+}
+.search-bar-pro:focus-within {
+    box-shadow: 0 12px 36px 0 rgba(255,204,0,0.22);
+    border: 1.5px solid #ffcc00;
+}
+.search-bar-pro-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    color: #fff;
+    font-size: 1.15rem;
+    padding: 13px 0;
+    outline: none;
+    border-radius: 999px 0 0 999px;
+    font-family: inherit;
+    letter-spacing: 0.03em;
+}
+.search-bar-pro-input::placeholder {
+    color: rgba(255,255,255,0.8);
+    font-size: 1.15rem;
+    font-family: inherit;
+    letter-spacing: 0.01em;
+}
+.search-bar-pro-btn {
+    background: linear-gradient(135deg, #ffcc00 60%, #ffe066 100%);
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 12px;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+    box-shadow: 0 4px 16px rgba(255,204,0,0.13);
+}
+.search-bar-pro-btn i {
+    color: #222;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.search-bar-pro-btn:hover, .search-bar-pro-btn:focus {
+    background: linear-gradient(135deg, #ffe066 60%, #ffcc00 100%);
+    box-shadow: 0 8px 24px rgba(255,204,0,0.22);
+    transform: scale(1.10);
+}
+
+/* Remove old Search-bar styles to avoid conflict */
+.Search-bar, .Search-bar input, .search-button {
+    all: unset;
+}

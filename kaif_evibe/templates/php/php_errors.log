@@ -1,0 +1,70 @@
+[28-Apr-2025 09:36:12 Europe/Berlin] Login attempt for email: dilawar@gmail.com
+[28-Apr-2025 09:36:12 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibe\templates\php\login_process.php on line 101
+[28-Apr-2025 09:38:17 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[28-Apr-2025 09:38:17 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibe\templates\php\login_process.php on line 101
+[28-Apr-2025 10:06:23 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[28-Apr-2025 10:06:23 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibe\templates\php\login_process.php on line 101
+[28-Apr-2025 14:56:20 Europe/Berlin] Login attempt for email: dilawar@gmail.com
+[28-Apr-2025 14:56:21 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibe\templates\php\login_process.php on line 101
+[28-Apr-2025 15:17:33 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[28-Apr-2025 15:17:33 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibe\templates\php\login_process.php on line 101
+[28-Apr-2025 16:23:04 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[28-Apr-2025 16:23:04 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibe\templates\php\login_process.php on line 101
+[28-Apr-2025 16:31:28 Europe/Berlin] Login attempt for email: dilawar@gmail.com
+[28-Apr-2025 16:31:28 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibe\templates\php\login_process.php on line 101
+[28-Apr-2025 16:31:46 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[28-Apr-2025 16:31:46 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibe\templates\php\login_process.php on line 101
+[28-Apr-2025 16:49:14 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[28-Apr-2025 16:49:14 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibe\templates\php\login_process.php on line 101
+[30-Apr-2025 00:42:12 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[30-Apr-2025 00:42:12 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibe\templates\php\login_process.php on line 101
+[30-Apr-2025 00:43:14 Europe/Berlin] Login attempt for email: admin@evibe.com
+[30-Apr-2025 00:43:14 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibe\templates\php\login_process.php on line 45
+[30-Apr-2025 01:13:59 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[30-Apr-2025 01:13:59 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibe\templates\php\login_process.php on line 101
+[02-May-2025 18:58:01 Europe/Berlin] Login attempt for email: azeem@gmail.com
+[02-May-2025 18:58:01 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibe\templates\php\login_process.php on line 101
+[02-May-2025 19:24:06 Europe/Berlin] Login attempt for email: azeem@gmail.com
+[02-May-2025 19:24:07 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibe\templates\php\login_process.php on line 101
+[02-May-2025 19:37:47 Europe/Berlin] PHP Warning:  Undefined variable $conn in C:\xampp\htdocs\kaif_evibe\templates\php\search_history.php on line 32
+[02-May-2025 19:37:47 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in C:\xampp\htdocs\kaif_evibe\templates\php\search_history.php:32
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\kaif_evibe\templates\php\search_history.php on line 32
+[02-May-2025 19:38:18 Europe/Berlin] PHP Warning:  Undefined variable $conn in C:\xampp\htdocs\kaif_evibe\templates\php\search_history.php on line 50
+[02-May-2025 19:38:18 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\kaif_evibe\templates\php\search_history.php:50
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\kaif_evibe\templates\php\search_history.php on line 50
+[02-May-2025 20:21:16 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[02-May-2025 20:21:16 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibe\templates\php\login_process.php on line 101
+[02-May-2025 20:31:54 Europe/Berlin] Login attempt for email: admin@evibe.com
+[02-May-2025 20:31:54 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibe\templates\php\login_process.php on line 45
+[02-May-2025 20:32:29 Europe/Berlin] Login attempt for email: azeem@gmail.com
+[02-May-2025 20:32:29 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibe\templates\php\login_process.php on line 101
+[02-May-2025 20:35:32 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[02-May-2025 20:35:32 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibe\templates\php\login_process.php on line 101
+[02-May-2025 20:43:51 Europe/Berlin] Login attempt for email: adilraxiq64@gmail.com
+[02-May-2025 20:43:51 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibe\templates\php\login_process.php on line 101
+[02-May-2025 20:51:19 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[02-May-2025 20:51:19 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibe\templates\php\login_process.php on line 101
+[02-May-2025 20:51:52 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[02-May-2025 20:51:52 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibe\templates\php\login_process.php on line 101
+[02-May-2025 21:01:45 Europe/Berlin] Login attempt for email: azeem@gmail.com
+[02-May-2025 21:01:45 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibe\templates\php\login_process.php on line 101
+[03-May-2025 10:17:54 Europe/Berlin] Login attempt for email: azeem@gmail.com
+[03-May-2025 10:17:54 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibe\templates\php\login_process.php on line 101
+[03-May-2025 10:22:18 Europe/Berlin] Login attempt for email: azeem@gmail.com
+[03-May-2025 10:22:18 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibe\templates\php\login_process.php on line 101
+[03-May-2025 10:33:52 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[03-May-2025 10:33:53 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibe\templates\php\login_process.php on line 101
+[03-May-2025 10:34:28 Europe/Berlin] Login attempt for email: admin@evibe.com
+[03-May-2025 10:34:28 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibe\templates\php\login_process.php on line 45
+[03-May-2025 10:44:04 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[03-May-2025 10:44:04 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibe\templates\php\login_process.php on line 101
+[03-May-2025 12:53:50 Europe/Berlin] Login attempt for email: azeem@gmail.com
+[03-May-2025 12:53:50 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibewithmap\kaif_evibe\templates\php\login_process.php on line 101
+[03-May-2025 13:18:36 Europe/Berlin] Login attempt for email: admin@evibe.com
+[03-May-2025 13:18:36 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibe\templates\php\login_process.php on line 45
+[03-May-2025 13:18:56 Europe/Berlin] Login attempt for email: azeem@gmail.com
+[03-May-2025 13:18:56 Europe/Berlin] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in C:\xampp\htdocs\kaif_evibe\templates\php\login_process.php on line 101

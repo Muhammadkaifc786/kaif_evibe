@@ -1,0 +1,644 @@
+<?php require_once '../php/check_organizer.php'; ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Events - EVibe</title>
+    <link rel="stylesheet" href="../css/organizer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../js/manage_events.js"></script>
+    <style>
+        .manage-container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .manage-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .manage-header h1 {
+            margin: 0;
+            color: white;
+            font-size: 28px;
+            font-weight: 600;
+        }
+        
+        .add-event-btn {
+            background-color: #FFC107;
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .add-event-btn:hover {
+            background-color: #e0a800;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .events-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .events-table th, .events-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        .page-title{
+            margin-top: 20px;
+            margin-left: 20px;
+            text-align: center;
+        }
+        .events-table th {
+            background-color: #2a2a2a;
+            font-weight: 600;
+            color: white;
+            font-size: 16px;
+        }
+        
+        .events-table tr:hover {
+            background-color: #2a2a2a;
+        }
+        
+        .event-image-cell {
+            width: 80px;
+        }
+        
+        .event-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .status-active {
+            background-color: #e6f7e6;
+            color: #2e7d32;
+        }
+        
+        .status-pending {
+            background-color: #fff3e0;
+            color: #e65100;
+        }
+        
+        .status-cancelled {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+        
+        .action-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .view-btn {
+            background-color: #2196F3;
+            color: white;
+        }
+        
+        .edit-btn {
+            background-color: #FFC107;
+            color: #333;
+        }
+        
+        .delete-btn {
+            background-color: #F44336;
+            color: white;
+        }
+        
+        .view-btn:hover {
+            background-color: #0b7dda;
+            transform: translateY(-2px);
+        }
+        
+        .edit-btn:hover {
+            background-color: #e0a800;
+            transform: translateY(-2px);
+        }
+        
+        .delete-btn:hover {
+            background-color: #d32f2f;
+            transform: translateY(-2px);
+        }
+        
+        .no-events {
+            text-align: center;
+            padding: 40px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .no-events h2 {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        
+        .no-events p {
+            color: #888;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        
+        .create-event-btn {
+            background-color: #FFC107;
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .create-event-btn:hover {
+            background-color: #e0a800;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .alert-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .ticket-info {
+            font-size: 14px;
+            color: #ccc;
+        }
+        
+        .ticket-progress {
+            width: 100px;
+            height: 6px;
+            background-color: #e0e0e0;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: #4CAF50;
+            border-radius: 3px;
+        }
+        
+        .filter-section {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            background-color: #1a1a1a;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .filter-section select, .filter-section input {
+            padding: 8px 12px;
+            border: 1px solid #333;
+            border-radius: 4px;
+            background-color: #2a2a2a;
+            color: white;
+            font-size: 14px;
+        }
+        
+        .filter-section select:focus, .filter-section input:focus {
+            outline: none;
+            border-color: #FFC107;
+        }
+        
+        .filter-section button {
+            background-color: #FFC107;
+            color: #333;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-section button:hover {
+            background-color: #e0a800;
+            transform: translateY(-2px);
+        }
+        
+        .confirm-dialog {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .confirm-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 90%;
+        }
+        
+        .confirm-content h3 {
+            margin: 0 0 15px 0;
+            color: #333;
+            font-size: 18px;
+        }
+        
+        .confirm-content p {
+            margin: 0 0 20px 0;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .confirm-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        .confirm-buttons button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .cancel-btn {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+        
+        .confirm-buttons .delete-btn {
+            background-color: #F44336;
+            color: white;
+        }
+        
+        .cancel-btn:hover {
+            background-color: #d0d0d0;
+        }
+        
+        .confirm-buttons .delete-btn:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Container -->
+    <div class="background-container"></div>
+
+    <div class="main-1">
+        <div class="Nav-1">
+        <h1>EVibe</h1>
+        
+        <div class="Nav-Element">
+            <ul>
+                <a href="organizer.html"><li id="home">Home</li></a>
+                <a href="Post-Event.html"><li id="post">Post Event</li></a>
+                <a href="manage-event.html"><li id="manage">Manage Events</li></a>
+                <a href="My_events.html"><li id="events">My Events</li></a>
+                <a href="tickets.html"><li id="tickets">Tickets</li></a>
+            </ul>
+        </div>
+            
+        
+        <button class="btn-logout" id="logoutBtn"> Logout</button>
+    </div>
+
+    <h1 class="page-title">Manage Events</h1>
+
+        <div class="manage-container">
+            <div class="manage-header">
+                <h1>Your Events</h1>
+                <a href="Post-Event.html">
+                    <button class="add-event-btn">
+                        <i class="fas fa-plus"></i> Create New Event
+                    </button>
+                </a>
+        </div>
+
+            <div class="filter-section">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search events...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <select id="statusFilter">
+                    <option value="">All Status</option>
+                    <option value="active">Active</option>
+                    <option value="pending">Pending</option>
+                    <option value="cancelled">Cancelled</option>
+                </select>
+            </div>
+
+            <div class="table-responsive">
+                <div id="eventsTableContainer">
+                    <!-- Events table will be loaded here dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About EVibe</h3>
+                    <p>Your one-stop platform for event management and ticket booking.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 EVibe. All rights reserved.</p>
+            </div>
+        </footer>
+        </div>
+
+    <script>
+        // Global event handling functions
+        function viewEvent(eventId) {
+            window.location.href = `../php/view_event_details.php?id=${eventId}`;
+        }
+
+        function editEvent(eventId) {
+            window.location.href = `edit-event.html?id=${eventId}`;
+        }
+
+        function deleteEvent(eventId) {
+            if(confirm('Are you sure you want to delete this event?')) {
+                $.ajax({
+                    url: '../php/manage_events.php',
+                    method: 'POST',
+                    data: {
+                        action: 'delete',
+                        event_id: eventId
+                    },
+                    success: function(response) {
+                        if(response.success) {
+                            alert('Event deleted successfully');
+                            loadOrganizerEvents();
+                        } else {
+                            alert('Error deleting event: ' + response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX error deleting event:", error);
+                        alert('Error connecting to server');
+                    }
+                });
+            }
+        }
+
+        // Function to load organizer events
+        function loadOrganizerEvents() {
+            const statusFilter = $('#statusFilter').val();
+            const searchQuery = $('#searchInput').val().trim();
+            
+            // Show loading indicator
+            $('#eventsTableContainer').html('<div class="alert alert-info">Loading events...</div>');
+            
+            $.ajax({
+                url: '../php/manage_events.php',
+                method: 'GET',
+                data: {
+                    status: statusFilter,
+                    search: searchQuery
+                },
+                dataType: 'json',
+                success: function(response) {
+                    console.log('Load events response:', response); // Debug log
+                    
+                    if (response.success) {
+                        if (response.events && Array.isArray(response.events)) {
+                            displayEventsTable(response.events);
+                        } else {
+                            console.error('Invalid response format:', response);
+                            $('#eventsTableContainer').html('<div class="alert alert-danger">Error: No events found</div>');
+                        }
+                    } else {
+                        console.error('Error loading events:', response.message);
+                        $('#eventsTableContainer').html('<div class="alert alert-danger">Error loading events: ' + response.message + '</div>');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX error loading events:', error);
+                    console.error('Response:', xhr.responseText); // Debug log
+                    $('#eventsTableContainer').html('<div class="alert alert-danger">Error loading events. Please try again later.</div>');
+                }
+            });
+        }
+
+        // Function to display events table
+        function displayEventsTable(events) {
+            const container = document.getElementById('eventsTableContainer');
+            if (!container) {
+                console.error('Events table container not found');
+                return;
+            }
+            
+            if (!events || events.length === 0) {
+                container.innerHTML = `
+                    <div class="no-events">
+                        <h2>No Events Found</h2>
+                        <p>You haven't created any events yet. Start by creating your first event!</p>
+                        <a href="post-event.html">
+                            <button class="create-event-btn">
+                                <i class="fas fa-plus"></i> Create New Event
+                            </button>
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+            
+            let tableHTML = `
+                <table class="events-table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Event Name</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Tickets</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            events.forEach(event => {
+                const ticketsSold = event.total_tickets - event.available_tickets;
+                const percentageSold = (ticketsSold / event.total_tickets) * 100;
+                
+                // Process image URL
+                let imageUrl = event.image_url;
+                console.log('Original image URL:', imageUrl);
+                
+                if (imageUrl && !imageUrl.startsWith('/kaif_evibe/')) {
+                    // If it's a relative path, make it absolute
+                    if (!imageUrl.startsWith('/')) {
+                        imageUrl = '/kaif_evibe/templates/' + imageUrl;
+                    } else {
+                        imageUrl = '/kaif_evibe' + imageUrl;
+                    }
+                }
+                
+                console.log('Final image URL:', imageUrl);
+                
+                tableHTML += `
+                    <tr data-event-id="${event.event_id}">
+                        <td class="event-image-cell">
+                            <img src="${imageUrl}" alt="${event.title}" class="event-image" onerror="this.onerror=null; this.src='/kaif_evibe/templates/images/default-event.jpg';">
+                        </td>
+                        <td class="event-title">${event.title}</td>
+                        <td class="event-date">${event.formatted_date}</td>
+                        <td><span class="status-badge ${getStatusClass(event.status)}">${event.status}</span></td>
+                        <td>
+                            <div class="ticket-info">
+                                ${ticketsSold}/${event.total_tickets} sold
+                                <div class="ticket-progress">
+                                    <div class="progress-fill" style="width: ${percentageSold}%"></div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <button class="action-btn view-btn" onclick="viewEvent(${event.event_id})" title="View Event">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="action-btn edit-btn" onclick="editEvent(${event.event_id})" title="Edit Event">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="action-btn delete-btn" onclick="deleteEvent(${event.event_id})" title="Delete Event">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            tableHTML += `
+                    </tbody>
+                </table>
+            `;
+            
+            container.innerHTML = tableHTML;
+        }
+
+        // Function to get status class
+        function getStatusClass(status) {
+            switch(status.toLowerCase()) {
+                case 'approved':
+                    return 'status-active';
+                case 'pending':
+                    return 'status-pending';
+                case 'cancelled':
+                    return 'status-cancelled';
+                default:
+                    return 'status-pending';
+            }
+        }
+
+        // Load events when the page loads
+        $(document).ready(function() {
+            loadOrganizerEvents();
+            
+            // Add event listeners for filter changes
+            $('#statusFilter').change(function() {
+                loadOrganizerEvents();
+            });
+            
+            // Add event listener for search input
+            $('#searchInput').on('input', function() {
+                clearTimeout(this.timer);
+                this.timer = setTimeout(function() {
+                    searchEvents();
+                }, 500);
+            });
+        });
+    </script>
+</body>
+</html>

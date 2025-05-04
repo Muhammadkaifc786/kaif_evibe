@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Event - EVibe</title>
+    <link rel="stylesheet" href="../css/organizer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <!-- Background Container -->
+    <div class="background-container"></div>
+
+    <div class="main-1">
+        <div class="Nav-1">
+            <h1>EVibe</h1>
+            
+            <div class="Search-bar">
+                <input type="text" name="search" id="srch" placeholder="Search events...">
+                <button id="searchButton" class="search-button"><i class="fas fa-search"></i></button>
+            </div>
+            
+            <div class="Nav-Element">
+                <ul>
+                    <a href="user_panel.html"><li id="home">Home</li></a>
+                    <a href="events.html"><li id="events">Events</li></a>
+                    <li class="dropdown" id="categories">
+                        <a href="javascript:void(0)">Categories <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content" id="categoryDropdown">
+                            <!-- Categories will be loaded here -->
+                        </div>
+                    </li>
+                    <a href="booked_events.html"><li id="booked">Booked Events</li></a>
+                    <a href="favorites.html"><li id="favorites">Favorites</li></a>
+                    <a href="history.html"><li id="history">History</li></a>
+                </ul>
+            </div>
+
+            
+
+           
+
+            <button class="btn-logout" id="logoutBtn">Logout</button>
+        </div>
+
+        <div class="Name">
+            <h1>Book Your Event</h1>
+        </div>
+
+        <div class="booking-container">
+            <div class="booking-header">
+                <h2><i class="fas fa-calendar-check"></i> Event Details</h2>
+                <div class="event-details">
+                    <div class="event-image-container">
+                        <img id="eventImage" src="" alt="Event Image">
+                        <div class="event-badge">
+                            <i class="fas fa-ticket-alt"></i> Available
+                        </div>
+                    </div>
+                    <div class="event-info">
+                        <h3 id="eventTitle"></h3>
+                        <div class="event-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span id="eventDate"></span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span id="eventVenue"></span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user"></i>
+                                <span>Organizer: <span id="eventOrganizer"></span></span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-tag"></i>
+                                <span>Category: <span id="eventCategory"></span></span>
+                            </div>
+                            <div class="meta-item price">
+                                <i class="fas fa-ticket-alt"></i>
+                                <span>Price: $<span id="eventPrice"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="booking-form">
+                <h3><i class="fas fa-shopping-cart"></i> Booking Information</h3>
+                
+                <!-- Ticket Quantity -->
+                <div class="form-group">
+                    <label for="ticketQuantity"><i class="fas fa-users"></i> Number of Tickets</label>
+                    <div class="quantity-selector">
+                        <button type="button" class="quantity-btn" id="decreaseQuantity">-</button>
+                        <input type="number" id="ticketQuantity" name="ticketQuantity" min="1" value="1" readonly>
+                        <button type="button" class="quantity-btn" id="increaseQuantity">+</button>
+                    </div>
+                </div>
+
+                <!-- Price Summary -->
+                <div class="price-summary">
+                    <h4><i class="fas fa-receipt"></i> Price Summary</h4>
+                    <div class="price-item">
+                        <span>Ticket Price (per ticket)</span>
+                        <span id="ticketPrice">$50.00</span>
+                    </div>
+                    <div class="price-item">
+                        <span>Service Fee</span>
+                        <span id="serviceFee">$2.00</span>
+                    </div>
+                    <div class="price-item total">
+                        <span>Total</span>
+                        <span id="totalPrice">$52.00</span>
+                    </div>
+                </div>
+
+                <!-- Payment Information -->
+                <div class="payment-section">
+                    <h3><i class="fas fa-credit-card"></i> Payment Information</h3>
+                    
+                    <div class="form-group">
+                        <label for="cardNumber"><i class="far fa-credit-card"></i> Card Number</label>
+                        <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="expiryDate"><i class="far fa-calendar-alt"></i> Expiry Date</label>
+                            <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" maxlength="5" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cvv"><i class="fas fa-lock"></i> CVV</label>
+                            <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="3" required>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="btn-book-now" id="bookNowBtn">
+                    <i class="fas fa-ticket-alt"></i> Book Now
+                </button>
+            </div>
+
+            <!-- Reviews & Ratings Section -->
+            <div class="reviews-section" style="background: transparent; margin-top: 2rem; margin-bottom: 2rem;">
+                <div class="section-header">
+                    <i class="fas fa-star" style="color: #ffcc00;"></i>
+                    <h2 style="color: #fff;">Reviews & Ratings</h2>
+                </div>
+
+                <!-- Average Rating -->
+                <div class="average-rating" style="background: rgba(255, 255, 255, 0.05); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                    <div class="rating-stars" style="display: flex; align-items: center; gap: 0.5rem;">
+                        <div class="stars" style="color: #ffcc00; font-size: 1.5rem;">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="rating-value" style="color: #fff; font-size: 1.2rem; margin-left: 0.5rem;">0.0</div>
+                    </div>
+                    <div class="total-reviews" style="color: #fff; margin-top: 0.5rem;">0 reviews</div>
+                </div>
+
+                <!-- Rating Distribution -->
+                <div class="rating-distribution" style="background: rgba(255, 255, 255, 0.05); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                    <h3 style="color: #fff; margin-bottom: 1rem;">Rating Distribution</h3>
+                    <div class="distribution-bars">
+                        <div class="distribution-bar" data-rating="5">
+                            <div class="stars" style="color: #ffcc00; width: 80px;">★★★★★</div>
+                            <div class="bar-container" style="flex: 1; height: 8px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; overflow: hidden;">
+                                <div class="bar" style="height: 100%; background: #ffcc00; width: 0%; transition: width 0.5s ease;"></div>
+                            </div>
+                            <div class="count" style="color: #fff; width: 40px; text-align: right;">0</div>
+                        </div>
+                        <div class="distribution-bar" data-rating="4">
+                            <div class="stars" style="color: #ffcc00; width: 80px;">★★★★☆</div>
+                            <div class="bar-container" style="flex: 1; height: 8px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; overflow: hidden;">
+                                <div class="bar" style="height: 100%; background: #ffcc00; width: 0%; transition: width 0.5s ease;"></div>
+                            </div>
+                            <div class="count" style="color: #fff; width: 40px; text-align: right;">0</div>
+                        </div>
+                        <div class="distribution-bar" data-rating="3">
+                            <div class="stars" style="color: #ffcc00; width: 80px;">★★★☆☆</div>
+                            <div class="bar-container" style="flex: 1; height: 8px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; overflow: hidden;">
+                                <div class="bar" style="height: 100%; background: #ffcc00; width: 0%; transition: width 0.5s ease;"></div>
+                            </div>
+                            <div class="count" style="color: #fff; width: 40px; text-align: right;">0</div>
+                        </div>
+                        <div class="distribution-bar" data-rating="2">
+                            <div class="stars" style="color: #ffcc00; width: 80px;">★★☆☆☆</div>
+                            <div class="bar-container" style="flex: 1; height: 8px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; overflow: hidden;">
+                                <div class="bar" style="height: 100%; background: #ffcc00; width: 0%; transition: width 0.5s ease;"></div>
+                            </div>
+                            <div class="count" style="color: #fff; width: 40px; text-align: right;">0</div>
+                        </div>
+                        <div class="distribution-bar" data-rating="1">
+                            <div class="stars" style="color: #ffcc00; width: 80px;">★☆☆☆☆</div>
+                            <div class="bar-container" style="flex: 1; height: 8px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; overflow: hidden;">
+                                <div class="bar" style="height: 100%; background: #ffcc00; width: 0%; transition: width 0.5s ease;"></div>
+                            </div>
+                            <div class="count" style="color: #fff; width: 40px; text-align: right;">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reviews List -->
+                <div class="reviews-list" style="background: rgba(255, 255, 255, 0.05); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                    <h3 style="color: #fff; margin-bottom: 1rem;">Recent Reviews</h3>
+                    <div class="reviews-container">
+                        <!-- Reviews will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Add Review Form -->
+                <div class="add-review" style="background: rgba(255, 255, 255, 0.05); padding: 1.5rem; border-radius: 8px;">
+                    <h3 style="color: #fff; margin-bottom: 1rem;">Add Your Review</h3>
+                    <form id="reviewForm" style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div class="form-group">
+                            <label style="color: #fff; margin-bottom: 0.5rem;">Rating</label>
+                            <div class="star-rating" style="display: flex; gap: 0.5rem;">
+                                <i class="fas fa-star" data-rating="1" style="color: #666; cursor: pointer; font-size: 1.5rem;"></i>
+                                <i class="fas fa-star" data-rating="2" style="color: #666; cursor: pointer; font-size: 1.5rem;"></i>
+                                <i class="fas fa-star" data-rating="3" style="color: #666; cursor: pointer; font-size: 1.5rem;"></i>
+                                <i class="fas fa-star" data-rating="4" style="color: #666; cursor: pointer; font-size: 1.5rem;"></i>
+                                <i class="fas fa-star" data-rating="5" style="color: #666; cursor: pointer; font-size: 1.5rem;"></i>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label style="color: #fff; margin-bottom: 0.5rem;">Comment</label>
+                            <textarea name="comment" rows="4" required style="width: 100%; padding: 0.75rem; border: 1px solid rgba(255, 204, 0, 0.3); border-radius: 4px; background: rgba(255, 255, 255, 0.05); color: #fff;"></textarea>
+                        </div>
+                        <button type="submit" style="background: #ffcc00; color: #000; padding: 0.75rem; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; transition: all 0.3s ease;">
+                            Submit Review
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About EVibe</h3>
+                <p>Your one-stop platform for event management and ticket booking.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 EVibe. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        let currentEventId = null;
+
+        // Function to update price based on quantity
+        function updatePrice() {
+            const quantity = parseInt($('#ticketQuantity').val());
+            const basePrice = parseFloat($('#eventPrice').text()); // Get price from event details
+            const serviceFee = 2.00;
+            const total = (basePrice * quantity) + serviceFee;
+            
+            $('#ticketPrice').text('$' + (basePrice * quantity).toFixed(2));
+            $('#totalPrice').text('$' + total.toFixed(2));
+        }
+
+        // Function to check session and load event
+        function initializePage() {
+            // Get event ID from URL first
+            const urlParams = new URLSearchParams(window.location.search);
+            currentEventId = urlParams.get('id');
+
+            if (!currentEventId) {
+                showNotification('No event selected', 'error');
+                setTimeout(() => {
+                    window.location.href = '/kaif_evibe/templates/html/user_panel.html';
+                }, 2000);
+                return;
+            }
+
+            // Then check session
+            $.ajax({
+                url: '/kaif_evibe/templates/php/check_session.php',
+                method: 'GET',
+                success: function(response) {
+                    if (!response.logged_in) {
+                        window.location.href = 'login.html';
+                        return;
+                    }
+                    
+                    // Update user name if available
+                    if (response.name) {
+                        $('#userName').text(response.name);
+                    }
+
+                    // Load event details
+                    loadEventDetails(currentEventId);
+                },
+                error: function() {
+                    window.location.href = 'login.html';
+                }
+            });
+        }
+
+        // Load event details function
+        function loadEventDetails(eventId) {
+            $.ajax({
+                url: '/kaif_evibe/templates/php/get_event_details.php',
+                method: 'GET',
+                data: { event_id: eventId },
+                success: function(response) {
+                    if (response.success) {
+                        const event = response.event;
+                        
+                        // Update event details
+                        $('#eventTitle').text(event.title);
+                        $('#eventDate').text(event.formatted_date);
+                        $('#eventVenue').text(event.venue);
+                        $('#eventOrganizer').text(event.organizer_name);
+                        $('#eventCategory').text(event.category_name);
+                        $('#eventPrice').text(event.ticket_price);
+                        
+                        // Set event image
+                        let imageUrl = event.image_url;
+                        if (imageUrl && !imageUrl.startsWith('/kaif_evibe/')) {
+                            if (!imageUrl.startsWith('/')) {
+                                imageUrl = '/kaif_evibe/templates/' + imageUrl;
+                            } else {
+                                imageUrl = '/kaif_evibe' + imageUrl;
+                            }
+                        }
+                        if (!imageUrl) {
+                            imageUrl = '/kaif_evibe/templates/images/default-event.jpg';
+                        }
+                        $('#eventImage').attr('src', imageUrl);
+                        
+                        // Update ticket price
+                        updatePrice();
+
+                        // Load reviews after event details
+                        loadReviews(eventId);
+                    } else {
+                        showNotification('Error loading event details', 'error');
+                        setTimeout(() => {
+                            window.location.href = '/kaif_evibe/templates/html/user_panel.html';
+                        }, 2000);
+                    }
+                },
+                error: function() {
+                    showNotification('Error loading event details', 'error');
+                    setTimeout(() => {
+                        window.location.href = '/kaif_evibe/templates/html/user_panel.html';
+                    }, 2000);
+                }
+            });
+        }
+
+        // Function to load reviews and ratings
+        function loadReviews(eventId) {
+            $.ajax({
+                url: '/kaif_evibe/templates/php/get_event_reviews.php',
+                method: 'GET',
+                data: { event_id: eventId },
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        // Update average rating
+                        const avgRating = response.statistics.average_rating || 0;
+                        $('.rating-value').text(avgRating.toFixed(1));
+                        $('.total-reviews').text(response.statistics.total_reviews + ' reviews');
+                        
+                        // Update rating distribution
+                        response.statistics.rating_distribution.forEach((count, index) => {
+                            const rating = 5 - index;
+                            const $bar = $(`.distribution-bar[data-rating="${rating}"] .bar`);
+                            const $count = $(`.distribution-bar[data-rating="${rating}"] .count`);
+                            const percentage = response.statistics.total_reviews > 0 ? 
+                                (count / response.statistics.total_reviews) * 100 : 0;
+                            $bar.css('width', percentage + '%');
+                            $count.text(count);
+                        });
+                        
+                        // Update reviews list
+                        const $reviewsContainer = $('.reviews-container');
+                        $reviewsContainer.empty();
+                        
+                        if (response.reviews.length === 0) {
+                            $reviewsContainer.html('<p style="color: #fff; text-align: center;">No reviews yet</p>');
+                            return;
+                        }
+                        
+                        response.reviews.forEach(review => {
+                            const reviewHtml = `
+                                <div class="review-item" style="background: rgba(255, 255, 255, 0.05); padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                                    <div class="review-header" style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                        <div class="reviewer" style="color: #fff;">
+                                            <strong>${review.user_name}</strong>
+                                        </div>
+                                        <div class="review-date" style="color: #aaa;">
+                                            ${new Date(review.created_at).toLocaleDateString()}
+                                        </div>
+                                    </div>
+                                    <div class="review-rating" style="color: #ffcc00; margin-bottom: 0.5rem;">
+                                        ${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}
+                                    </div>
+                                    <div class="review-comment" style="color: #fff;">
+                                        ${review.comment}
+                                    </div>
+                                </div>
+                            `;
+                            $reviewsContainer.append(reviewHtml);
+                        });
+                    } else {
+                        console.error('Error loading reviews:', response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error loading reviews:', {status, error, response: xhr.responseText});
+                }
+            });
+        }
+
+        // Function to show notifications
+        function showNotification(message, type = 'info') {
+            const $notification = $(`
+                <div class="notification ${type}">
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+            `);
+            
+            $('body').append($notification);
+            
+            setTimeout(() => {
+                $notification.fadeOut(300, function() {
+                    $(this).remove();
+                });
+            }, 3000);
+        }
+
+        // Initialize page
+        $(document).ready(function() {
+            initializePage();
+            
+            // Event handlers for ticket quantity
+            $('#decreaseQuantity').click(function() {
+                const current = parseInt($('#ticketQuantity').val());
+                if (current > 1) {
+                    $('#ticketQuantity').val(current - 1);
+                    updatePrice();
+                }
+            });
+            
+            $('#increaseQuantity').click(function() {
+                const current = parseInt($('#ticketQuantity').val());
+                $('#ticketQuantity').val(current + 1);
+                updatePrice();
+            });
+            
+            // Event handler for book now button
+            $('#bookNowBtn').click(async function() {
+                // Validate ticket quantity
+                const quantity = parseInt($('#ticketQuantity').val());
+                if (quantity < 1) {
+                    showNotification('Please select at least one ticket', 'error');
+                    return;
+                }
+                
+                // Prepare booking data
+                const bookingData = {
+                    event_id: currentEventId,
+                    ticket_quantity: quantity,
+                    total_price: parseFloat($('#totalPrice').text().replace('$', ''))
+                };
+                
+                // Disable the button to prevent multiple submissions
+                $(this).prop('disabled', true);
+                
+                try {
+                    const response = await fetch('/kaif_evibe/templates/php/submit_booking.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(bookingData)
+                    });
+                    
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        console.error('Server response:', errorText);
+                        throw new Error(`Server error: ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        // Show success message
+                        showNotification('Booking successful!', 'success');
+                        
+                        // Open receipt in new tab
+                        const ticketUrl = `/kaif_evibe/templates/php/generate_ticket_pdf.php?booking_id=${data.booking_id}`;
+            const ticketWindow = window.open(ticketUrl, '_blank');
+                        
+                        // Reset form
+                        $('#ticketQuantity').val(1);
+                        updatePrice();
+                        
+                        // Redirect to user panel after 3 seconds
+                        setTimeout(() => {
+                            window.location.href = 'user_panel.html';
+                        }, 3000);
+                    } else {
+                        showNotification(data.message || 'Error processing booking', 'error');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    showNotification('Error processing booking. Please try again.', 'error');
+                } finally {
+                    $(this).prop('disabled', false);
+                }
+            });
+            
+            // Event handler for review form submission
+            $('#reviewForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                const rating = $('.star-rating .fas.active').length;
+                const comment = $('textarea[name="comment"]').val();
+                const eventId = new URLSearchParams(window.location.search).get('id');
+                
+                if (rating === 0) {
+                    alert('Please select a rating');
+                    return;
+                }
+                
+                $.ajax({
+                    url: '/kaif_evibe/templates/php/submit_review.php',
+                    method: 'POST',
+                    data: {
+                        event_id: eventId,
+                        rating: rating,
+                        comment: comment
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.success) {
+                            alert('Review submitted successfully');
+                            loadReviews(eventId);
+                            $('#reviewForm')[0].reset();
+                            $('.star-rating .fas').removeClass('active').css('color', '#666');
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Review submission error:', {status, error, response: xhr.responseText});
+                        alert('Error submitting review');
+                    }
+                });
+            });
+            
+            // Star rating interaction
+            $('.star-rating .fas').on('click', function() {
+                const rating = $(this).data('rating');
+                $('.star-rating .fas').each(function(index) {
+                    if (index < rating) {
+                        $(this).addClass('active').css('color', '#ffcc00');
+                    } else {
+                        $(this).removeClass('active').css('color', '#666');
+                    }
+                });
+            });
+
+            // Format card number input
+            $('#cardNumber').on('input', function() {
+                let value = $(this).val().replace(/\D/g, '');
+                if (value.length > 0) {
+                    value = value.match(new RegExp('.{1,4}', 'g')).join(' ');
+                }
+                $(this).val(value);
+            });
+
+            // Format expiry date input
+            $('#expiryDate').on('input', function() {
+                let value = $(this).val().replace(/\D/g, '');
+                if (value.length >= 2) {
+                    value = value.slice(0,2) + '/' + value.slice(2);
+                }
+                $(this).val(value);
+            });
+
+            // Format CVV input
+            $('#cvv').on('input', function() {
+                $(this).val($(this).val().replace(/\D/g, ''));
+            });
+        });
+    </script>
+
+    <style>
+        .booking-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin: 30px auto;
+            max-width: 1200px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .booking-header h2, .booking-form h3 {
+            color: #fff;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .booking-header h2 i, .booking-form h3 i {
+            color: #ffcc00;
+        }
+
+        .event-details {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .event-image-container {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .event-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .event-image-container:hover img {
+            transform: scale(1.05);
+        }
+
+        .event-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #ffcc00;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .event-info {
+            flex: 1;
+        }
+
+        .event-info h3 {
+            color: #fff;
+            font-size: 30px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .event-meta {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 20px;
+        }
+
+        .meta-item i {
+            color: #ffcc00;
+            font-size: 1.1rem;
+        }
+
+        .meta-item.price {
+            grid-column: 1 / -1;
+            background: rgba(255, 204, 0, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .booking-form {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        .form-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #fff;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .form-group label i {
+            color: #ffcc00;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px;
+            border-radius: 5px;
+            width: fit-content;
+        }
+
+        .quantity-btn {
+            background: #ffcc00;
+            color: #333;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-btn:hover {
+            background: #e6b800;
+            transform: scale(1.05);
+        }
+
+        #ticketQuantity {
+            width: 50px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .price-summary {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .price-summary h4 {
+            color: #fff;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .price-summary h4 i {
+            color: #ffcc00;
+        }
+
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .price-item.total {
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.2rem;
+            border-top: 2px solid rgba(255, 255, 255, 0.2);
+            border-bottom: none;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
+        .payment-section {
+            margin-top: 30px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #ffcc00;
+            box-shadow: 0 0 0 2px rgba(255, 204, 0, 0.2);
+            outline: none;
+        }
+
+        .btn-book-now {
+            width: 100%;
+            padding: 15px;
+            background: #ffcc00;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-book-now:hover {
+            background: #e6b800;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 204, 0, 0.3);
+        }
+
+        .btn-book-now:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        @media (max-width: 768px) {
+            .booking-container {
+                padding: 20px;
+            }
+
+            .event-details {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .event-image-container {
+                width: 100%;
+                height: 250px;
+            }
+
+            .event-meta {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+
+        /* Reviews Section Styles */
+        .reviews-section {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-header h2 {
+            color: #fff;
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .distribution-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .distribution-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .distribution-bar .stars {
+            color: #ffcc00;
+            width: 80px;
+        }
+
+        .distribution-bar .bar-container {
+            flex: 1;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .distribution-bar .bar {
+            height: 100%;
+            background: #ffcc00;
+            width: 0;
+            transition: width 0.5s ease;
+        }
+
+        .distribution-bar .count {
+            color: #fff;
+            width: 40px;
+            text-align: right;
+        }
+
+        .review-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .reviewer-name {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .review-date {
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        .review-rating {
+            margin-bottom: 10px;
+        }
+
+        .review-rating i {
+            color: #666;
+            margin-right: 2px;
+        }
+
+        .review-rating i.active {
+            color: #ffcc00;
+        }
+
+        .review-comment {
+            color: #ddd;
+            line-height: 1.5;
+        }
+
+        .no-reviews {
+            text-align: center;
+            color: #888;
+            padding: 20px;
+        }
+
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 5px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .notification.success {
+            background-color: #4CAF50;
+        }
+
+        .notification.error {
+            background-color: #f44336;
+        }
+
+        .notification.info {
+            background-color: #2196F3;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .booking-container {
+                padding: 20px;
+            }
+
+            .event-details {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .event-image-container {
+                width: 100%;
+                height: 250px;
+            }
+
+            .event-meta {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+</body>
+</html> 

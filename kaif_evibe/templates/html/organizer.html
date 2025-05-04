@@ -1,0 +1,1253 @@
+<?php require_once '../php/check_organizer.php'; ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizer Dashboard</title>
+    <link rel="stylesheet" href="/kaif_evibe/templates/css/organizer2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   
+</head>
+<body>
+<script>
+    window.currentUserId = <?php echo json_encode($_SESSION['user_id']); ?>;
+</script>
+
+    <!-- Background Container -->
+    <div class="background-container"></div>
+
+    <div class="main-1"><!-- main div-->
+        <div class="Nav-1">  <!-- Nav bar div-->
+            <h1>EVibe</h1>
+            
+            <div class="Search-bar"> <!-- Searchbar div-->
+                <div class="search-bar-container">
+                  
+                    <input type="text" name="search" id="srch" placeholder="Search events...">
+                </div>
+            </div>                                   
+            <div class="Nav-Element">
+                <ul>
+                    <a href="organizer.html" class="active"><li id="home">Home</li></a>
+                    <a href="post-event.html"><li id="post">Post Event</li></a>
+                    <a href="manage-event.html"><li id="manage">Manage Events</li></a>
+                    <a href="my_events.html"><li id="events">My Events</li></a>
+                    <a href="tickets.html"><li id="tickets">Tickets</li></a>
+                </ul>
+            </div>
+           
+           
+            <button class="btn-logout" id="logoutBtn"> Logout</button>
+        </div>
+
+        <div class="Name"><!--Host Name-->
+            <h1>Welcome <span id="organizerName">Organizer</span></h1>
+        </div>
+
+        <h2 id="dashboard-txt">Dashboard</h2>
+        <div class="dashboard"><!--Dashboard-->
+            <div class="sales">
+                <img id="dash-1" src="../images/profit-up.png" alt="totalsales">
+                <h3>Total Sales</h3>
+                <p id="totalSales">$0.00</p>
+            </div>
+            <div class="ticketsold">
+                <img id="dash-2" src="../images/ticket.png" alt="ticket">
+                <h3>Total Tickets Sold</h3>
+                <p id="totalTicketsSold">0</p>
+            </div>
+            <div class="total-events">
+                <img id="dash-3" src="../images/event.png" alt="totaleventposted">
+                <h3>Total Events</h3>
+                <p id="totalEvents">0</p>
+            </div>
+            <div class="requests">
+                <img id="dash-4" src="../images/pending.png" alt="requests">
+                <h3>Pending Requests</h3>
+                <p id="pendingRequests">0</p>
+            </div>
+            <div class="messages">
+                <img id="dash-6" src="../images/chat.png" alt="messages">
+                <h3>Unread Messages</h3>
+                <p id="unreadMessages">0</p>
+            </div>
+        </div>
+    <div class="your-events">
+        <h2 >Your Events</h2>
+        <div id="eventsList" class="events-grid">
+            <!-- Events will be loaded here dynamically -->
+        </div>
+    </div>
+        <div class="trending-events">
+            <h2>Trending Events</h2>
+            <div id="trendingEventsContainer" class="event-grid">
+                <!-- Trending events will be loaded here -->
+            </div>
+        </div>
+
+        <div class="Manage-events">
+            <h2 id="manage-text">Quick Actions</h2>
+            <div class="cards-container">
+                <div class="card">
+                    <i class="fas fa-calendar-plus card-icon"></i>
+                    <h3>Create Event</h3>
+                    <p>Create a new event and start selling tickets</p>
+                    <div class="card-stats">
+                        <span><i class="fas fa-plus"></i> New Event</span>
+                    </div>
+                    <a href="post-event.html" class="card-link">Create Now</a>
+                </div>
+                <div class="card">
+                    <i class="fas fa-chart-line card-icon"></i>
+                    <h3>Event Analytics</h3>
+                    <p>View detailed analytics for your events</p>
+                    <div class="card-stats">
+                        <span><i class="fas fa-chart-bar"></i> View Stats</span>
+                    </div>
+                    <a href="analytics.html" class="card-link">View Analytics</a>
+                </div>
+                <div class="card">
+                    <i class="fas fa-users card-icon"></i>
+                    <h3>Manage Attendees</h3>
+                    <p>View and manage event attendees</p>
+                    <div class="card-stats">
+                        <span><i class="fas fa-user-friends"></i> View Attendees</span>
+                    </div>
+                    <a href="attendees.html" class="card-link">Manage Attendees</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="Chat">
+            <div class="chat-header">
+                <h2><i class="fas fa-comments"></i> Recent Messages</h2>
+                <span id="messageBadge" class="chat-badge">0 New</span>
+            </div>
+            <div class="chat-preview">
+                <img src="../images/chat.png" alt="chat">
+                <div class="chat-info">
+                    <h3>Quick Response</h3>
+                    <p>Respond to messages and inquiries instantly</p>
+                </div>
+            </div>
+            <a href="chat.html" class="chat-link">Go to Messages</a>
+        </div>
+        
+
+        <div class="Floating-button">
+            <a href="post-event.html">
+                <button><i class="fas fa-plus"></i></button>
+            </a>
+        </div>
+        
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About EVibe</h3>
+                    <p>Your one-stop platform for event management and ticket booking.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 EVibe. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Global event handling functions
+        function viewEvent(eventId) {
+            window.location.href = `../php/view_event_details.php?id=${eventId}`;
+        }
+
+        function editEvent(eventId) {
+            window.location.href = `edit-event.html?id=${eventId}`;
+        }
+
+        function deleteEvent(eventId) {
+            if(confirm('Are you sure you want to delete this event?')) {
+                $.ajax({
+                    url: '../php/manage_events.php',
+                    method: 'POST',
+                    data: {
+                        action: 'delete',
+                        event_id: eventId
+                    },
+                    success: function(response) {
+                        if(response.success) {
+                            alert('Event deleted successfully');
+                            loadOrganizerEvents();
+                        } else {
+                            alert('Error deleting event: ' + response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX error deleting event:", error);
+                        alert('Error connecting to server');
+                    }
+                });
+            }
+        }
+
+        // Global message handling functions
+        function openMessageModal(eventId) {
+            document.getElementById('eventId').value = eventId;
+            document.getElementById('messageModal').style.display = 'block';
+            loadEventMessages(eventId);
+            loadEventDetails(eventId);
+        }
+
+        function loadEventDetails(eventId) {
+            $.ajax({
+                url: '../php/get_event_details.php',
+                method: 'GET',
+                data: { event_id: eventId },
+                success: function(response) {
+                    if (response.success) {
+                        $('#chatEventTitle').text('Event: ' + response.event.title);
+                        $('#chatEventDate').text('Date: ' + response.event.formatted_date);
+                        // Store organizer_id globally for message alignment
+                        window.currentOrganizerId = response.event.organizer_id;
+                    }
+                }
+            });
+        }
+
+        function loadEventMessages(eventId) {
+            $.ajax({
+                url: '../php/get_event_messages.php',
+                method: 'GET',
+                data: { event_id: eventId },
+                success: function(response) {
+                    if (response.success) {
+                        displayMessages(response.messages);
+                    }
+                }
+            });
+        }
+
+        function displayMessages(messages) {
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.innerHTML = '';
+
+            messages.forEach(message => {
+                const messageDiv = document.createElement('div');
+                if (String(message.sender_id) === String(window.currentUserId)) {
+                    messageDiv.className = 'chat-message sent-message'; // Sent by me (right, blue)
+                } else {
+                    messageDiv.className = 'chat-message received-message'; // Sent by other (left, white)
+                }
+
+                const messageContent = document.createElement('div');
+                messageContent.className = 'message-content';
+                messageContent.textContent = message.message;
+
+                const messageMeta = document.createElement('div');
+                messageMeta.className = 'message-meta';
+                messageMeta.innerHTML = `
+                    <span>${message.sender_name}</span>
+                    <span>${new Date(message.created_at).toLocaleString()}</span>
+                `;
+
+                messageDiv.appendChild(messageContent);
+                messageDiv.appendChild(messageMeta);
+                chatMessages.appendChild(messageDiv);
+            });
+
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function closeMessageModal() {
+            document.getElementById('messageModal').style.display = 'none';
+            $('#messageText').val('');
+        }
+
+        $(document).ready(function() {
+            // Check if user is logged in
+            $.ajax({
+                url: '../php/check_session.php',
+                method: 'GET',
+                success: function(response) {
+                    if (!response.logged_in) {
+                        window.location.href = 'login.html';
+                    } else {
+                        $('#organizerName').text(response.name || 'Organizer');
+                    }
+                },
+                error: function() {
+                    window.location.href = 'login.html';
+                }
+            });
+
+            // Search functionality
+            let searchTimeout;
+            $('#srch').on('input', function() {
+                const searchTerm = $(this).val().trim();
+                
+                // Clear previous timeout
+                clearTimeout(searchTimeout);
+                
+                // Set a timeout to prevent too many requests
+                searchTimeout = setTimeout(function() {
+                    // We'll only show a small preview of results here
+                    if (searchTerm.length >= 2) {
+                        handleSearch();
+                    }
+                }, 300); // 300ms delay
+            });
+            
+            // Add search button click handler
+            $('#searchButton').on('click', function() {
+                const searchTerm = $('#srch').val().trim();
+                if (searchTerm.length > 0) {
+                    window.location.href = `search_results.html?q=${encodeURIComponent(searchTerm)}`;
+                }
+            });
+            
+            // Add enter key handler for search input
+            $('#srch').on('keypress', function(e) {
+                if (e.which === 13) { // Enter key
+                    const searchTerm = $(this).val().trim();
+                    if (searchTerm.length > 0) {
+                        window.location.href = `search_results.html?q=${encodeURIComponent(searchTerm)}`;
+                    }
+                }
+            });
+            
+            // Function to handle search
+            function handleSearch() {
+                const searchTerm = $('#srch').val().trim();
+                const searchResults = $('#searchResults');
+                
+                if (searchTerm.length < 2) {
+                    searchResults.empty();
+                    return;
+                }
+
+                $.ajax({
+                    url: '../php/search_events.php',
+                    method: 'GET',
+                    data: {
+                        search: searchTerm,
+                        page: 'organizer',
+                        preview: true
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response && response.success) {
+                            displaySearchResults(response.events || []);
+                        } else {
+                            console.error('Search error:', response ? response.message : 'Unknown error');
+                            searchResults.html('<div class="alert alert-danger">Error performing search. Please try again.</div>');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Search error:', error);
+                        searchResults.html('<div class="alert alert-danger">Error performing search. Please try again.</div>');
+                    }
+                });
+            }
+
+            // Function to display search results
+            function displaySearchResults(events) {
+                const searchResults = $('#searchResults');
+                searchResults.empty();
+
+                if (!events || events.length === 0) {
+                    searchResults.html('<div class="alert alert-info">No events found matching your search.</div>');
+                    return;
+                }
+
+                const resultsList = $('<div class="search-results-list"></div>');
+                events.forEach(event => {
+                    if (!event) return; // Skip if event is null or undefined
+                    
+                    const eventCard = $(`
+                        <div class="search-result-item" data-id="${event.event_id}">
+                            <div class="search-result-image">
+                                <img src="/evibe_database-update_with_php/templates/${event.image_url || 'images/default-event.jpg'}" alt="${event.title || 'Event'}">
+                            </div>
+                            <div class="search-result-content">
+                                <h3 class="search-result-title">${event.title || 'Untitled Event'}</h3>
+                                <div class="search-result-details">
+                                    <p><strong>Date:</strong> ${event.formatted_date || 'Date not set'}</p>
+                                    <p><strong>Location:</strong> ${event.venue || 'Location not set'}</p>
+                                    <p><strong>Price:</strong> $${event.formatted_price || '0.00'}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                    
+                    // Add click event to navigate to the event page
+                    eventCard.on('click', function() {
+                        const eventId = $(this).data('id');
+                        window.location.href = `View_Event.html?id=${eventId}`;
+                    });
+                    
+                    resultsList.append(eventCard);
+                });
+                searchResults.append(resultsList);
+            }
+            
+            // Load dashboard stats
+            loadDashboardStats();
+            
+            // Load organizer events
+            loadOrganizerEvents();
+            
+            // Load trending events
+            loadTrendingEvents();
+            
+            // Handle logout
+            $('#logoutBtn').on('click', function(e) {
+                e.preventDefault();
+                
+                $.ajax({
+                    url: '../php/logout.php',
+                    method: 'POST',
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log('Logout response:', response);
+                        if(response && response.success) {
+                            window.location.href = 'login.html';
+                        } else {
+                            alert('Error logging out: ' + (response ? response.message : 'Unknown error'));
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Logout error:', error);
+                        console.error('Status:', status);
+                        console.error('Response:', xhr.responseText);
+                        alert('Error connecting to server');
+                    }
+                });
+                
+                return false;
+            });
+
+            // Load dashboard statistics
+            function loadDashboardStats() {
+                console.log("Loading dashboard stats...");
+                $.ajax({
+                    url: '../php/get_dashboard_stats.php',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log("Dashboard stats response:", response);
+                        if (response.success) {
+                            const stats = response.stats;
+                            console.log("Stats data:", stats);
+                            $('#totalSales').text('$' + stats.total_sales);
+                            $('#totalTicketsSold').text(stats.total_tickets_sold);
+                            $('#totalEvents').text(stats.total_events);
+                            $('#pendingRequests').text(stats.pending_requests);
+                            $('#unreadMessages').text(stats.unread_messages);
+                            $('#notification-count').text(stats.unread_messages);
+                            $('#messageBadge').text(stats.unread_messages + ' New');
+                        } else {
+                            console.error("Error loading dashboard stats:", response.message);
+                            alert("Error loading dashboard stats: " + response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX error loading dashboard stats:", error);
+                        console.error("Status:", status);
+                        console.error("Response:", xhr.responseText);
+                        alert("Error loading dashboard stats. Please check console for details.");
+                    }
+                });
+            }
+
+            // Function to load organizer's events
+            function loadOrganizerEvents() {
+                $.ajax({
+                    url: '../php/manage_events.php',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log('Response from server:', response);
+                        if (response.success) {
+                            displayEvents(response.events);
+                        } else {
+                            console.error('Error loading events:', response.message);
+                            $('#eventsList').html('<div class="alert alert-danger">Error loading events: ' + response.message + '</div>');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX error loading events:', error);
+                        console.error('Status:', status);
+                        console.error('Response:', xhr.responseText);
+                        $('#eventsList').html('<div class="alert alert-danger">Error loading events. Please try again later.</div>');
+                    }
+                });
+            }
+
+            // Function to load trending events
+            function loadTrendingEvents() {
+                $.ajax({
+                    url: '../php/get_trending_events.php',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.success) {
+                            displayTrendingEvents(response.events);
+                        } else {
+                            console.error('Error loading trending events:', response.message);
+                            $('#trendingEventsContainer').html('<div class="alert alert-danger">Error loading trending events: ' + response.message + '</div>');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX error loading trending events:', error);
+                        $('#trendingEventsContainer').html('<div class="alert alert-danger">Error loading trending events. Please try again later.</div>');
+                    }
+                });
+            }
+
+            // Function to display events
+            function displayEvents(events) {
+                console.log('Displaying events:', events);
+                const eventsList = document.getElementById('eventsList');
+                if (!eventsList) {
+                    console.error('Events list element not found');
+                    return;
+                }
+                
+                eventsList.innerHTML = '';
+
+                if (!events || !Array.isArray(events) || events.length === 0) {
+                    eventsList.innerHTML = '<div class="alert alert-info">No events found. Create your first event!</div>';
+                    return;
+                }
+
+                // First, load unread message counts for all events
+                $.ajax({
+                    url: '../php/get_event_message_counts.php',
+                    method: 'GET',
+                    success: function(response) {
+                        if (response.success) {
+                            const messageCounts = response.message_counts;
+                            
+                            events.forEach(event => {
+                                if (!event) return;
+                                
+                                console.log('Processing event:', event);
+                                console.log('Image URL:', event.image_url);
+                                
+                                const eventCard = document.createElement('div');
+                                eventCard.className = 'event-card';
+                                
+                                // Create image element separately to handle errors
+                                const img = document.createElement('img');
+                                img.className = 'event-image';
+                                img.alt = event.title || 'Event';
+                                
+                                // Set the image source with error handling
+                                let imageUrl = event.image_url;
+                                console.log('Original image URL:', imageUrl);
+                                
+                                // If the URL doesn't start with /kaif_evibe/, prepend it
+                                if (imageUrl && !imageUrl.startsWith('/kaif_evibe/')) {
+                                    // If it's a relative path, make it absolute
+                                    if (!imageUrl.startsWith('/')) {
+                                        imageUrl = '/kaif_evibe/templates/' + imageUrl;
+                                    } else {
+                                        imageUrl = '/kaif_evibe' + imageUrl;
+                                    }
+                                }
+                                
+                                console.log('Final image URL:', imageUrl);
+                                img.src = imageUrl;
+                                
+                                // Add error handler that only runs once
+                                let errorHandled = false;
+                                img.onerror = function() {
+                                    if (!errorHandled) {
+                                        errorHandled = true;
+                                        console.error('Failed to load image:', imageUrl);
+                                        this.src = '/kaif_evibe/templates/images/default-event.jpg';
+                                        this.onerror = null;
+                                    }
+                                };
+                                
+                                // Get unread message count for this event
+                                const unreadCount = messageCounts[event.event_id] || 0;
+                                
+                                eventCard.innerHTML = `
+                                    <div class="event-content">
+                                        <span class="status-badge ${getStatusClass(event.status || 'pending')}">${event.status || 'Pending'}</span>
+                                        <h3 class="event-title">${event.title || 'Untitled Event'}</h3>
+                                        <div class="event-details">
+                                            <p><strong>Date:</strong> ${event.formatted_date || 'Date not set'}</p>
+                                            <p><strong>Location:</strong> ${event.venue || 'Location not set'}</p>
+                                            <p><strong>Tickets Sold:</strong> ${(event.total_tickets || 0) - (event.available_tickets || 0)}/${event.total_tickets || 0}</p>
+                                        </div>
+                                        <div class="event-price">Price: $${event.formatted_price || '0.00'}</div>
+                                        <div class="event-actions">
+                                            <button class="view-btn" onclick="viewEvent(${event.event_id})">
+                                                <i class="fas fa-eye"></i> 
+                                            </button>
+                                            <button class="edit-btn" onclick="editEvent(${event.event_id})">
+                                                <i class="fas fa-edit"></i> 
+                                            </button>
+                                            <button class="message-btn" onclick="openMessageModal(${event.event_id})">
+                                                <i class="fas fa-comments"></i> 
+                                                <span class="unread-badge" id="unread-${event.event_id}">${unreadCount}</span>
+                                            </button>
+                                            <button class="delete-btn" onclick="deleteEvent(${event.event_id})">
+                                                <i class="fas fa-trash"></i> 
+                                            </button>
+                                        </div>
+                                    </div>
+                                `;
+                                
+                                // Insert the image at the beginning of the event card
+                                eventCard.insertBefore(img, eventCard.firstChild);
+                                eventsList.appendChild(eventCard);
+                            });
+                        } else {
+                            console.error('Error loading message counts:', response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error loading message counts:', error);
+                    }
+                });
+            }
+
+            // Function to display trending events
+            function displayTrendingEvents(events) {
+                const container = document.getElementById('trendingEventsContainer');
+                if (!container) {
+                    console.error('Trending events container not found');
+                    return;
+                }
+                
+                if (!events || events.length === 0) {
+                    container.innerHTML = '<div class="no-events">No trending events found.</div>';
+                    return;
+                }
+                
+                let eventsHTML = '';
+                events.forEach(event => {
+                  
+                    
+                    // Handle image URL
+                    let imageUrl = event.image_url;
+                    console.log('Original image URL:', imageUrl);
+                    
+                    // If the URL doesn't start with /kaif_evibe/, prepend it
+                    if (imageUrl && !imageUrl.startsWith('/kaif_evibe/')) {
+                        // If it's a relative path, make it absolute
+                        if (!imageUrl.startsWith('/')) {
+                            imageUrl = '/kaif_evibe/templates/' + imageUrl;
+                        } else {
+                            imageUrl = '/kaif_evibe' + imageUrl;
+                        }
+                    }
+                    
+                    console.log('Final image URL:', imageUrl);
+                    const ticketsSold = (event.total_tickets || 0) - (event.available_tickets || 0);
+const totalTickets = event.total_tickets || 0;
+const salesPercentage = totalTickets > 0 ? (ticketsSold / totalTickets) * 100 : 0;
+
+
+                    
+                    eventsHTML += `
+                        <div class="event-card">
+                            <div class="event-image">
+                                <img src="${imageUrl}" alt="${event.title}" onerror="this.src='/kaif_evibe/templates/images/default-event.jpg'">
+                                <div class="event-category">${event.category}</div>
+                            </div>
+                            <div class="event-details">
+                                <h3>${event.title}</h3>
+                                <p class="event-date"><i class="fas fa-calendar"></i> ${event.formatted_date}</p>
+                                <p class="event-location"><i class="fas fa-location-dot"></i> ${event.venue}</p>
+                                <p class="event-organizer"><i class="fas fa-user"></i> ${event.organizer_name}</p>
+                                <div class="event-stats">
+                                    <div class="ticket-sales">
+                                        <span class="label">Tickets Sold:</span>
+                                        <span class="value">${ticketsSold}/${totalTickets}</span>
+<div class="progress-bar">
+  <div class="progress" style="width: ${salesPercentage}%;"></div>
+</div>
+                                    </div>
+                                    <div class="event-price">
+                                        <span class="label">Price:</span>
+                                        <span class="value">$${event.price}</span>
+                                    </div>
+                                </div>
+                                <button class="view-event-btn" onclick="viewEvent(${event.event_id})">View Event</button>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                container.innerHTML = eventsHTML;
+            }
+
+            function getStatusClass(status) {
+                switch(status.toLowerCase()) {
+                    case 'approved':
+                        return 'status-active';
+                    case 'pending':
+                        return 'status-pending';
+                    case 'cancelled':
+                        return 'status-cancelled';
+                    default:
+                        return 'status-pending';
+                }
+            }
+
+            // Handle messages tab click
+            $('#messagesTab').on('click', function() {
+                $('.dashboard-section').hide();
+                $('#messagesContainer').show();
+                loadMessages();
+            });
+
+            // Load messages
+            function loadMessages() {
+                $.ajax({
+                    url: '../php/get_organizer_messages.php',
+                    method: 'GET',
+                    success: function(response) {
+                        if (response.success) {
+                            const messagesList = $('.messages-list');
+                            messagesList.empty();
+
+                            if (response.messages.length === 0) {
+                                messagesList.html('<p class="no-messages">No messages yet</p>');
+                                return;
+                            }
+
+                            response.messages.forEach(function(message) {
+                                const messageHtml = `
+                                    <div class="message-item">
+                                        <div class="message-header">
+                                            <span class="message-sender">
+                                                <i class="fas fa-user"></i> From: ${message.sender_name}
+                                            </span>
+                                            <span class="message-event">
+                                                <i class="fas fa-calendar"></i> Event: ${message.event_title}
+                                            </span>
+                                        </div>
+                                        <div class="message-content">${message.message}</div>
+                                        <div class="message-meta">
+                                            <span class="message-date">
+                                                <i class="fas fa-clock"></i> ${new Date(message.created_at).toLocaleString()}
+                                            </span>
+                                            <span class="message-status ${message.is_read ? 'read' : 'unread'}">
+                                                ${message.is_read ? 'Read' : 'Unread'}
+                                            </span>
+                                        </div>
+                                        <div class="message-actions">
+                                            <button class="reply-btn" onclick="openReplyModal(${message.event_id}, ${message.sender_id})">
+                                                <i class="fas fa-reply"></i> Reply
+                                            </button>
+                                        </div>
+                                    </div>
+                                `;
+                                messagesList.append(messageHtml);
+                            });
+                        } else {
+                            console.error('Error loading messages:', response.message);
+                        }
+                    },
+                    error: function() {
+                        console.error('Error loading messages. Please try again.');
+                    }
+                });
+            }
+
+            // Handle reply form submission
+            $('#replyForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                const eventId = $('#replyEventId').val();
+                const senderId = $('#replySenderId').val();
+                const message = $('#replyMessage').val();
+
+                $.ajax({
+                    url: '../php/send_message.php',
+                    method: 'POST',
+                    data: {
+                        event_id: eventId,
+                        receiver_id: senderId,
+                        message: message
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            alert('Reply sent successfully!');
+                            closeReplyModal();
+                            loadMessages();
+                        } else {
+                            alert('Error: ' + response.message);
+                        }
+                    },
+                    error: function() {
+                        alert('Error sending reply. Please try again.');
+                    }
+                });
+            });
+
+            function openReplyModal(eventId, senderId) {
+                $('#replyEventId').val(eventId);
+                $('#replySenderId').val(senderId);
+                $('#replyModal').show();
+            }
+
+            function closeReplyModal() {
+                $('#replyModal').hide();
+                $('#replyMessage').val('');
+            }
+
+            // Close modal when clicking outside
+            window.onclick = function(event) {
+                const modal = document.getElementById('replyModal');
+                if (event.target == modal) {
+                    closeReplyModal();
+                }
+            }
+
+            // Close modal when clicking the X button
+            $('.close').on('click', closeReplyModal);
+
+            // Add message modal HTML
+            const messageModal = document.createElement('div');
+            messageModal.id = 'messageModal';
+            messageModal.className = 'modal';
+            messageModal.innerHTML = `
+                <div class="modal-content">
+                    <div class="chat-header">
+                        <span class="close" id="closeMessageModal">&times;</span>
+                        <h2>Chat Messages</h2>
+                        <div class="chat-info">
+                            <span id="chatEventTitle">Event: Loading...</span>
+                            <span id="chatEventDate">Date: Loading...</span>
+                        </div>
+                    </div>
+                    <div class="chat-container">
+                        <div id="chatMessages" class="chat-messages">
+                            <!-- Messages will be loaded here -->
+                        </div>
+                        <div class="chat-input-container">
+                            <form id="messageForm">
+                                <input type="hidden" id="eventId" name="eventId">
+                                <textarea id="messageText" placeholder="Type your message here..." required></textarea>
+                                <button type="submit" class="send-btn">
+                                    <i class="fas fa-paper-plane"></i> Send
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(messageModal);
+
+            // Add message modal styles
+            const style = document.createElement('style');
+            style.textContent = `
+                .modal {
+                    display: none;
+                    position: fixed;
+                    z-index: 1000;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0,0,0,0.7);
+                }
+
+                .modal-content {
+                    background-color: #1a1a1a;
+                    margin: 2% auto;
+                    padding: 20px;
+                    border-radius: 8px;
+                    width: 80%;
+                    max-width: 800px;
+                    height: 90vh;
+                    display: flex;
+                    flex-direction: column;
+                    position: relative;
+                }
+
+                .chat-header {
+                    padding-bottom: 15px;
+                    border-bottom: 1px solid #333;
+                    margin-bottom: 15px;
+                }
+
+                .chat-header h2 {
+                    color: #ffcc00;
+                    margin: 0;
+                }
+
+                .chat-info {
+                    display: flex;
+                    justify-content: space-between;
+                    color: #aaa;
+                    font-size: 0.9em;
+                    margin-top: 5px;
+                }
+
+                .chat-container {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    overflow: hidden;
+                }
+
+                .chat-messages {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    box-sizing: border-box;
+                    flex: 1;
+                    overflow-y: auto;
+                    padding: 15px;
+                    background: rgba(0,0,0,0.3);
+                    border-radius: 8px;
+                    margin-bottom: 15px;
+                }
+
+                .chat-message {
+                    display: flex;
+                    flex-direction: column;
+                    margin: 6px 0;
+                    max-width: 70%;
+                    word-break: break-word;
+                }
+
+                .sent-message {
+                    background-color: #2196F3;
+                    color: #fff;
+                    align-self: flex-end !important;
+                    border-radius: 12px 12px 0 12px;
+                    padding: 8px 16px;
+                }
+
+                .received-message {
+                    background-color: #fff;
+                    color: #333;
+                    align-self: flex-start !important;
+                    border-radius: 12px 12px 12px 0;
+                    padding: 8px 16px;
+                    border: 1px solid #e0e0e0;
+                }
+
+                .message-content {
+                    margin: 10px 0;
+                    line-height: 1.5;
+                    color: inherit;
+                }
+
+                .message-meta {
+                    font-size: 0.8em;
+                    color: #aaa;
+                    margin-top: 2px;
+                    display: flex;
+                    justify-content: space-between;
+                }
+
+                .chat-input-container {
+                    padding: 15px;
+                    background: rgba(0,0,0,0.3);
+                    border-radius: 8px;
+                }
+
+                #messageForm {
+                    display: flex;
+                    gap: 10px;
+                }
+
+                #messageText {
+                    flex: 1;
+                    padding: 10px;
+                    border-radius: 4px;
+                    background: #2a2a2a;
+                    color: white;
+                    border: 1px solid #444;
+                    resize: none;
+                    height: 50px;
+                }
+
+                .send-btn {
+                    background: #2196F3;
+                    color: white;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                }
+
+                .send-btn:hover {
+                    background: #1976D2;
+                }
+
+                #closeMessageModal {
+                    position: absolute;
+                    right: 20px;
+                    top: 20px;
+                    color: #aaa;
+                    font-size: 28px;
+                    font-weight: bold;
+                    cursor: pointer;
+                }
+
+                #closeMessageModal:hover {
+                    color: white;
+                }
+            `;
+            document.head.appendChild(style);
+
+            // Add event listeners for the close button
+            document.getElementById('closeMessageModal').addEventListener('click', closeMessageModal);
+
+            // Close modal when clicking outside
+            messageModal.addEventListener('click', function(event) {
+                if (event.target === messageModal) {
+                    closeMessageModal();
+                }
+            });
+
+            // Handle message form submission
+            $('#messageForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                const eventId = $('#eventId').val();
+                const message = $('#messageText').val();
+
+                $.ajax({
+                    url: '../php/send_message.php',
+                    method: 'POST',
+                    data: {
+                        event_id: eventId,
+                        message: message
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            $('#messageText').val('');
+                            loadEventMessages(eventId);
+                        } else {
+                            alert('Error: ' + response.message);
+                        }
+                    },
+                    error: function() {
+                        alert('Error sending message. Please try again.');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <style>
+        /* Update these styles for messages */
+        #messagesContainer {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-header h3 {
+            color: #ffcc00;
+            font-size: 1.5em;
+            margin: 0;
+        }
+
+        .refresh-btn {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .refresh-btn:hover {
+            background: #1976D2;
+        }
+
+        .messages-list {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .message-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .message-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+
+        .message-sender {
+            color: #ffcc00;
+            font-weight: 600;
+        }
+
+        .message-event {
+            color: #2196F3;
+            font-weight: 500;
+        }
+
+        .message-content {
+            margin: 10px 0;
+            line-height: 1.5;
+            color: inherit;
+        }
+
+        .message-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #aaa;
+        }
+
+        .message-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .reply-btn {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .reply-btn:hover {
+            background: #1976D2;
+        }
+
+        .no-messages {
+            text-align: center;
+            color: #aaa;
+            padding: 20px;
+            font-style: italic;
+        }
+
+        /* Scrollbar styling */
+        .messages-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .messages-list::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+        }
+
+        .messages-list::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        .messages-list::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Add/replace these styles in the <style> section or in the injected style tag */
+        .chat-message {
+            display: flex;
+            flex-direction: column;
+            margin: 6px 0;
+            max-width: 70%;
+            word-break: break-word;
+        }
+        .sent-message {
+            background-color: #2196F3;
+            color: #fff;
+            align-self: flex-end !important;
+            border-radius: 12px 12px 0 12px;
+            padding: 8px 16px;
+        }
+        .received-message {
+            background-color: #fff;
+            color: #333;
+            align-self: flex-start !important;
+            border-radius: 12px 12px 12px 0;
+            padding: 8px 16px;
+            border: 1px solid #e0e0e0;
+        }
+        .message-content {
+            margin: 10px 0;
+            line-height: 1.5;
+            color: inherit;
+        }
+        .message-meta {
+            font-size: 0.8em;
+            color: #aaa;
+            margin-top: 2px;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+
+    <!-- Reply Modal -->
+    <div id="replyModal" class="reply-modal">
+        <div class="reply-modal-content">
+            <span class="close">&times;</span>
+            <h2>Reply to Message</h2>
+            <form id="replyForm">
+                <input type="hidden" id="replyEventId">
+                <input type="hidden" id="replySenderId">
+                <textarea id="replyMessage" class="reply-textarea" placeholder="Type your reply here..." required></textarea>
+                <button type="submit" class="send-btn">Send Reply</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

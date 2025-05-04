@@ -1,0 +1,82 @@
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Check admin session
+    async function checkAdminSession() {
+        try {
+            const response = await fetch('/kaif_evibe/php/check_session.php', {
+                credentials: 'same-origin'
+            });
+            
+            if (!response.ok) {
+                throw new Error('Session check failed');
+            }
+            
+            const data = await response.json();
+            
+            if (!data.logged_in || data.role !== 'admin') {
+                window.location.href = '/kaif_evibe/templates/html/login.html';
+                return;
+            }
+            
+            // If session is valid, load the users
+            loadUsers();
+        } catch (error) {
+            console.error('Session check error:', error);
+            window.location.href = '/kaif_evibe/templates/html/login.html';
+        }
+    }
+
+    // Load users from the database
+    async function loadUsers() {
+        try {
+            const response = await fetch('/kaif_evibe/php/get_users.php');
+            const data = await response.json();
+            
+            if (data.success) {
+                const usersList = document.getElementById('usersList');
+                usersList.innerHTML = '';
+                
+                data.users.forEach(user => {
+                    const userCard = document.createElement('div');
+                    userCard.className = 'user-card';
+                    userCard.innerHTML = `
+                        <div class="user-info">
+                            <h3>${user.fullname}</h3>
+                            <p>Email: ${user.email}</p>
+                            <p>Role: ${user.role}</p>
+                            <p>Status: ${user.status}</p>
+                        </div>
+                        <div class="user-actions">
+                            <button class="btn btn-edit" onclick="editUser(${user.id})">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-delete" onclick="deleteUser(${user.id})">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    `;
+                    usersList.appendChild(userCard);
+                });
+            } else {
+                console.error('Error loading users:', data.message);
+            }
+        } catch (error) {
+            console.error('Error loading users:', error);
+        }
+    }
+
+    // Check session on page load
+    checkAdminSession();
+
+    // Add event listeners for navigation
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = this.getAttribute('data-target');
+            if (target) {
+                window.location.href = target;
+            }
+        });
+    });
+});
+</script> 

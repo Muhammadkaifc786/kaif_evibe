@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Category - Admin Panel</title>
+    <link rel="stylesheet" href="/kaif_evibe/templates/css/admin_add_category.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            background: url("/evibe_database-update_with_php/templates/images/bg.jpg") no-repeat center center/cover;
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .Nav-1 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(13px);
+            -webkit-backdrop-filter: blur(13px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 32px 0 rgba(0, 0, 0, 0.37);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+        }
+
+        .Nav-1 h1 {
+            font-size: 2rem;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            font-weight: 600;
+            letter-spacing: 2px;
+            white-space: nowrap;
+        }
+
+        .Search-bar {
+            flex: 0 1 400px;
+            margin: 0 2rem;
+        }
+
+        .Search-bar input {
+            width: 100%;
+            padding: 0.8rem 1.2rem;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .Search-bar input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .Nav-Element {
+            flex: 0 0 auto;
+        }
+
+        .Nav-Element ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        .Nav-Element a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+
+        .Nav-Element a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .Nav-Element a:hover i {
+            transform: scale(1.1);
+            color: #FF4B2B;
+        }
+
+        .logout-btn {
+            background: rgba(255, 75, 43, 0.2);
+            border: 1px solid rgba(255, 75, 43, 0.3);
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 75, 43, 0.3);
+        }
+
+        .logout-btn i {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .logout-btn:hover i {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="Nav-1">
+        <h1>EVibe</h1>
+        
+        <div class="Search-bar">
+            <input type="text" name="search" id="srch" placeholder="search here">
+        </div>
+        
+        <div class="Nav-Element">
+            <ul>
+                <a href="admin_panel.html"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="admin_register.html"><i class="fas fa-user-plus"></i> Register</a>
+                <a href="admin_add_category.html"><i class="fas fa-folder-plus"></i> Add Category</a>
+                <a href="admin_categories.html"><i class="fas fa-folder"></i> Categories</a>
+                <a href="admin_events.html"><i class="fas fa-calendar"></i> Events</a>
+                <a href="admin_users.html"><i class="fas fa-users"></i> Users</a>
+            </ul>
+        </div>
+        <button class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </div>
+    <div class="container">
+        <div class="form-container">
+            <h2><i class="fas fa-folder-plus"></i> Add New Category</h2>
+            
+            <form id="addCategoryForm">
+                <div class="form-group">
+                    <label for="name">Category Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter category name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="icon">Icon Class</label>
+                    <input type="text" id="icon" name="icon" placeholder="Enter Font Awesome icon class (e.g., fa-music)" required>
+                    <small>Use Font Awesome icon classes without the 'fas' prefix (e.g., fa-music, fa-futbol)</small>
+                </div>
+
+                <button type="submit" class="btn">
+                    <i class="fas fa-plus"></i> <span>Add Category</span>
+                </button>
+            </form>
+
+            <div class="form-footer">
+                <a href="admin_panel.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to Admin Panel
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    document.getElementById('addCategoryForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(this);
+        
+        fetch('/kaif_evibe/php/admin/add_category.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert(data.error);
+            } else {
+                alert(data.message);
+                window.location.href = 'admin_categories.html';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error adding category');
+        });
+    });
+
+    $(document).ready(function() {
+        // Handle logout
+        $('.logout-btn').on('click', function(e) {
+            e.preventDefault();
+            
+            $.ajax({
+                url: '/kaif_evibe/templates/php/logout.php',
+                method: 'POST',
+                dataType: 'json',
+                success: function(response) {
+                    console.log('Logout response:', response);
+                    if(response && response.success) {
+                        window.location.href = '/kaif_evibe/templates/html/login.html';
+                    } else {
+                        alert('Error logging out: ' + (response ? response.message : 'Unknown error'));
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Logout error:', error);
+                    console.error('Status:', status);
+                    console.error('Response:', xhr.responseText);
+                    alert('Error connecting to server');
+                }
+            });
+            
+            return false;
+        });
+    });
+</script>
+</html>

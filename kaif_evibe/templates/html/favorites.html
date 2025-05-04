@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorites - EVibe</title>
+    <link rel="stylesheet" href="../css/organizer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <!-- Background Container -->
+    <div class="background-container"></div>
+
+    <div class="main-1">
+        <div class="Nav-1">
+            <h1>EVibe</h1>
+            
+            <div class="Search-bar">
+                <input type="text" name="search" id="srch" placeholder="Search events...">
+                <button id="searchButton" class="search-button"><i class="fas fa-search"></i></button>
+            </div>
+            
+            <div class="Nav-Element">
+                <ul>
+                    <a href="user_panel.html"><li id="home">Home</li></a>
+                   
+                    <li class="dropdown" id="categories">
+                        <a href="javascript:void(0)" class="dropdown-toggle">Categories <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content" id="categoryDropdown">
+                            <!-- Categories will be loaded here -->
+                        </div>
+                    </li>
+                    <a href="Booked_event.html"><li id="booked">Booked Events</li></a>
+                    <a href="favorites.html"><li id="favorites" class="active">Favorites</li></a>
+                    <a href="history.html"><li id="history">History</li></a>
+                </ul>
+            </div>
+
+         
+
+            <button class="btn-logout" id="logoutBtn">Logout</button>
+        </div>
+
+        <div class="page-header">
+            <h1>Your Favorite Events</h1>
+            <p>Here are the events you've added to your favorites</p>
+            <div class="favorites-count">
+                <i class="fas fa-heart"></i>
+                <span id="totalFavorites">0</span> Events
+            </div>
+        </div>
+
+        <div class="favorites-container">
+            <div id="favoritesContainer" class="event-grid">
+                <!-- Favorites will be loaded here -->
+                <div class="loading-indicator">
+                    <i class="fas fa-spinner fa-pulse"></i>
+                    <p>Loading your favorites...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="empty-favorites-container" style="display: none;">
+            <div class="empty-state">
+                <i class="fas fa-heart-broken"></i>
+                <h2>No Favorite Events Yet</h2>
+                <p>You haven't added any events to your favorites yet.</p>
+                <a href="user_panel.html" class="btn-primary">Explore Events</a>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About EVibe</h3>
+                    <p>Your one-stop platform for event management and ticket booking.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 EVibe. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Global function for creating event cards
+        function createEventCard(event) {
+            let imageUrl = event.image_url;
+            
+            // Handle image URL like in organizer.html
+            if (imageUrl && !imageUrl.startsWith('/kaif_evibe/')) {
+                // If it's a relative path, make it absolute
+                if (!imageUrl.startsWith('/')) {
+                    imageUrl = '/kaif_evibe/templates/' + imageUrl;
+                } else {
+                    imageUrl = '/kaif_evibe' + imageUrl;
+                }
+            }
+
+            // If no image URL is provided, use default image
+            if (!imageUrl) {
+                imageUrl = '/kaif_evibe/templates/images/default-event.jpg';
+            }
+
+            return `
+                <div class="event-card">
+                    <div class="event-image-container">
+                        <img src="${imageUrl}" alt="${event.title}" class="event-image">
+                        <button class="favorite-btn active" onclick="toggleFavorite(${event.event_id})" data-event-id="${event.event_id}">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-title-container">
+                            <h3 class="event-title">${event.title}</h3>
+                            
+                        </div>
+                        <div class="event-info">
+                            <p><i class="fas fa-calendar"></i> ${event.formatted_date}</p>
+                            <p><i class="fas fa-map-marker-alt"></i> ${event.venue}</p>
+                            <p><i class="fas fa-tag"></i> ${event.category}</p>
+                            <p><i class="fas fa-user"></i> Organizer: ${event.organizer_name || 'Unknown'}</p>
+                            <p><i class="fas fa-star"></i> ${event.rating} (${event.rating_count} reviews)</p>
+                            <p><i class="fas fa-ticket-alt"></i> $${event.price}</p>
+                        </div>
+                        <div class="event-actions">
+                            <button class="btn-book" onclick="bookEvent(${event.event_id})">
+                                <i class="fas fa-ticket-alt"></i> Book Now
+                            </button>
+                            <button class="btn-view" onclick="viewEvent(${event.event_id})">
+                                <i class="fas fa-eye"></i> View Event
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        $(document).ready(function() {
+            // Check session status
+            function checkSession() {
+                $.ajax({
+                    url: '/kaif_evibe/templates/php/check_session.php',
+                    method: 'GET',
+                    success: function(response) {
+                        if (!response.logged_in) {
+                            window.location.href = 'login.html';
+                            return;
+                        }
+                        
+                        // Update user information
+                        $('#userName').text(response.name || 'User');
+                        
+                        // Load favorites
+                        loadFavorites();
+                        
+                        // Load categories in dropdown
+                        loadCategoriesInDropdown();
+                    },
+                    error: function() {
+                        window.location.href = 'login.html';
+                    }
+                });
+            }
+
+            // Load favorite events
+            function loadFavorites() {
+                $.ajax({
+                    url: '/kaif_evibe/templates/php/get_favorites.php',
+                    method: 'GET',
+                    success: function(response) {
+                        if (response.success) {
+                            const $container = $('#favoritesContainer');
+                            $container.empty();
+                            
+                            // Update favorites count
+                            $('#totalFavorites').text(response.events ? response.events.length : 0);
+                            
+                            if (response.events && response.events.length > 0) {
+                                response.events.forEach(event => {
+                                    $container.append(createEventCard(event));
+                                });
+                                $('.empty-favorites-container').hide();
+                                $('.favorites-container').show();
+                            } else {
+                                $('.favorites-container').hide();
+                                $('.empty-favorites-container').show();
+                            }
+                        } else {
+                            console.error('Error loading favorites:', response.message);
+                            $('#favoritesContainer').html(`
+                                <div class="error-message">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <p>Error loading favorites. Please try again later.</p>
+                                </div>
+                            `);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                        $('#favoritesContainer').html(`
+                            <div class="error-message">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <p>Error loading favorites. Please try again later.</p>
+                            </div>
+                        `);
+                    }
+                });
+            }
+
+            // Logout functionality
+            $('#logoutBtn').on('click', function() {
+                $.ajax({
+                    url: '/kaif_evibe/templates/php/logout.php',
+                    method: 'POST',
+                    success: function() {
+                        window.location.href = 'login.html';
+                    }
+                });
+            });
+
+            // Initial session check
+            checkSession();
+
+            // Search functionality
+            $('#searchButton').on('click', function() {
+                const searchTerm = $('#srch').val().trim();
+                if (searchTerm.length > 0) {
+                    window.location.href = `search_results.html?q=${encodeURIComponent(searchTerm)}`;
+                }
+            });
+
+            // Handle dropdown click
+            $('.dropdown').on('click', function(e) {
+                e.stopPropagation();
+                $(this).find('.dropdown-content').toggle();
+            });
+            
+            // Close dropdown when clicking outside
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.dropdown').length) {
+                    $('.dropdown-content').hide();
+                }
+            });
+        });
+
+        // Function to toggle favorite status
+        function toggleFavorite(eventId) {
+            const $btn = $(`.favorite-btn[data-event-id="${eventId}"]`);
+            
+            // Show loading state
+            $btn.html('<i class="fas fa-circle-notch fa-spin"></i>');
+            $btn.addClass('loading');
+
+            $.ajax({
+                url: '/kaif_evibe/templates/php/toggle_favorite.php',
+                method: 'POST',
+                data: { event_id: eventId },
+                success: function(response) {
+                    if (response.success) {
+                        if (!response.is_favorite) {
+                            // Remove the card from favorites page with nice animation
+                            const $card = $btn.closest('.event-card');
+                            
+                            // First fade out slightly
+                            $card.css({
+                                'opacity': '0.8',
+                                'transform': 'scale(0.95)',
+                                'border-left-color': '#ff6b6b'
+                            });
+                            
+                            // Then after a slight delay, remove with animation
+                            setTimeout(() => {
+                                $card.css({
+                                    'opacity': '0',
+                                    'transform': 'scale(0.8) translateX(-20px)',
+                                    'height': '0',
+                                    'margin': '0',
+                                    'padding': '0'
+                                });
+                                
+                                setTimeout(() => {
+                                    $card.remove();
+                                    
+                                    // Update the counter
+                                    const currentCount = parseInt($('#totalFavorites').text()) - 1;
+                                    $('#totalFavorites').text(currentCount);
+                                    
+                                    // Check if there are any favorites left
+                                    if ($('#favoritesContainer .event-card').length === 0) {
+                                        $('.favorites-container').hide();
+                                        $('.empty-favorites-container').show();
+                                    }
+                                }, 300);
+                            }, 200);
+                            
+                            showNotification('Event removed from favorites', 'info');
+                        }
+                    } else {
+                        console.error('Error toggling favorite:', response.message);
+                        showNotification('Error: ' + response.message, 'error');
+                        // Reset button state
+                        $btn.html('<i class="fas fa-heart"></i>');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                    showNotification('Error toggling favorite. Please try again.', 'error');
+                    // Reset button state
+                    $btn.html('<i class="fas fa-heart"></i>');
+                },
+                complete: function() {
+                    // Remove loading state
+                    $btn.removeClass('loading');
+                }
+            });
+        }
+
+        // Function to show notifications
+        function showNotification(message, type = 'info') {
+            const $notification = $(`
+                <div class="notification ${type}">
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+            `);
+            
+            $('body').append($notification);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                $notification.fadeOut(300, function() {
+                    $(this).remove();
+                });
+            }, 3000);
+        }
+
+        function bookEvent(eventId) {
+            window.location.href = `/kaif_evibe/templates/html/book_event.html?id=${eventId}`;
+        }
+
+        function viewEvent(eventId) {
+            // Record view in database
+            $.ajax({
+                url: '/kaif_evibe/templates/php/record_view.php',
+                method: 'POST',
+                data: { event_id: eventId },
+                success: function(response) {
+                    if (response.success) {
+                        console.log('View recorded successfully');
+                    } else {
+                        console.error('Error recording view:', response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error recording view:', error);
+                },
+                complete: function() {
+                    // Redirect to view event page regardless of success/failure of recording
+                    window.location.href = `/kaif_evibe/templates/html/View_Event.html?id=${eventId}`;
+                }
+            });
+        }
+
+        function loadCategoriesInDropdown() {
+            $.ajax({
+                url: '/kaif_evibe/templates/php/get_categories_with_events.php',
+                method: 'GET',
+                success: function(response) {
+                    if (response.success) {
+                        const dropdown = $('#categoryDropdown');
+                        dropdown.empty();
+                        
+                        // Add "All" option first
+                        dropdown.append(`
+                            <a href="user_panel.html">
+                                <i class="fas fa-th-large"></i>
+                                <span>All Events</span>
+                                <span class="event-count">${response.total_events || 0}</span>
+                            </a>
+                        `);
+                        
+                        // Add categories
+                        response.categories.forEach(category => {
+                            dropdown.append(`
+                                <a href="category.html?id=${category.category_id}">
+                                    <i class="${category.icon || 'fas fa-tag'}"></i>
+                                    <span>${category.name}</span>
+                                    <span class="event-count">${category.event_count || 0}</span>
+                                </a>
+                            `);
+                        });
+                    } else {
+                        console.error('Error loading categories:', response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error loading categories:', error);
+                }
+            });
+        }
+    </script>
+
+    <style>
+    /* Professional header style */
+    .page-header {
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3));
+        border-radius: 10px;
+        padding: 25px 20px;
+        margin: 20px 0;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+        color: #fff;
+    }
+
+    .page-header h1 {
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 2.2rem;
+        color: #ffffff;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        padding-bottom: 15px;
+        position: relative;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    
+    .page-header h1:after {
+        content: '';
+        position: absolute;
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(90deg, #ffcc00, #ff6b6b);
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .page-header p {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.8);
+    }
+    
+    /* Enhanced favorites count */
+    .favorites-count {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 15px;
+        padding: 12px 25px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 30px;
+        color: #fff;
+        font-size: 1.2rem;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .favorites-count i {
+        color: #ffcc00;
+        font-size: 1.5rem;
+    }
+
+    .favorites-count span {
+        font-weight: bold;
+        color: #ffcc00;
+        font-size: 1.8rem;
+        margin: 0 5px;
+    }
+
+    /* Enhanced Event Card Styles */
+    .event-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 20px;
+        padding: 15px;
+    }
+    
+    .event-card {
+        background: rgba(20, 20, 30, 0.7);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        transition: all 0.5s ease, height 0.5s ease 0.2s, margin 0.5s ease 0.2s, padding 0.5s ease 0.2s;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        margin-bottom: 15px;
+        width: 100%;
+        min-width: 300px; /* Ensure minimum width */
+        border-left: 4px solid #ffcc00;
+    }
+    
+    .event-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+        border-color: rgba(255, 255, 255, 0.15);
+    }
+    
+    .event-image-container {
+        position: relative;
+        height: 180px; /* Reduced height */
+        overflow: hidden;
+    }
+    
+    .event-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    
+    .event-card:hover .event-image {
+        transform: scale(1.05);
+    }
+    
+    .favorite-btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: rgba(0, 0, 0, 0.6);
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 2;
+        color: white;
+    }
+    
+    .favorite-btn i {
+        font-size: 20px;
+        transition: all 0.3s ease;
+    }
+    
+    .favorite-btn:hover {
+        transform: scale(1.1);
+        background: rgba(255, 30, 30, 0.7);
+    }
+    
+    .favorite-btn:hover i {
+        transform: scale(1.1);
+    }
+    
+    .favorite-btn.active {
+        background: #ffcc00;
+        box-shadow: 0 0 15px rgba(255, 204, 0, 0.5);
+    }
+    
+    .favorite-btn.active:hover {
+        background: #ff5555;
+    }
+    
+    .favorite-btn.loading {
+        pointer-events: none;
+        opacity: 0.8;
+    }
+    
+    .event-content {
+        padding: 0;
+    }
+    
+    .event-title-container {
+        padding: 15px 15px 5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .event-title {
+        color: #ffffff;
+        font-size: 1.3rem;
+        margin: 0;
+        font-weight: 600;
+        line-height: 1.4;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+    
+    .favorite-badge {
+        display: inline-flex;
+        color: #ffcc00;
+        margin-left: 10px;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .favorite-badge i {
+        font-size: 16px;
+    }
+    
+    .event-info {
+        padding: 12px;
+        background: rgba(0, 0, 0, 0.2);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+    
+    .event-info p {
+        margin: 3px 0;
+        display: flex;
+        align-items: center;
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 0.85rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    /* Price and rating on one row */
+    .event-info p:nth-child(5), 
+    .event-info p:nth-child(6) {
+        grid-column: span 1;
+    }
+    
+    /* Make organizer name span full width */
+    .event-info p:nth-child(4) {
+        grid-column: span 2;
+    }
+    
+    .event-info i {
+        width: 20px;
+        color: #ffcc00;
+        margin-right: 8px;
+        flex-shrink: 0;
+    }
+    
+    .event-actions {
+        display: flex;
+        padding: 15px;
+        gap: 12px;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    
+    .btn-book, .btn-view {
+        flex: 1;
+        padding: 12px 10px;
+        min-width: 130px;
+        text-align: center;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        border-radius: 6px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.95rem;
+        color: white;
+    }
+    
+    .btn-book {
+        background: #ffcc00;
+        color: #333;
+    }
+    
+    .btn-book:hover {
+        background: #f0c000;
+    }
+    
+    .btn-view {
+        background: #2196F3;
+    }
+    
+    .btn-view:hover {
+        background: #1976D2;
+    }
+    
+    .btn-book i, .btn-view i {
+        margin-right: 8px;
+    }
+    
+    /* Make cards more responsive on mobile */
+    @media (max-width: 768px) {
+        .event-grid {
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        }
+        
+        .event-card {
+            width: 100%;
+            min-width: 280px;
+        }
+        
+        .event-actions {
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .btn-book, .btn-view {
+            width: 100%;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .event-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+    
+    /* Page Specific Styles */
+    .page-header {
+        text-align: center;
+        color: #fff;
+        padding: 30px 0;
+    }
+
+    .page-header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+    }
+
+    .page-header p {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .favorites-container {
+        padding: 20px;
+    }
+
+    .empty-favorites-container {
+        padding: 40px 20px;
+    }
+
+    .empty-state {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 50px;
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .empty-state i {
+        font-size: 4rem;
+        color: #ffcc00;
+        margin-bottom: 20px;
+    }
+
+    .empty-state h2 {
+        color: #fff;
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+
+    .empty-state p {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 1.2rem;
+        margin-bottom: 25px;
+    }
+
+    .btn-primary {
+        display: inline-block;
+        background: #4CAF50;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 1.1rem;
+        transition: background 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background: #45a049;
+    }
+
+    /* Loading indicator */
+    .loading-indicator {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        margin: 20px;
+        text-align: center;
+    }
+
+    .loading-indicator i {
+        font-size: 3rem;
+        color: #4CAF50;
+        margin-bottom: 15px;
+    }
+
+    .loading-indicator p {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 1.2rem;
+    }
+
+    .error-message {
+        text-align: center;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 1.2rem;
+        padding: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        margin: 20px;
+    }
+
+    .error-message i {
+        font-size: 3rem;
+        color: #f44336;
+        margin-bottom: 15px;
+    }
+
+    /* Notification styles */
+    .notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 25px;
+        border-radius: 5px;
+        background: rgba(255, 255, 255, 0.9);
+        color: #333;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        animation: slideIn 0.3s ease-out;
+    }
+    
+    .notification.success {
+        background: rgba(76, 175, 80, 0.9);
+        color: white;
+    }
+    
+    .notification.error {
+        background: rgba(244, 67, 54, 0.9);
+        color: white;
+    }
+    
+    .notification.info {
+        background: rgba(33, 150, 243, 0.9);
+        color: white;
+    }
+    
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+
+    /* Dropdown styles */
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #1a1a1a;
+        min-width: 200px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1000;
+        border-radius: 5px;
+        top: 100%;
+        left: 0;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        margin-top: 5px;
+    }
+
+    .dropdown-content a {
+        color: #fff;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: background-color 0.3s ease;
+    }
+
+    .dropdown-content a:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown i {
+        margin-left: 5px;
+        font-size: 12px;
+    }
+
+    .event-count {
+        margin-left: auto;
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 2px 6px;
+        border-radius: 12px;
+        font-size: 12px;
+    }
+
+   
+    </style>
+</body>
+</html> 

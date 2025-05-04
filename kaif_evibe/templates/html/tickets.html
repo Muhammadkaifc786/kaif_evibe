@@ -1,0 +1,668 @@
+<?php require_once '../php/check_organizer.php'; ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tickets - EVibe</title>
+    <link rel="stylesheet" href="/kaif_evibe/templates/css/tickets.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Fallback styles in case CSS file fails to load */
+        :root {
+            --primary: #ffcc00;
+            --secondary: #ffcc00;
+            --dark: #1e2033;
+            --light: #f8f9fa;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text-dark: #333;
+            --text-light: #f8f9fa;
+            --text-muted: #94a3b8;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-light);
+            background-color: var(--dark);
+        }
+        
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/kaif_evibe/templates/images/bg.jpg') no-repeat center center/cover;
+            filter: blur(5px) brightness(0.7); /* Blur and darken the background */
+            z-index: -1; /* Place it behind everything */
+        }
+        
+        .search-bar-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto 18px auto;
+        }
+        .search-bar-container .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #bdbdbd;
+            font-size: 1.2em;
+            pointer-events: none;
+        }
+        .search-bar-container input[type="text"] {
+            width: 100%;
+            padding: 12px 12px 12px 44px;
+            border-radius: 10px;
+            border: 1px solid #fff2;
+            background: transparent;
+            color: #fff;
+            font-size: 1em;
+            outline: none;
+        }
+        .main-select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background: rgba(40, 40, 60, 0.35); /* semi-transparent */
+            color: #fff;
+            border: 1.5px solid rgba(255,255,255,0.18);
+            border-radius: 14px;
+            padding: 10px 36px 10px 16px;
+            font-size: 1em;
+            outline: none;
+            transition: border 0.2s, background 0.2s;
+            width: 100%;
+            min-width: 140px;
+            cursor: pointer;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            position: relative;
+            backdrop-filter: blur(8px); /* glassmorphism blur */
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .main-select:focus {
+            border: 1.5px solid var(--primary, #4a6cfa);
+            background: rgba(40, 40, 60, 0.45);
+        }
+        .select-wrapper {
+            position: relative;
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            box-shadow: 0 4px 24px 0 rgba(31, 38, 135, 0.10);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .select-wrapper::after {
+            content: '\f078'; /* Font Awesome chevron-down */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: #bdbdbd;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+<script>
+    // Set a default user ID if not available from PHP
+    window.currentUserId = ""; 
+    
+    // Try to load from localStorage as fallback
+    try {
+        const storedUserId = localStorage.getItem('userId');
+        if (storedUserId) {
+            window.currentUserId = storedUserId;
+        }
+    } catch (e) {
+        console.error('Error accessing localStorage:', e);
+    }
+</script>
+
+    <!-- Background Container -->
+    <div class="background-container"></div>
+
+    <div class="main-1"><!-- main div-->
+        <div class="Nav-1">  <!-- Nav bar div-->
+            <h1>EVibe</h1>
+            
+                                             
+            <div class="Nav-Element">
+                <ul>
+                    <a href="organizer.html"><li id="home">Home</li></a>
+                    <a href="post-event.html"><li id="post">Post Event</li></a>
+                    <a href="manage-event.html"><li id="manage">Manage Events</li></a>
+                    <a href="my_events.html"><li id="events">My Events</li></a>
+                    <a href="tickets.html" class="active"><li id="tickets">Tickets</li></a>
+                </ul>
+            </div>
+            <div class="notifications">
+                <img id="notify-img" src="../images/notification.png" alt="Notifications">
+                <span id="notification-count" class="notification-badge">0</span>
+            </div>
+            <div class="profile"></div>
+            <button class="btn-logout" id="logoutBtn">Logout</button>
+        </div>
+
+        <div class="Name"><!--Host Name-->
+            <h1>Manage Your <span>Tickets</span></h1>
+        </div>
+
+        <!-- Tickets Section -->
+        <h2 class="section-heading">Tickets Dashboard</h2>
+        
+        <div class="tickets-container">
+              
+            <!-- Ticket Verification Section -->
+            <div class="ticket-verification">
+                <h3>Verify Ticket</h3>
+                <div class="verification-form">
+                    <div style="position: relative; width: 100%;">
+                        <input type="text" id="verifyTicketId" placeholder="Enter Ticket ID to verify" style="padding-right: 44px; width: 100%;">
+                        <i class="fas fa-search" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: #bdbdbd; font-size: 1.2em; pointer-events: none;"></i>
+                    </div>
+                    <div class="main-filters">
+                        <div class="select-wrapper">
+                            <select id="mainCategoryFilter" class="main-select">
+                                <option value="">All Categories</option>
+                                <!-- Categories will be loaded dynamically -->
+                            </select>
+                        </div>
+                        <div class="select-wrapper">
+                            <select id="mainDateFilter" class="main-select">
+                                <option value="">All Dates</option>
+                                <option value="today">Today</option>
+                                <option value="week">This Week</option>
+                                <option value="month">This Month</option>
+                                <option value="upcoming">Upcoming Events</option>
+                                <option value="past">Past Events</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button id="verifyBtn" class="verify-btn"><i class="fas fa-check-circle"></i> Verify</button>
+                </div>
+                
+                <!-- Verification Result (hidden by default) -->
+                <div id="verificationResult" class="verification-result" style="display: none;">
+                    <div class="verification-header">
+                        <h4>Ticket Verification Result</h4>
+                        <span id="verificationStatus" class="verification-status">Valid</span>
+                    </div>
+                    <div class="verification-details">
+                        <div class="user-info">
+                            <div>
+                                <h5 id="userName">User Name</h5>
+                                <p id="userEmail">user@example.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="ticket-verification-details">
+                            <p><i class="fas fa-ticket-alt"></i> <strong>Ticket ID:</strong> <span id="verifyTicketIdDisplay"></span></p>
+                            <p><i class="fas fa-calendar"></i> <strong>Event Date:</strong> <span id="verifyEventDate"></span></p>
+                            <p><i class="fas fa-clock"></i> <strong>Event Time:</strong> <span id="verifyEventTime"></span></p>
+                            <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> <span id="verifyLocation"></span></p>
+                            <p><i class="fas fa-users"></i> <strong>Ticket Count:</strong> <span id="verifyTicketCount"></span></p>
+                            <p><i class="fas fa-tag"></i> <strong>Total Amount:</strong> <span id="verifyAmount"></span></p>
+                            <p><i class="fas fa-calendar-check"></i> <strong>Booking Date:</strong> <span id="verifyBookingDate"></span></p>
+                        </div>
+                        
+                        <div class="verification-actions">
+                            <button id="confirmAttendanceBtn" class="confirm-btn"><i class="fas fa-check"></i> Confirm Attendance</button>
+                            <button id="cancelVerificationBtn" class="cancel-verify-btn"><i class="fas fa-times"></i> Cancel</button>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+           
+            
+            <div class="tickets-tabs">
+                <div class="tab active" data-tab="all">All Tickets</div>
+                <div class="tab" data-tab="valid">Valid</div>
+                <div class="tab" data-tab="used">Used</div>
+                <div class="tab" data-tab="expired">Expired</div>
+            </div>
+            
+            <div class="tickets-grid" id="ticketsGrid">
+                <!-- Tickets will be loaded dynamically -->
+                <div class="loading-spinner">
+                    <i class="fas fa-spinner fa-spin"></i> Loading tickets...
+                </div>
+            </div>
+            
+            <!-- Empty State (Hidden by default, shown when no tickets) -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <i class="fas fa-ticket-alt"></i>
+                <h3>No Tickets Found</h3>
+                <p>No tickets match your search criteria or you haven't created any events with bookings yet.</p>
+                
+            </div>
+        </div>
+        
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About EVibe</h3>
+                    <p>Your one-stop platform for event management and ticket booking.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 EVibe. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        
+        $(document).ready(function() {
+            // Update expired tickets when page loads
+            updateExpiredTickets();
+            
+            // Load tickets from database on page load
+            loadTickets();
+            
+            // Load event categories for both dropdowns
+            loadEventCategories();
+            
+            // Load event categories from database
+            function loadEventCategories() {
+                $.ajax({
+                    url: '../php/get_categories.php',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response && response.success && response.categories) {
+                            // Populate verify filter dropdown
+                            const verifyDropdown = $('#verifyEventFilter');
+                            // Clear existing options except the "All Events" option
+                            verifyDropdown.find('option:not(:first)').remove();
+                            
+                            // Populate main category filter dropdown
+                            const mainDropdown = $('#mainCategoryFilter');
+                            // Clear existing options except the "All Categories" option
+                            mainDropdown.find('option:not(:first)').remove();
+                            
+                            // Add categories from the database to both dropdowns
+                            $.each(response.categories, function(index, category) {
+                                // Add to verify dropdown
+                                verifyDropdown.append(`<option value="${category.category_id}">${category.name} Events</option>`);
+                                
+                                // Add to main filter dropdown
+                                mainDropdown.append(`<option value="${category.category_id}">${category.name}</option>`);
+                            });
+                        } else {
+                            console.error('Failed to load categories:', response ? response.message : 'Unknown error');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error loading categories:', error);
+                    }
+                });
+            }
+            
+            // Tab functionality
+            $('.tab').on('click', function() {
+                const tabType = $(this).data('tab');
+                
+                // Update active tab
+                $('.tab').removeClass('active');
+                $(this).addClass('active');
+                
+                // Filter tickets based on tab
+                if (tabType === 'all') {
+                    $('.ticket-card').show();
+                } else {
+                    $('.ticket-card').hide();
+                    $(`.ticket-card[data-status="${tabType}"]`).show();
+                }
+                
+                // Show empty state if no tickets match the filter
+                if (tabType === 'all') {
+                    if ($('.ticket-card').length === 0) {
+                        $('#emptyState').show();
+                    } else {
+                        $('#emptyState').hide();
+                    }
+                } else {
+                    if ($(`.ticket-card[data-status="${tabType}"]`).length === 0) {
+                        $('#emptyState').show();
+                    } else {
+                        $('#emptyState').hide();
+                    }
+                }
+            });
+            
+            // Download ticket functionality
+            $(document).on('click', '.download-btn', function() {
+                // In a real implementation, this would generate a PDF ticket
+                const ticketId = $(this).data('ticket-id');
+                alert(`Downloading ticket ${ticketId}...`);
+            });
+            
+            // View ticket details
+            $(document).on('click', '.view-btn', function() {
+                const ticketId = $(this).data('ticket-id');
+                alert(`Viewing ticket details for ${ticketId}`);
+                // This would typically open a modal with full ticket details
+            });
+            
+            // Load tickets from database
+            function loadTickets(filters = {}) {
+                // Show loading indicator
+                $('#ticketsGrid').html('<div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> Loading tickets...</div>');
+                
+                // Build query parameters
+                let queryParams = new URLSearchParams();
+                if (filters.category) queryParams.append('category', filters.category);
+                if (filters.date_filter) queryParams.append('date_filter', filters.date_filter);
+                if (filters.status) queryParams.append('status', filters.status);
+                if (filters.search) queryParams.append('search', filters.search);
+                
+                // AJAX call to get tickets
+                $.ajax({
+                    url: '../php/get_tickets.php?' + queryParams.toString(),
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response && response.success) {
+                            displayTickets(response.tickets);
+                        } else {
+                            // If there's an error or no tickets, show empty state
+                            $('#ticketsGrid').empty();
+                            $('#emptyState').show();
+                            console.error('Failed to load tickets:', response ? response.message : 'Unknown error');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // On error, show error message
+                        $('#ticketsGrid').html('<div class="error-message"><i class="fas fa-exclamation-circle"></i> Error loading tickets. Please try again.</div>');
+                        console.error('Error loading tickets:', error);
+                    }
+                });
+            }
+            
+            // Function to display tickets
+            function displayTickets(tickets) {
+                // Clear existing tickets
+                $('#ticketsGrid').empty();
+                
+                if (tickets.length === 0) {
+                    // Show empty state if no tickets
+                    $('#emptyState').show();
+                    return;
+                }
+                
+                // Hide empty state
+                $('#emptyState').hide();
+                
+                // Loop through tickets and create card for each
+                $.each(tickets, function(index, ticket) {
+                    // Create a ticket card
+                    const statusClass = `status-${ticket.status}`;
+                    
+                    const ticketCard = `
+                        <div class="ticket-card" data-status="${ticket.status}" data-category="${ticket.category_id}">
+                            <div class="ticket-header">
+                                <h3 class="ticket-event-name">${ticket.event_title}</h3>
+                                <div class="ticket-date"><i class="fas fa-calendar"></i> ${ticket.event_date}</div>
+                                <span class="ticket-status ${statusClass}">${ticket.status.charAt(0).toUpperCase() + ticket.status.slice(1)}</span>
+                            </div>
+                            <div class="ticket-body">
+                                <div class="ticket-qr">
+                                    <img src="${ticket.image_url || '/kaif_evibe/templates/images/default-event.png'}" alt="${ticket.event_title}" class="event-image" onerror="this.src='/kaif_evibe/templates/images/default-event.png'">
+                                </div>
+                                <div class="ticket-id">TICKET-ID: ${ticket.ticket_id}</div>
+                                <div class="ticket-details">
+                                    <p><i class="fas fa-map-marker-alt"></i> Venue: ${ticket.location}</p>
+                                    <p><i class="fas fa-user"></i> Attendee: ${ticket.user_name}</p>
+                                    <p><i class="fas fa-envelope"></i> Email: ${ticket.user_email}</p>
+                                    <p><i class="fas fa-phone"></i> Phone: ${ticket.user_phone}</p>
+                                    <p><i class="fas fa-ticket-alt"></i> Type: ${ticket.category}</p>
+                                    <p><i class="fas fa-ticket-alt"></i> Ticket Count: ${ticket.ticket_count}</p>
+                                    <p><i class="fas fa-tag"></i> Price: ${ticket.total_price}</p>
+                                    <p><i class="fas fa-calendar-check"></i> Booking Date: ${ticket.booking_date}</p>
+                                    ${ticket.attendance_date ? `<p><i class="fas fa-check-circle"></i> Attended On: ${ticket.attendance_date}</p>` : ''}
+                                </div>
+                                <div class="ticket-actions">
+                                    <button class="ticket-btn view-btn" data-ticket-id="${ticket.ticket_id}" data-ticket-id="${ticket.ticket_id}"  onclick="viewEvent(${ticket.event_id})" ><i class="fas fa-eye"></i> View</button>
+                                    <button class="ticket-btn verify-ticket-btn" data-ticket-id="${ticket.ticket_id}"><i class="fas fa-check-circle"></i> Mark as Used</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Add ticket card to grid
+                    $('#ticketsGrid').append(ticketCard);
+                });
+                
+                // If there's an active tab, trigger its filter
+                const activeTab = $('.tab.active').data('tab');
+                if (activeTab && activeTab !== 'all') {
+                    $('.ticket-card').hide();
+                    $(`.ticket-card[data-status="${activeTab}"]`).show();
+                    
+                    // Show empty state if no tickets match the active filter
+                    if ($(`.ticket-card[data-status="${activeTab}"]`).length === 0) {
+                        $('#emptyState').show();
+                    }
+                }
+            }
+            
+            // Handle filter changes for category and date
+            $('#mainCategoryFilter, #mainDateFilter').on('change', function() {
+                const filters = {
+                    category: $('#mainCategoryFilter').val(),
+                    date_filter: $('#mainDateFilter').val(),
+                    search: $('#verifyTicketId').val().trim() // Use the ticket/event search input
+                };
+                loadTickets(filters);
+            });
+            
+            // Handle search button click
+            $('#mainSearchBtn').on('click', function() {
+                const filters = {
+                    category: $('#mainCategoryFilter').val(),
+                    date_filter: $('#mainDateFilter').val(),
+                    search: $('#mainSearchInput').val().trim()
+                };
+                
+                loadTickets(filters);
+            });
+            
+            // Handle search on enter key
+            $('#mainSearchInput').keypress(function(e) {
+                if (e.which === 13) {
+                    $('#mainSearchBtn').click();
+                }
+            });
+            
+            // Handle header search
+            $('#searchButton').on('click', function() {
+                const query = $('#srch').val().trim();
+                if (query) {
+                    window.location.href = `search_results.html?q=${encodeURIComponent(query)}`;
+                }
+            });
+            
+            // Search on enter key for header search
+            $('#srch').keypress(function(e) {
+                if (e.which === 13) {
+                    $('#searchButton').click();
+                }
+            });
+            
+            // Verify ticket
+            $(document).on('click', '.verify-ticket-btn', function() {
+                const ticketId = $(this).data('ticket-id');
+                
+                // First confirm with the user
+                if (confirm("Are you sure you want to mark this ticket as USED?")) {
+                    // Mark the ticket as used immediately
+                    $.ajax({
+                        url: '../php/update_ticket_status.php',
+                        method: 'POST',
+                        data: {
+                            ticket_id: ticketId,
+                            status: 'used'
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response && response.success) {
+                                alert("Ticket successfully marked as USED!");
+                                
+                                // Refresh tickets to show updated status
+                                loadTickets();
+                            } else {
+                                alert('Failed to update ticket status: ' + (response ? response.message : 'Unknown error'));
+                            }
+                        },
+                        error: function() {
+                            alert('Error connecting to server. Please try again.');
+                        }
+                    });
+                }
+            });
+            
+            // Verify ticket from form
+            $('#verifyBtn').on('click', function() {
+                const ticketId = $('#verifyTicketId').val().trim();
+                const categoryId = $('#verifyEventFilter').val();
+                
+                if (!ticketId) {
+                    alert('Please enter a ticket ID to verify');
+                    return;
+                }
+                
+                // AJAX call to verify the ticket
+                $.ajax({
+                    url: '../php/verify_ticket.php',
+                    method: 'POST',
+                    data: {
+                        ticket_id: ticketId,
+                        category_id: categoryId
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response && response.success) {
+                            // Fill in verification result with ticket data
+                            $('#verificationStatus').text(response.ticket.status).removeClass().addClass('verification-status ' + response.ticket.status.toLowerCase());
+                            $('#userName').text(response.ticket.attendee_name);
+                            $('#userEmail').text(response.ticket.attendee_email);
+                            $('#verifyTicketIdDisplay').text(response.ticket.id);
+                            $('#verifyEventDate').text(response.ticket.event_date);
+                            $('#verifyEventTime').text(response.ticket.event_time);
+                            $('#verifyLocation').text(response.ticket.location);
+                            $('#verifyTicketCount').text(response.ticket.ticket_count);
+                            $('#verifyAmount').text(response.ticket.amount);
+                            $('#verifyBookingDate').text(response.ticket.booking_date);
+                            
+                            // Show the verification result
+                            $('#verificationResult').show();
+                        } else {
+                            alert('Ticket verification failed: ' + (response ? response.message : 'Unknown error'));
+                        }
+                    },
+                    error: function() {
+                        alert('Error connecting to server. Please try again.');
+                    }
+                });
+            });
+            
+            // Cancel verification
+            $('#cancelVerificationBtn').on('click', function() {
+                $('#verificationResult').hide();
+                $('#verifyTicketId').val('');
+            });
+            
+            // Confirm attendance
+            $('#confirmAttendanceBtn').on('click', function() {
+                const ticketId = $('#verifyTicketIdDisplay').text();
+                
+                $.ajax({
+                    url: '../php/confirm_attendance.php',
+                    method: 'POST',
+                    data: {
+                        ticket_id: ticketId
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response && response.success) {
+                            alert('Attendance confirmed successfully!');
+                            $('#verificationResult').hide();
+                            $('#verifyTicketId').val('');
+                            
+                            // Refresh ticket data after confirmation
+                            loadTickets();
+                        } else {
+                            alert('Failed to confirm attendance: ' + (response ? response.message : 'Unknown error'));
+                        }
+                    },
+                    error: function() {
+                        alert('Error connecting to server. Please try again.');
+                    }
+                });
+            });
+            
+            // Handle logout
+            $('#logoutBtn').on('click', function() {
+                $.ajax({
+                    url: '../php/logout.php',
+                    method: 'POST',
+                    success: function(response) {
+                        window.location.href = 'login.html';
+                    }
+                });
+            });
+          
+            // Function to update expired tickets
+            function updateExpiredTickets() {
+                $.ajax({
+                    url: '../php/update_expired_tickets.php',
+                    method: 'GET',
+                    success: function(response) {
+                        console.log('Updated expired tickets:', response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error updating expired tickets:', error);
+                    }
+                });
+            }
+            
+            // Enable event name search as you type in the verifyTicketId input
+            $('#verifyTicketId').on('keyup', function() {
+                const search = $(this).val().trim();
+                loadTickets({ search });
+            });
+        });
+        function viewEvent(eventId) {
+            window.location.href = `../php/view_event_details.php?id=${eventId}`;
+        }
+    </script>
+</body>
+</html> 

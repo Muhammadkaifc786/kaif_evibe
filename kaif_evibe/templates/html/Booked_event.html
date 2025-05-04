@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booked Events - Categories Dropdown Only</title>
+    <link rel="stylesheet" href="../css/booked_event.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            background: transparent;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .filter-section {
+            margin: 30px auto 0 auto;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            background-color: #1a1a1a;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 1000px;
+            justify-content: center;
+        }
+        .filter-section input,
+        .filter-section .dropdown-toggle {
+            padding: 8px 12px;
+            border: 1px solid #333;
+            border-radius: 4px;
+            background-color: #2a2a2a;
+            color: white;
+            font-size: 14px;
+        }
+        .filter-section input:focus,
+        .filter-section .dropdown-toggle:focus {
+            outline: none;
+            border-color: #FFC107;
+        }
+        .search-box {
+            position: relative;
+            width: 220px;
+        }
+        .search-box input {
+            width: 100%;
+            padding-right: 32px;
+        }
+       #bookedEventsContainer{
+        margin-top: 20px;
+        margin-left: 20px;
+       }
+        .search-box i {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #FFC107;
+            pointer-events: none;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-toggle {
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #1a1a1a;
+            min-width: 180px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1000;
+            border-radius: 8px;
+            top: 100%;
+            left: 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 5px;
+            padding: 10px 0;
+        }
+        .dropdown-content a {
+            color: #fff;
+            padding: 10px 16px;
+            text-decoration: none !important;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            margin: 0 10px;
+        }
+        .dropdown-content a:hover {
+            text-decoration: none !important;
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+        .dropdown-content a.active {
+            background-color: rgba(76, 175, 80, 0.2);
+        }
+        .dropdown-content a i {
+            width: 20px;
+            text-align: center;
+        }
+        .dropdown-content a span:first-of-type {
+            flex: 1;
+        }
+        .loading-indicator {
+            padding: 20px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .loading-indicator i {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+      
+        
+        #noEventsMessage {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            color: #fff;
+            font-size: 1.2rem;
+            padding: 20px;
+        }
+        
+        #noEventsMessage i {
+            font-size: 3rem;
+            color: #FFC107;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container"></div>
+    <div class="main-1">
+        <div class="Nav-1">
+            <h1>EVibe</h1>
+            <div class="Nav-Element">
+                <ul>
+                    <a href="user_panel.html"><li id="home">Home</li></a>
+                    
+                    <a href="Booked_event.html"><li id="booked" class="active">Booked Events</li></a>
+                    <a href="favorites.html"><li id="favorites">Favorites</li></a>
+                    <a href="history.html"><li id="history">History</li></a>
+                </ul>
+            </div>
+         
+            <button class="btn-logout" id="logoutBtn">Logout</button>
+        </div>
+        <!-- Booked Events Heading -->
+        <div style="text-align:center;margin-top:40px;">
+            <h1 style="font-size:2.5rem;font-weight:700;color:#ffcc00;letter-spacing:1px;">Booked Events</h1>
+        </div>
+        <!-- Filters Bar -->
+        <div class="filter-section">
+            <label for="searchBooked" style="color:#fff;font-weight:500;">Search:</label>
+            <div class="search-box">
+                <input type="text" id="searchBooked" placeholder="Search booked events...">
+                <i class="fas fa-search"></i>
+            </div>
+            <label for="filterDate" style="color:#fff;font-weight:500;">Date:</label>
+            <input type="date" id="filterDate" placeholder="Filter by Date">
+            <label for="categories" style="color:#fff;font-weight:500;">Category:</label>
+            <div class="dropdown" id="categories">
+                <a href="javascript:void(0)" class="dropdown-toggle" id="categoryToggle">
+                    <span id="selectedCategory">All Events</span>
+                    <i class="fas fa-chevron-down"></i>
+                </a>
+                <div class="dropdown-content" id="categoryDropdown">
+                    <!-- Categories will be loaded here -->
+                </div>
+            </div>
+            <button id="filterBtn" style="background:#FFC107;color:#222;border:none;padding:8px 18px;border-radius:4px;font-weight:600;cursor:pointer;transition:background 0.2s;">Filter</button>
+        </div>
+        <!-- Booked Events Cards -->
+         
+        <div id="bookedEventsContainer" class="event-grid" >
+            <div id="noEventsMessage" style="display: none; text-align: center; color: #fff; font-size: 1.2rem; padding: 20px;">
+                <i class="fas fa-calendar-times" style="font-size: 3rem; color: #FFC107; margin-bottom: 15px;"></i>
+                <p>No booked events found</p>
+            </div>
+        </div>
+    </div>
+    <script>
+    $(document).ready(function() {
+        // Get category from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const selectedCategory = urlParams.get('category');
+        
+        // Set initial category text
+        if (selectedCategory) {
+            $('#selectedCategory').text(selectedCategory);
+        }
+
+        loadCategoriesInDropdown();
+        
+        // Show/hide dropdown
+        $('#categoryToggle').on('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $('#categoryDropdown').toggle();
+        });
+        
+        $(document).on('click', function(e) {
+            if (!$(e.target).closest('.dropdown').length) {
+                $('#categoryDropdown').hide();
+            }
+        });
+    });
+
+    function loadCategoriesInDropdown() {
+        $.ajax({
+            url: '/kaif_evibe/templates/php/get_categories_with_events.php',
+            method: 'GET',
+            success: function(response) {
+                if (response.success) {
+                    const dropdown = $('#categoryDropdown');
+                    dropdown.empty();
+                    
+                    // Add "All" option first
+                    dropdown.append(`
+                        <a href="#" onclick="event.preventDefault(); selectCategory('All Events')">
+                            <i class="fas fa-th-large"></i>
+                            <span>All Events</span>
+                            <span class="event-count">${response.total_events || 0}</span>
+                        </a>
+                    `);
+                    
+                    // Add categories
+                    response.categories.forEach(category => {
+                        dropdown.append(`
+                            <a href="#" onclick="event.preventDefault(); selectCategory('${category.name}')">
+                                <i class="${category.icon || 'fas fa-tag'}"></i>
+                                <span>${category.name}</span>
+                                <span class="event-count">${category.event_count || 0}</span>
+                            </a>
+                        `);
+                    });
+                } else {
+                    console.error('Error loading categories:', response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error loading categories:', error);
+            }
+        });
+    }
+
+    // Function to handle category selection
+    function selectCategory(categoryName) {
+        $('#selectedCategory').text(categoryName);
+        $('#categoryDropdown').hide();
+        
+        // Update URL without reloading the page
+        const newUrl = new URL(window.location.href);
+        newUrl.searchParams.set('category', categoryName);
+        window.history.pushState({}, '', newUrl);
+        
+        // Trigger filter update
+        updateFilters();
+    }
+
+    // Function to update filters based on selected category
+    function updateFilters() {
+        const category = $('#selectedCategory').text();
+        // Add your filter logic here
+        console.log('Filtering by category:', category);
+    }
+    </script>
+    <script src="../js/booked_events.js"></script>
+</body>
+</html> 

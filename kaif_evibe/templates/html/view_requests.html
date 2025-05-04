@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Requests - EVibe</title>
+    <link rel="stylesheet" href="/kaif_evibe/templates/css/organizer2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .requests-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .requests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .request-card {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .request-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .request-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .request-title {
+            color: #ffcc00;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .request-date {
+            color: #fff;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .request-details {
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .request-details p {
+            margin: 5px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .request-details i {
+            color: #ffcc00;
+            width: 20px;
+        }
+
+        .request-message {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            color: #fff;
+            font-style: italic;
+        }
+
+        .request-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .accept-btn {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .accept-btn:hover {
+            background: #45a049;
+        }
+
+        .decline-btn {
+            background: #f44336;
+            color: white;
+        }
+
+        .decline-btn:hover {
+            background: #da190b;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-pending {
+            background: rgba(255, 204, 0, 0.2);
+            color: #ffcc00;
+        }
+
+        .status-accepted {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+        }
+
+        .status-declined {
+            background: rgba(244, 67, 54, 0.2);
+            color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container"></div>
+    <div class="Nav-1">
+        <h1>EVibe</h1>
+        <div class="Search-bar">
+            <img src="../images/srch.png" alt="search">
+            <input type="text" name="search" id="srch" placeholder="search here">
+        </div>
+        <div class="Nav-Element">
+            <ul>
+                <a href="organizer.html"><li id="home">Home</li></a>
+                <a href="Post-Event.html"><li id="post">Post Event</li></a>
+                <a href="manage-event.html"><li id="manage">Manage Events</li></a>
+                <a href="My_events.html"><li id="events">My Events</li></a>
+            </ul>
+        </div>
+        <div class="profile"></div>
+        <button class="btn">Logout</button>
+    </div>
+
+    <div class="requests-container">
+        <h2 id="manage-text">Customer Requests</h2>
+        <div class="requests-grid">
+            <div class="request-card">
+                <div class="request-header">
+                    <h3 class="request-title">Qawali Night Request</h3>
+                    <span class="request-date">Apr 15, 2024</span>
+                </div>
+                <div class="request-details">
+                    <p><i class="fas fa-user"></i> John Doe</p>
+                    <p><i class="fas fa-calendar"></i> April 15, 2024</p>
+                    <p><i class="fas fa-ticket-alt"></i> 2 Tickets</p>
+                    <p><i class="fas fa-dollar-sign"></i> Total: $100</p>
+                </div>
+                <div class="request-message">
+                    "I would like to request special seating arrangements for my elderly parents."
+                </div>
+                <div class="request-actions">
+                    <button class="action-btn accept-btn">
+                        <i class="fas fa-check"></i> Accept
+                    </button>
+                    <button class="action-btn decline-btn">
+                        <i class="fas fa-times"></i> Decline
+                    </button>
+                </div>
+            </div>
+
+            <div class="request-card">
+                <div class="request-header">
+                    <h3 class="request-title">Art Exhibition Request</h3>
+                    <span class="request-date">Apr 20, 2024</span>
+                </div>
+                <div class="request-details">
+                    <p><i class="fas fa-user"></i> Jane Smith</p>
+                    <p><i class="fas fa-calendar"></i> April 20, 2024</p>
+                    <p><i class="fas fa-ticket-alt"></i> 1 Ticket</p>
+                    <p><i class="fas fa-dollar-sign"></i> Total: $50</p>
+                </div>
+                <div class="request-message">
+                    "Requesting early access to the exhibition for photography purposes."
+                </div>
+                <div class="request-actions">
+                    <button class="action-btn accept-btn">
+                        <i class="fas fa-check"></i> Accept
+                    </button>
+                    <button class="action-btn decline-btn">
+                        <i class="fas fa-times"></i> Decline
+                    </button>
+                </div>
+            </div>
+
+            <div class="request-card">
+                <div class="request-header">
+                    <h3 class="request-title">Sports Tournament Request</h3>
+                    <span class="request-date">Apr 25, 2024</span>
+                </div>
+                <div class="request-details">
+                    <p><i class="fas fa-user"></i> Mike Johnson</p>
+                    <p><i class="fas fa-calendar"></i> April 25, 2024</p>
+                    <p><i class="fas fa-ticket-alt"></i> 4 Tickets</p>
+                    <p><i class="fas fa-dollar-sign"></i> Total: $200</p>
+                </div>
+                <div class="request-message">
+                    "Requesting group seating for my team members."
+                </div>
+                <div class="request-actions">
+                    <button class="action-btn accept-btn">
+                        <i class="fas fa-check"></i> Accept
+                    </button>
+                    <button class="action-btn decline-btn">
+                        <i class="fas fa-times"></i> Decline
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

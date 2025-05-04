@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post an Event</title>
+    
+    <link rel="stylesheet" href="/kaif_evibe/templates/css/post-event.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Import Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Background Container */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/kaif_evibe/templates/images/bg.jpg') no-repeat center center/cover;
+            filter: blur(5px) brightness(0.7);
+            z-index: -1;
+        }
+
+        body {
+            color: #fff;
+            position: relative;
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container"></div>
+    <div class="Nav-1">  <!-- Nav bar div-->
+        <h1>EVibe</h1>
+        
+        <div class="Nav-Element">
+            <ul>
+                <a href="organizer.html"><li id="home">Home</li></a>
+                <a href="Post-Event.html"><li id="post">Post Event</li></a>
+                <a href="manage-event.html"><li id="manage">Manage Events</li></a>
+                <a href="My_events.html"><li id="events">My Events</li></a>
+                <a href="tickets.html"><li id="tickets">Tickets</li></a>
+            </ul>
+        </div>
+        
+        <button class="btn" id="logoutBtn">Logout</button>
+    </div>
+
+    <div class="form-container">
+        <h2>Post a New Event</h2>
+        
+        <form id="postEventForm" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="event_image">Event Image</label>
+                <input type="file" id="event_image" name="event_image" accept="image/*" required>
+                <small class="form-text">Supported formats: JPG, JPEG, PNG, GIF</small>
+            </div>
+
+            <div class="form-group">
+                <label for="title"><strong>Event Name:</strong></label>
+                <input type="text" id="title" name="title" placeholder="Enter event name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="category_id"><strong>Event Category:</strong></label>
+                <select id="category_id" name="category_id" required>
+                    <!-- Categories will be loaded dynamically -->
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="description"><strong>Event Description:</strong></label>
+                <textarea id="description" name="description" rows="4" cols="50" placeholder="Enter event description" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="event_date"><strong>Event Date and Time:</strong></label>
+                <input type="datetime-local" id="event_date" name="event_date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="venue"><strong>Location:</strong></label>
+                <input type="text" id="venue" name="venue" placeholder="Enter event location" required>
+                <input type="hidden" id="latitude" name="latitude">
+                <input type="hidden" id="longitude" name="longitude">
+                <small class="form-text">Enter the full address for accurate location</small>
+            </div>
+
+            <div class="form-group">
+                <label for="ticket_price"><strong>Event Price ($):</strong></label>
+                <input type="number" id="ticket_price" name="ticket_price" placeholder="Enter price" step="0.01" required>
+            </div>
+
+            <div class="form-group">
+                <label for="total_tickets"><strong>Total Tickets:</strong></label>
+                <input type="number" id="total_tickets" name="total_tickets" placeholder="Enter total tickets" required>
+            </div>
+
+            <div class="form-group">
+                <h3>Payment Methods</h3>
+                <div id="payment_methods" class="payment-methods">
+                    <!-- Payment methods will be loaded dynamically -->
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="submit">Post Event</button>
+                <button type="button" onclick="window.history.back()">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Check if user is logged in
+            $.ajax({
+                url: '../php/check_session.php',
+                method: 'GET',
+                success: function(response) {
+                    if (!response.logged_in) {
+                        window.location.href = 'login.html';
+                    }
+                },
+                error: function() {
+                    window.location.href = 'login.html';
+                }
+            });
+
+            // Handle logout
+            $('#logoutBtn').on('click', function(e) {
+                e.preventDefault(); // Prevent default button behavior
+                
+                $.ajax({
+                    url: '../php/logout.php',
+                    method: 'POST',
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log('Logout response:', response);
+                        if(response && response.success) {
+                            window.location.href = 'login.html';
+                        } else {
+                            alert('Error logging out: ' + (response ? response.message : 'Unknown error'));
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Logout error:', error);
+                        console.error('Status:', status);
+                        console.error('Response:', xhr.responseText);
+                        alert('Error connecting to server');
+                    }
+                });
+                
+                return false; // Ensure the event doesn't propagate
+            });
+
+            // Load categories
+            $.ajax({
+                url: '../php/get_categories.php',
+                method: 'GET',
+                success: function(response) {
+                    console.log("Categories response:", response);
+                    if(response.success) {
+                        const select = $('#category_id');
+                        response.categories.forEach(category => {
+                            select.append(`<option value="${category.category_id}">${category.name}</option>`);
+                        });
+                    } else {
+                        console.error("Error loading categories:", response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX error loading categories:", error);
+                }
+            });
+
+            // Load payment methods
+            $.ajax({
+                url: '../php/get_payment_methods.php',
+                method: 'GET',
+                success: function(response) {
+                    console.log("Payment methods response:", response);
+                    if(response.success) {
+                        const container = $('#payment_methods');
+                        response.methods.forEach(method => {
+                            container.append(`
+                                <div class="payment-option">
+                                    <input type="checkbox" id="method_${method.method_id}" 
+                                           name="payment_methods[]" value="${method.method_id}">
+                                    <label for="method_${method.method_id}">${method.name}</label>
+                                </div>
+                            `);
+                        });
+                    } else {
+                        console.error("Error loading payment methods:", response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX error loading payment methods:", error);
+                }
+            });
+
+            // Add geocoding functionality using Nominatim
+            $('#venue').on('blur', function() {
+                const address = $(this).val();
+                if (address) {
+                    // Add a small delay to avoid hitting rate limits
+                    setTimeout(() => {
+                        $.ajax({
+                            url: 'https://nominatim.openstreetmap.org/search',
+                            data: {
+                                q: address,
+                                format: 'json',
+                                limit: 1
+                            },
+                            success: function(data) {
+                                if (data && data.length > 0) {
+                                    $('#latitude').val(data[0].lat);
+                                    $('#longitude').val(data[0].lon);
+                                    console.log('Coordinates found:', data[0].lat, data[0].lon);
+                                } else {
+                                    console.error('No coordinates found for address');
+                                    alert('Could not find coordinates for this address. Please enter a valid address.');
+                                }
+                            },
+                            error: function(error) {
+                                console.error('Geocoding error:', error);
+                                alert('Error getting coordinates. Please try again.');
+                            }
+                        });
+                    }, 1000); // 1 second delay
+                }
+            });
+
+            // Handle form submission
+            $('#postEventForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                // Check if coordinates are set
+                if (!$('#latitude').val() || !$('#longitude').val()) {
+                    alert('Please enter a valid address to get location coordinates');
+                    return;
+                }
+                
+                // Validate all form fields
+                if (!validateForm()) {
+                    return false;
+                }
+                
+                // Create FormData object
+                const formData = new FormData(this);
+                
+                // Log form data for debugging
+                console.log("Form data being sent:");
+                for (let pair of formData.entries()) {
+                    console.log(pair[0] + ': ' + pair[1]);
+                }
+                
+                // Check if file is selected
+                const fileInput = $('#event_image')[0];
+                if (fileInput.files.length === 0) {
+                    alert('Please select an image file');
+                    return;
+                }
+                
+                // Log file details
+                console.log("File details:", {
+                    name: fileInput.files[0].name,
+                    size: fileInput.files[0].size,
+                    type: fileInput.files[0].type
+                });
+                
+                // Disable submit button to prevent double submission
+                const submitButton = $(this).find('button[type="submit"]');
+                submitButton.prop('disabled', true);
+                submitButton.text('Posting Event...');
+                
+                $.ajax({
+                    url: '../php/post_event_process.php',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    dataType: 'json',
+                    beforeSend: function() {
+                        $('#submitBtn').prop('disabled', true).text('Posting Event...');
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            alert('Event posted successfully!');
+                            window.location.href = 'My_events.html';
+                        } else {
+                            alert('Error: ' + response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX Error:', {xhr: xhr, status: status, error: error});
+                        let errorMessage = 'Error posting event.';
+                        try {
+                            const response = JSON.parse(xhr.responseText);
+                            errorMessage = response.message || errorMessage;
+                        } catch (e) {
+                            console.error('Error parsing response:', e);
+                        }
+                        alert(errorMessage);
+                    },
+                    complete: function() {
+                        $('#submitBtn').prop('disabled', false).text('Post Event');
+                    }
+                });
+            });
+            
+            // Form validation function
+            function validateForm() {
+                let isValid = true;
+                
+                // Validate event image
+                const fileInput = $('#event_image')[0];
+                if (fileInput.files.length === 0) {
+                    alert('Please select an image for your event');
+                    isValid = false;
+                    return isValid;
+                }
+                
+                // Check file type
+                const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+                if (!validImageTypes.includes(fileInput.files[0].type)) {
+                    alert('Please upload a valid image file (JPG, JPEG, PNG, or GIF)');
+                    isValid = false;
+                    return isValid;
+                }
+                
+                // Check file size (max 5MB)
+                const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+                if (fileInput.files[0].size > maxSize) {
+                    alert('Image file is too large. Maximum size is 5MB.');
+                    isValid = false;
+                    return isValid;
+                }
+                
+                // Validate event name
+                const title = $('#title').val().trim();
+                if (title === '') {
+                    alert('Please enter an event name');
+                    $('#title').focus();
+                    isValid = false;
+                    return isValid;
+                }
+                
+                // Validate category
+                if ($('#category_id').val() === null || $('#category_id').val() === '') {
+                    alert('Please select an event category');
+                    $('#category_id').focus();
+                    isValid = false;
+                    return isValid;
+                }
+                
+                // Validate description
+                const description = $('#description').val().trim();
+                if (description === '') {
+                    alert('Please enter an event description');
+                    $('#description').focus();
+                    isValid = false;
+                    return isValid;
+                } else if (description.length < 30) {
+                    alert('Event description is too short. Please provide at least 30 characters.');
+                    $('#description').focus();
+                    isValid = false;
+                    return isValid;
+                }
+                
+                // Validate date and time
+                const eventDate = new Date($('#event_date').val());
+                const now = new Date();
+                // Add a buffer of 1 hour to the current time
+                const minTime = new Date(now.getTime() + 60 * 60 * 1000);
+                
+                if (isNaN(eventDate.getTime())) {
+                    alert('Please select a valid event date and time');
+                    $('#event_date').focus();
+                    isValid = false;
+                    return isValid;
+                } else if (eventDate <= minTime) {
+                    alert('Event date and time must be at least 1 hour in the future');
+                    $('#event_date').focus();
+                    isValid = false;
+                    return isValid;
+                }
+                
+                // Validate ticket price
+                const price = parseFloat($('#ticket_price').val());
+                if (isNaN(price) || price < 0) {
+                    alert('Please enter a valid ticket price');
+                    $('#ticket_price').focus();
+                    isValid = false;
+                    return isValid;
+                }
+                
+                // Validate total tickets
+                const totalTickets = parseInt($('#total_tickets').val());
+                if (isNaN(totalTickets) || totalTickets <= 0) {
+                    alert('Please enter a valid number of total tickets');
+                    $('#total_tickets').focus();
+                    isValid = false;
+                    return isValid;
+                }
+                
+                // Validate payment methods
+                if ($('input[name="payment_methods[]"]:checked').length === 0) {
+                    alert('Please select at least one payment method');
+                    isValid = false;
+                    return isValid;
+                }
+                
+                return isValid;
+            }
+            
+            // Set min date for event_date input to today + 1 hour
+            function updateMinDateTime() {
+                const now = new Date();
+                // Add 1 hour buffer
+                const minTime = new Date(now.getTime() + 60 * 60 * 1000);
+                const year = minTime.getFullYear();
+                const month = String(minTime.getMonth() + 1).padStart(2, '0');
+                const day = String(minTime.getDate()).padStart(2, '0');
+                const hours = String(minTime.getHours()).padStart(2, '0');
+                const minutes = String(minTime.getMinutes()).padStart(2, '0');
+                const minDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+                $('#event_date').attr('min', minDateTime);
+                
+                // If the current value is less than the minimum, clear it
+                const currentValue = $('#event_date').val();
+                if (currentValue) {
+                    const currentDate = new Date(currentValue);
+                    if (currentDate < minTime) {
+                        $('#event_date').val('');
+                    }
+                }
+            }
+            
+            // Run initially and set up periodic update
+            updateMinDateTime();
+            
+            // Update the min attribute when the form is focused
+            $('#postEventForm').on('focus', function() {
+                updateMinDateTime();
+            });
+            
+            // Also update when the date field is focused
+            $('#event_date').on('focus', function() {
+                updateMinDateTime();
+            });
+        });
+    </script>
+</body>
+</html>

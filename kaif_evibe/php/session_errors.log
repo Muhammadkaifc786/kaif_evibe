@@ -1,0 +1,1394 @@
+[29-Apr-2025 23:38:24 Europe/Berlin] Attempting to start session...
+[29-Apr-2025 23:38:24 Europe/Berlin] Session started. Session ID: l0bn7nj1aoj7mlqqncftab33id
+[29-Apr-2025 23:38:24 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:38:24 Europe/Berlin] Login attempt for email: admin@evibe.com
+[29-Apr-2025 23:41:13 Europe/Berlin] Session started. Session ID: ftg6urbnsf6nuk85ci9a333u8q
+[29-Apr-2025 23:41:13 Europe/Berlin] Session data: Array
+(
+)
+
+[29-Apr-2025 23:41:13 Europe/Berlin] Login attempt for email: admin@evibe.com
+[29-Apr-2025 23:43:32 Europe/Berlin] Session started. Session ID: ftg6urbnsf6nuk85ci9a333u8q
+[29-Apr-2025 23:43:32 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:43:32 Europe/Berlin] Logout attempt for user: unknown
+[29-Apr-2025 23:43:32 Europe/Berlin] User logged out successfully
+[29-Apr-2025 23:43:40 Europe/Berlin] Session started. Session ID: nck3q6c07fvrvtfso149uq26p2
+[29-Apr-2025 23:43:40 Europe/Berlin] Session data: Array
+(
+)
+
+[29-Apr-2025 23:43:40 Europe/Berlin] Login attempt for email: admin@evibe.com
+[29-Apr-2025 23:45:27 Europe/Berlin] Session started. Session ID: nck3q6c07fvrvtfso149uq26p2
+[29-Apr-2025 23:45:27 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:45:27 Europe/Berlin] Login attempt for email: admin@example.com
+[29-Apr-2025 23:45:34 Europe/Berlin] Session started. Session ID: nck3q6c07fvrvtfso149uq26p2
+[29-Apr-2025 23:45:34 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:45:34 Europe/Berlin] Login attempt for email: admin@evibe.com
+[29-Apr-2025 23:45:41 Europe/Berlin] Session started. Session ID: nck3q6c07fvrvtfso149uq26p2
+[29-Apr-2025 23:45:41 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:45:41 Europe/Berlin] Login attempt for email: admin@evibe.com
+[29-Apr-2025 23:45:45 Europe/Berlin] Session started. Session ID: nck3q6c07fvrvtfso149uq26p2
+[29-Apr-2025 23:45:45 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:45:45 Europe/Berlin] isAdmin check: true
+[29-Apr-2025 23:45:45 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:45:45 Europe/Berlin] getUserRole: admin
+[29-Apr-2025 23:45:45 Europe/Berlin] getUserId: 0
+[29-Apr-2025 23:45:53 Europe/Berlin] Session started. Session ID: nck3q6c07fvrvtfso149uq26p2
+[29-Apr-2025 23:45:53 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:45:53 Europe/Berlin] isAdmin check: true
+[29-Apr-2025 23:45:53 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:45:53 Europe/Berlin] getUserRole: admin
+[29-Apr-2025 23:45:53 Europe/Berlin] getUserId: 0
+[29-Apr-2025 23:46:57 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[29-Apr-2025 23:46:57 Europe/Berlin] Session data: Array
+(
+)
+
+[29-Apr-2025 23:46:57 Europe/Berlin] Login attempt for email: admin@evibe.com
+[29-Apr-2025 23:47:01 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[29-Apr-2025 23:47:01 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:47:01 Europe/Berlin] Session data in check_admin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:47:01 Europe/Berlin] Admin check result: false
+[29-Apr-2025 23:47:44 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[29-Apr-2025 23:47:44 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:47:44 Europe/Berlin] Login attempt for email: admin@evibe.com
+[29-Apr-2025 23:47:47 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[29-Apr-2025 23:47:47 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:47:47 Europe/Berlin] Session data in check_admin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:47:47 Europe/Berlin] Admin check result: true
+[29-Apr-2025 23:49:30 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[29-Apr-2025 23:49:30 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:49:30 Europe/Berlin] Session data in check_admin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:49:30 Europe/Berlin] Admin check result: true
+[29-Apr-2025 23:50:32 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[29-Apr-2025 23:50:32 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:50:32 Europe/Berlin] Session data in check_admin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:50:32 Europe/Berlin] Admin check result: true
+[29-Apr-2025 23:50:32 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[29-Apr-2025 23:50:32 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:50:32 Europe/Berlin] PHP Warning:  Undefined variable $conn in C:\xampp\htdocs\kaif_evibe\php\get_users.php on line 33
+[29-Apr-2025 23:50:32 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\kaif_evibe\php\get_users.php:33
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\kaif_evibe\php\get_users.php on line 33
+[29-Apr-2025 23:51:58 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[29-Apr-2025 23:51:58 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:51:58 Europe/Berlin] Session data in check_admin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:51:58 Europe/Berlin] Admin check result: true
+[29-Apr-2025 23:51:58 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[29-Apr-2025 23:51:58 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:51:59 Europe/Berlin] isAdmin check: true
+[29-Apr-2025 23:51:59 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:51:59 Europe/Berlin] Executing SQL query: SELECT id, fullname, email, contact_number, address, role, created_at FROM users ORDER BY created_at DESC
+[29-Apr-2025 23:52:46 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[29-Apr-2025 23:52:46 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:52:46 Europe/Berlin] Session data in check_admin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:52:46 Europe/Berlin] Admin check result: true
+[29-Apr-2025 23:52:46 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[29-Apr-2025 23:52:46 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:52:46 Europe/Berlin] isAdmin check: true
+[29-Apr-2025 23:52:46 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:52:46 Europe/Berlin] Executing SQL query: SELECT id, fullname, email, contact_number, address, role, created_at FROM users ORDER BY created_at DESC
+[29-Apr-2025 23:54:44 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[29-Apr-2025 23:54:44 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:54:44 Europe/Berlin] isAdmin check: true
+[29-Apr-2025 23:54:44 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:54:44 Europe/Berlin] Executing SQL query: SELECT id, fullname, email, contact_number, address, role, created_at FROM users ORDER BY created_at DESC
+[29-Apr-2025 23:54:47 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[29-Apr-2025 23:54:47 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:54:47 Europe/Berlin] isAdmin check: true
+[29-Apr-2025 23:54:47 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:54:47 Europe/Berlin] Executing SQL query: SELECT id, fullname, email, contact_number, address, role, created_at FROM users ORDER BY created_at DESC
+[29-Apr-2025 23:54:48 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[29-Apr-2025 23:54:48 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:54:48 Europe/Berlin] isAdmin check: true
+[29-Apr-2025 23:54:48 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:54:48 Europe/Berlin] Executing SQL query: SELECT id, fullname, email, contact_number, address, role, created_at FROM users ORDER BY created_at DESC
+[29-Apr-2025 23:54:57 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[29-Apr-2025 23:54:57 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:54:57 Europe/Berlin] Session data in check_admin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:54:57 Europe/Berlin] Admin check result: true
+[29-Apr-2025 23:54:57 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[29-Apr-2025 23:54:57 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:54:57 Europe/Berlin] isAdmin check: true
+[29-Apr-2025 23:54:57 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:54:57 Europe/Berlin] Executing SQL query: SELECT id, fullname, email, contact_number, address, role, created_at FROM users ORDER BY created_at DESC
+[29-Apr-2025 23:55:50 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[29-Apr-2025 23:55:50 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:55:50 Europe/Berlin] Session data in check_admin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:55:50 Europe/Berlin] Admin check result: true
+[29-Apr-2025 23:55:50 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[29-Apr-2025 23:55:50 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:55:50 Europe/Berlin] isAdmin check: true
+[29-Apr-2025 23:55:50 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:55:50 Europe/Berlin] Executing SQL query: SELECT id, fullname, email, contact_number, address, role, created_at FROM users ORDER BY created_at DESC
+[29-Apr-2025 23:57:40 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[29-Apr-2025 23:57:40 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:57:40 Europe/Berlin] Session data in check_admin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:57:40 Europe/Berlin] Admin check result: true
+[29-Apr-2025 23:57:40 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[29-Apr-2025 23:57:40 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:57:40 Europe/Berlin] isAdmin check: true
+[29-Apr-2025 23:57:40 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:57:40 Europe/Berlin] Executing SQL query: SELECT id, fullname, email, contact_number, address, role, created_at FROM users ORDER BY created_at DESC
+[29-Apr-2025 23:57:57 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[29-Apr-2025 23:57:57 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:57:57 Europe/Berlin] Session data in check_admin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:57:57 Europe/Berlin] Admin check result: true
+[29-Apr-2025 23:57:57 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[29-Apr-2025 23:57:57 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:57:57 Europe/Berlin] isAdmin check: true
+[29-Apr-2025 23:57:57 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:57:57 Europe/Berlin] Executing SQL query: SELECT id, fullname, email, contact_number, address, role, created_at FROM users ORDER BY created_at DESC
+[29-Apr-2025 23:59:24 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[29-Apr-2025 23:59:24 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:59:24 Europe/Berlin] Session data in check_admin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:59:24 Europe/Berlin] Admin check result: true
+[29-Apr-2025 23:59:24 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[29-Apr-2025 23:59:24 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:59:24 Europe/Berlin] isAdmin check: true
+[29-Apr-2025 23:59:24 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:59:24 Europe/Berlin] Executing SQL query: SELECT id, fullname, email, contact_number, address, role, created_at FROM users ORDER BY created_at DESC
+[29-Apr-2025 23:59:26 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[29-Apr-2025 23:59:26 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:59:26 Europe/Berlin] isAdmin check: true
+[29-Apr-2025 23:59:26 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:59:40 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[29-Apr-2025 23:59:40 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:59:40 Europe/Berlin] isAdmin check: true
+[29-Apr-2025 23:59:40 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:59:40 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[29-Apr-2025 23:59:40 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:59:40 Europe/Berlin] Session data in check_admin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:59:40 Europe/Berlin] Admin check result: true
+[29-Apr-2025 23:59:41 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[29-Apr-2025 23:59:41 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:59:41 Europe/Berlin] isAdmin check: true
+[29-Apr-2025 23:59:41 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[29-Apr-2025 23:59:41 Europe/Berlin] Executing SQL query: SELECT id, fullname, email, contact_number, address, role, created_at FROM users ORDER BY created_at DESC
+[30-Apr-2025 00:00:48 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:00:48 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:00:48 Europe/Berlin] Session data in check_admin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:00:48 Europe/Berlin] Admin check result: true
+[30-Apr-2025 00:00:48 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:00:48 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:00:48 Europe/Berlin] isAdmin check: true
+[30-Apr-2025 00:00:48 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:00:48 Europe/Berlin] Executing SQL query: SELECT id, fullname, email, contact_number, address, role, created_at FROM users ORDER BY created_at DESC
+[30-Apr-2025 00:00:58 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:00:58 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:00:58 Europe/Berlin] isAdmin check: true
+[30-Apr-2025 00:00:58 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:01:17 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:01:17 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:01:17 Europe/Berlin] Session data in check_admin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:01:17 Europe/Berlin] Admin check result: true
+[30-Apr-2025 00:01:17 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:01:17 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:01:17 Europe/Berlin] isAdmin check: true
+[30-Apr-2025 00:01:17 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:01:17 Europe/Berlin] Executing SQL query: SELECT id, fullname, email, contact_number, address, role, created_at FROM users ORDER BY created_at DESC
+[30-Apr-2025 00:01:59 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:01:59 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:01:59 Europe/Berlin] Session data in check_admin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:01:59 Europe/Berlin] Admin check result: true
+[30-Apr-2025 00:01:59 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:01:59 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:01:59 Europe/Berlin] isAdmin check: true
+[30-Apr-2025 00:01:59 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:01:59 Europe/Berlin] Executing SQL query: SELECT id, fullname, email, contact_number, address, role, created_at FROM users ORDER BY created_at DESC
+[30-Apr-2025 00:02:34 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:02:34 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:02:34 Europe/Berlin] Session data in check_admin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:02:34 Europe/Berlin] Admin check result: true
+[30-Apr-2025 00:02:34 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:02:34 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:02:34 Europe/Berlin] isAdmin check: true
+[30-Apr-2025 00:02:34 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:02:34 Europe/Berlin] Executing SQL query: SELECT id, fullname, email, contact_number, address, role, created_at FROM users ORDER BY created_at DESC
+[30-Apr-2025 00:02:44 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:02:44 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:02:44 Europe/Berlin] isAdmin check: true
+[30-Apr-2025 00:02:44 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:02:44 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:02:44 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:02:44 Europe/Berlin] isAdmin check: true
+[30-Apr-2025 00:02:44 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:02:44 Europe/Berlin] Executing SQL query: SELECT id, fullname, email, contact_number, address, role, created_at FROM users ORDER BY created_at DESC
+[30-Apr-2025 00:04:10 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:04:10 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:04:10 Europe/Berlin] Session data in check_admin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:04:10 Europe/Berlin] Admin check result: true
+[30-Apr-2025 00:04:10 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:04:10 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:04:10 Europe/Berlin] isAdmin check: true
+[30-Apr-2025 00:04:10 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:04:10 Europe/Berlin] Executing SQL query: SELECT id, fullname, email, contact_number, address, role, created_at FROM users ORDER BY created_at DESC
+[30-Apr-2025 00:04:19 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:04:19 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:04:19 Europe/Berlin] isAdmin check: true
+[30-Apr-2025 00:04:19 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:04:19 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:04:19 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:04:19 Europe/Berlin] isAdmin check: true
+[30-Apr-2025 00:04:19 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:04:19 Europe/Berlin] Executing SQL query: SELECT id, fullname, email, contact_number, address, role, created_at FROM users ORDER BY created_at DESC
+[30-Apr-2025 00:05:10 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:05:10 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:05:10 Europe/Berlin] Session data in check_admin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:05:10 Europe/Berlin] Admin check result: true
+[30-Apr-2025 00:05:10 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:05:10 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:05:10 Europe/Berlin] isAdmin check: true
+[30-Apr-2025 00:05:10 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:05:10 Europe/Berlin] Executing SQL query: SELECT id, fullname, email, contact_number, address, role, created_at FROM users ORDER BY created_at DESC
+[30-Apr-2025 00:05:17 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:05:17 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:05:17 Europe/Berlin] isAdmin check: true
+[30-Apr-2025 00:05:17 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:05:17 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:05:17 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:05:17 Europe/Berlin] isAdmin check: true
+[30-Apr-2025 00:05:17 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:05:17 Europe/Berlin] Executing SQL query: SELECT id, fullname, email, contact_number, address, role, created_at FROM users ORDER BY created_at DESC
+[30-Apr-2025 00:05:41 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:05:41 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:05:41 Europe/Berlin] Session data in check_admin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:05:41 Europe/Berlin] Admin check result: true
+[30-Apr-2025 00:05:42 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:05:42 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:05:42 Europe/Berlin] isAdmin check: true
+[30-Apr-2025 00:05:42 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:05:42 Europe/Berlin] Executing SQL query: SELECT id, fullname, email, contact_number, address, role, created_at FROM users ORDER BY created_at DESC
+[30-Apr-2025 00:07:53 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:07:53 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:07:53 Europe/Berlin] isAdmin check: true
+[30-Apr-2025 00:07:53 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:07:53 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:07:53 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:07:53 Europe/Berlin] isAdmin check: true
+[30-Apr-2025 00:07:53 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:07:53 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:07:53 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:07:53 Europe/Berlin] isAdmin check: true
+[30-Apr-2025 00:07:53 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:07:53 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:07:53 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:07:53 Europe/Berlin] isAdmin check: true
+[30-Apr-2025 00:07:53 Europe/Berlin] Session data in isAdmin: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:07:53 Europe/Berlin] Error in get_recent_bookings.php: Failed to get recent bookings: Unknown column 'b.id' in 'field list'
+[30-Apr-2025 00:09:21 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:09:21 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:09:21 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[30-Apr-2025 00:09:44 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:09:44 Europe/Berlin] Session data: Array
+(
+    [user_id] => 2
+    [fullname] => Demo Organizer
+    [email] => organizer@evibe.com
+    [role] => organizer
+)
+
+[30-Apr-2025 00:09:44 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[30-Apr-2025 00:11:14 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:11:14 Europe/Berlin] Session data: Array
+(
+    [user_id] => 2
+    [fullname] => Demo Organizer
+    [email] => organizer@evibe.com
+    [role] => organizer
+)
+
+[30-Apr-2025 00:11:14 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[30-Apr-2025 00:12:31 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:12:31 Europe/Berlin] Session data: Array
+(
+    [user_id] => 2
+    [fullname] => Demo Organizer
+    [email] => organizer@evibe.com
+    [role] => organizer
+)
+
+[30-Apr-2025 00:12:31 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[30-Apr-2025 00:13:18 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:13:18 Europe/Berlin] Session data: Array
+(
+    [user_id] => 2
+    [fullname] => Demo Organizer
+    [email] => organizer@evibe.com
+    [role] => organizer
+)
+
+[30-Apr-2025 00:13:18 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[30-Apr-2025 00:13:31 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:13:31 Europe/Berlin] Session data: Array
+(
+    [user_id] => 2
+    [fullname] => Demo Organizer
+    [email] => organizer@evibe.com
+    [role] => organizer
+)
+
+[30-Apr-2025 00:13:31 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[30-Apr-2025 00:14:18 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:14:18 Europe/Berlin] Session data: Array
+(
+    [user_id] => 2
+    [fullname] => Demo Organizer
+    [email] => organizer@evibe.com
+    [role] => organizer
+)
+
+[30-Apr-2025 00:14:18 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[30-Apr-2025 00:15:39 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:15:39 Europe/Berlin] Session data: Array
+(
+    [user_id] => 2
+    [fullname] => Demo Organizer
+    [email] => organizer@evibe.com
+    [role] => organizer
+)
+
+[30-Apr-2025 00:15:39 Europe/Berlin] PHP Warning:  require_once(php/db_connect.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\kaif_evibe\organizer.php on line 3
+[30-Apr-2025 00:15:39 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'php/db_connect.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\kaif_evibe\organizer.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\kaif_evibe\organizer.php on line 3
+[30-Apr-2025 00:16:09 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:16:09 Europe/Berlin] Session data: Array
+(
+    [user_id] => 2
+    [fullname] => Demo Organizer
+    [email] => organizer@evibe.com
+    [role] => organizer
+)
+
+[30-Apr-2025 00:16:09 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[30-Apr-2025 00:16:27 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:16:27 Europe/Berlin] Session data: Array
+(
+    [user_id] => 2
+    [fullname] => Demo Organizer
+    [email] => organizer@evibe.com
+    [role] => organizer
+)
+
+[30-Apr-2025 00:16:27 Europe/Berlin] PHP Warning:  require_once(php/db_connect.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\kaif_evibe\organizer.php on line 3
+[30-Apr-2025 00:16:27 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'php/db_connect.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\kaif_evibe\organizer.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\kaif_evibe\organizer.php on line 3
+[30-Apr-2025 00:17:18 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:17:18 Europe/Berlin] Session data: Array
+(
+    [user_id] => 2
+    [fullname] => Demo Organizer
+    [email] => organizer@evibe.com
+    [role] => organizer
+)
+
+[30-Apr-2025 00:17:18 Europe/Berlin] PHP Warning:  require_once(C:\xampp\htdocs\kaif_evibe/php/db_connect.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\kaif_evibe\organizer.php on line 12
+[30-Apr-2025 00:17:18 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\xampp\htdocs\kaif_evibe/php/db_connect.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\kaif_evibe\organizer.php:12
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\kaif_evibe\organizer.php on line 12
+[30-Apr-2025 00:17:19 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:17:19 Europe/Berlin] Session data: Array
+(
+    [user_id] => 2
+    [fullname] => Demo Organizer
+    [email] => organizer@evibe.com
+    [role] => organizer
+)
+
+[30-Apr-2025 00:17:19 Europe/Berlin] PHP Warning:  require_once(C:\xampp\htdocs\kaif_evibe/php/db_connect.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\kaif_evibe\organizer.php on line 12
+[30-Apr-2025 00:17:19 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\xampp\htdocs\kaif_evibe/php/db_connect.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\kaif_evibe\organizer.php:12
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\kaif_evibe\organizer.php on line 12
+[30-Apr-2025 00:17:19 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:17:19 Europe/Berlin] Session data: Array
+(
+    [user_id] => 2
+    [fullname] => Demo Organizer
+    [email] => organizer@evibe.com
+    [role] => organizer
+)
+
+[30-Apr-2025 00:17:19 Europe/Berlin] PHP Warning:  require_once(C:\xampp\htdocs\kaif_evibe/php/db_connect.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\kaif_evibe\organizer.php on line 12
+[30-Apr-2025 00:17:19 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\xampp\htdocs\kaif_evibe/php/db_connect.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\kaif_evibe\organizer.php:12
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\kaif_evibe\organizer.php on line 12
+[30-Apr-2025 00:17:19 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:17:19 Europe/Berlin] Session data: Array
+(
+    [user_id] => 2
+    [fullname] => Demo Organizer
+    [email] => organizer@evibe.com
+    [role] => organizer
+)
+
+[30-Apr-2025 00:17:19 Europe/Berlin] PHP Warning:  require_once(C:\xampp\htdocs\kaif_evibe/php/db_connect.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\kaif_evibe\organizer.php on line 12
+[30-Apr-2025 00:17:19 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\xampp\htdocs\kaif_evibe/php/db_connect.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\kaif_evibe\organizer.php:12
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\kaif_evibe\organizer.php on line 12
+[30-Apr-2025 00:17:45 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:17:45 Europe/Berlin] Session data: Array
+(
+    [user_id] => 2
+    [fullname] => Demo Organizer
+    [email] => organizer@evibe.com
+    [role] => organizer
+)
+
+[30-Apr-2025 00:17:45 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[30-Apr-2025 00:17:57 Europe/Berlin] Session started. Session ID: rm093mu6gt4p124sk5nouvhqrg
+[30-Apr-2025 00:17:57 Europe/Berlin] Session data: Array
+(
+    [user_id] => 2
+    [fullname] => Demo Organizer
+    [email] => organizer@evibe.com
+    [role] => organizer
+)
+
+[30-Apr-2025 00:17:57 Europe/Berlin] Login attempt for email: admin@evibe.com
+[30-Apr-2025 00:20:16 Europe/Berlin] Session started. Session ID: 0196lrhoe8ahh73dec7iabd3j3
+[30-Apr-2025 00:20:16 Europe/Berlin] Session data: Array
+(
+)
+
+[30-Apr-2025 00:20:16 Europe/Berlin] Login attempt for email: admin@evibe.com
+[30-Apr-2025 00:20:32 Europe/Berlin] Session started. Session ID: 0196lrhoe8ahh73dec7iabd3j3
+[30-Apr-2025 00:20:32 Europe/Berlin] Session data: Array
+(
+    [user_id] => 0
+    [fullname] => Admin
+    [email] => admin@evibe.com
+    [role] => admin
+)
+
+[30-Apr-2025 00:20:32 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[30-Apr-2025 00:21:43 Europe/Berlin] Session started. Session ID: 0196lrhoe8ahh73dec7iabd3j3
+[30-Apr-2025 00:21:43 Europe/Berlin] Session data: Array
+(
+    [user_id] => 2
+    [fullname] => Demo Organizer
+    [email] => organizer@evibe.com
+    [role] => organizer
+)
+
+[30-Apr-2025 00:21:43 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[30-Apr-2025 00:22:40 Europe/Berlin] Session started. Session ID: 0196lrhoe8ahh73dec7iabd3j3
+[30-Apr-2025 00:22:40 Europe/Berlin] Session data: Array
+(
+    [user_id] => 2
+    [fullname] => Demo Organizer
+    [email] => organizer@evibe.com
+    [role] => organizer
+)
+
+[30-Apr-2025 00:22:40 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[30-Apr-2025 00:24:51 Europe/Berlin] Session started. Session ID: 0196lrhoe8ahh73dec7iabd3j3
+[30-Apr-2025 00:24:51 Europe/Berlin] Session data: Array
+(
+    [user_id] => 2
+    [fullname] => Demo Organizer
+    [email] => organizer@evibe.com
+    [role] => organizer
+)
+
+[30-Apr-2025 00:24:51 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[30-Apr-2025 00:25:38 Europe/Berlin] Session started. Session ID: 0196lrhoe8ahh73dec7iabd3j3
+[30-Apr-2025 00:25:38 Europe/Berlin] Session data: Array
+(
+    [user_id] => 2
+    [fullname] => Demo Organizer
+    [email] => organizer@evibe.com
+    [role] => organizer
+)
+
+[30-Apr-2025 00:25:38 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[30-Apr-2025 00:25:58 Europe/Berlin] Session started. Session ID: 0196lrhoe8ahh73dec7iabd3j3
+[30-Apr-2025 00:25:58 Europe/Berlin] Session data: Array
+(
+    [user_id] => 2
+    [fullname] => Demo Organizer
+    [email] => organizer@evibe.com
+    [role] => organizer
+)
+
+[30-Apr-2025 00:25:58 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[30-Apr-2025 00:25:58 Europe/Berlin] Session started. Session ID: 0196lrhoe8ahh73dec7iabd3j3
+[30-Apr-2025 00:25:58 Europe/Berlin] Session data: Array
+(
+    [user_id] => 2
+    [fullname] => Demo Organizer
+    [email] => organizer@evibe.com
+    [role] => organizer
+)
+
+[30-Apr-2025 00:25:58 Europe/Berlin] PHP Warning:  require_once(db_connect.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\kaif_evibe\php\get_dashboard_stats.php on line 3
+[30-Apr-2025 00:25:58 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'db_connect.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\kaif_evibe\php\get_dashboard_stats.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\kaif_evibe\php\get_dashboard_stats.php on line 3
+[30-Apr-2025 00:26:54 Europe/Berlin] Session started. Session ID: 8j5ppnh9gc30dei3e20mt8n5ek
+[30-Apr-2025 00:26:54 Europe/Berlin] Session data: Array
+(
+)
+
+[30-Apr-2025 00:26:54 Europe/Berlin] Login attempt for email: organizer@evibe.com
+[30-Apr-2025 00:26:55 Europe/Berlin] Session started. Session ID: 8j5ppnh9gc30dei3e20mt8n5ek
+[30-Apr-2025 00:26:55 Europe/Berlin] Session data: Array
+(
+    [user_id] => 2
+    [fullname] => Demo Organizer
+    [email] => organizer@evibe.com
+    [role] => organizer
+)
+
+[30-Apr-2025 00:26:55 Europe/Berlin] PHP Warning:  require_once(db_connect.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\kaif_evibe\php\get_dashboard_stats.php on line 3
+[30-Apr-2025 00:26:55 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'db_connect.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\kaif_evibe\php\get_dashboard_stats.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\kaif_evibe\php\get_dashboard_stats.php on line 3
+[30-Apr-2025 00:27:02 Europe/Berlin] Session started. Session ID: 8j5ppnh9gc30dei3e20mt8n5ek
+[30-Apr-2025 00:27:02 Europe/Berlin] Session data: Array
+(
+    [user_id] => 2
+    [fullname] => Demo Organizer
+    [email] => organizer@evibe.com
+    [role] => organizer
+)
+
+[30-Apr-2025 00:27:02 Europe/Berlin] Session data in check_admin: Array
+(
+    [user_id] => 2
+    [fullname] => Demo Organizer
+    [email] => organizer@evibe.com
+    [role] => organizer
+)
+
+[30-Apr-2025 00:27:02 Europe/Berlin] Admin check result: false
+[30-Apr-2025 00:27:18 Europe/Berlin] Session started. Session ID: 8j5ppnh9gc30dei3e20mt8n5ek
+[30-Apr-2025 00:27:18 Europe/Berlin] Session data: Array
+(
+    [user_id] => 2
+    [fullname] => Demo Organizer
+    [email] => organizer@evibe.com
+    [role] => organizer
+)
+
+[30-Apr-2025 00:27:18 Europe/Berlin] Login attempt received
+[30-Apr-2025 00:27:18 Europe/Berlin] PHP Warning:  Undefined variable $conn in C:\xampp\htdocs\kaif_evibe\php\login_process.php on line 44
+[30-Apr-2025 00:27:18 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\kaif_evibe\php\login_process.php:44
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\kaif_evibe\php\login_process.php on line 44
+[30-Apr-2025 00:27:23 Europe/Berlin] Session started. Session ID: 8j5ppnh9gc30dei3e20mt8n5ek
+[30-Apr-2025 00:27:23 Europe/Berlin] Session data: Array
+(
+    [user_id] => 2
+    [fullname] => Demo Organizer
+    [email] => organizer@evibe.com
+    [role] => organizer
+)
+
+[30-Apr-2025 00:27:23 Europe/Berlin] Login attempt received
+[30-Apr-2025 00:27:23 Europe/Berlin] PHP Warning:  Undefined variable $conn in C:\xampp\htdocs\kaif_evibe\php\login_process.php on line 44
+[30-Apr-2025 00:27:23 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\kaif_evibe\php\login_process.php:44
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\kaif_evibe\php\login_process.php on line 44
+[30-Apr-2025 00:29:12 Europe/Berlin] Login attempt received
+[30-Apr-2025 00:29:12 Europe/Berlin] PHP Warning:  Undefined variable $conn in C:\xampp\htdocs\kaif_evibe\php\login_process.php on line 44
+[30-Apr-2025 00:29:12 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\kaif_evibe\php\login_process.php:44
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\kaif_evibe\php\login_process.php on line 44

@@ -1,0 +1,18 @@
+[24-Apr-2025 21:44:57 Europe/Berlin] 2025-04-24 21:44:57 - File upload attempt: Array
+(
+    [name] => 6806b3c36f4da.jpg
+    [full_path] => 6806b3c36f4da.jpg
+    [type] => image/jpeg
+    [tmp_name] => /Applications/XAMPP/xamppfiles/temp/phpbPN7wY
+    [error] => 0
+    [size] => 101705
+)
+
+[24-Apr-2025 21:44:57 Europe/Berlin] 2025-04-24 21:44:57 - Upload directory path: /Applications/XAMPP/xamppfiles/htdocs/kaif_evibe/templates/php/../uploads/profile_images/
+[24-Apr-2025 21:44:57 Europe/Berlin] 2025-04-24 21:44:57 - Target filepath: /Applications/XAMPP/xamppfiles/htdocs/kaif_evibe/templates/php/../uploads/profile_images/profile_8_1745523897.jpg
+[24-Apr-2025 21:44:57 Europe/Berlin] 2025-04-24 21:44:57 - File moved successfully to: /Applications/XAMPP/xamppfiles/htdocs/kaif_evibe/templates/php/../uploads/profile_images/profile_8_1745523897.jpg
+[24-Apr-2025 21:44:57 Europe/Berlin] PHP Warning:  require_once(../../config/database.php): Failed to open stream: No such file or directory in /Applications/XAMPP/xamppfiles/htdocs/kaif_evibe/templates/php/update_profile_image.php on line 108
+[24-Apr-2025 21:44:57 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '../../config/database.php' (include_path='.:/Applications/XAMPP/xamppfiles/lib/php') in /Applications/XAMPP/xamppfiles/htdocs/kaif_evibe/templates/php/update_profile_image.php:108
+Stack trace:
+#0 {main}
+  thrown in /Applications/XAMPP/xamppfiles/htdocs/kaif_evibe/templates/php/update_profile_image.php on line 108

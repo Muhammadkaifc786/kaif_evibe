@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Categories - Admin Panel</title>
+    <link rel="stylesheet" href="/kaif_evibe/templates/css/admin_add_category.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            background: url("/evibe_database-update_with_php/templates/images/bg.jpg") no-repeat center center/cover;
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .Nav-1 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(13px);
+            -webkit-backdrop-filter: blur(13px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 32px 0 rgba(0, 0, 0, 0.37);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+        }
+
+        .Nav-1 h1 {
+            font-size: 2rem;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            font-weight: 600;
+            letter-spacing: 2px;
+            white-space: nowrap;
+        }
+
+        .Nav-Element {
+            flex: 0 0 auto;
+        }
+
+        .Nav-Element ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        .Nav-Element a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+
+        .Nav-Element a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .Nav-Element a i {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .Nav-Element a:hover i {
+            transform: scale(1.1);
+            color: #FF4B2B;
+        }
+
+        .logout-btn {
+            background: rgba(255, 75, 43, 0.2);
+            border: 1px solid rgba(255, 75, 43, 0.3);
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 75, 43, 0.3);
+        }
+
+        .categories-container {
+            margin-top: 100px;
+            padding: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .categories-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .categories-header h2 {
+            color: #fff;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .add-category-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            background: #FF4B2B;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .add-category-btn:hover {
+            background: #ff3b1a;
+            transform: translateY(-2px);
+        }
+
+        .categories-table {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(13px);
+            -webkit-backdrop-filter: blur(13px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .categories-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .categories-table th,
+        .categories-table td {
+            padding: 1rem;
+            text-align: left;
+            color: #fff;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .categories-table th {
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .categories-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .edit-btn,
+        .delete-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .edit-btn {
+            background: rgba(75, 192, 192, 0.2);
+            color: #fff;
+        }
+
+        .delete-btn {
+            background: rgba(255, 75, 43, 0.2);
+            color: #fff;
+        }
+
+        .edit-btn:hover {
+            background: rgba(75, 192, 192, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .delete-btn:hover {
+            background: rgba(255, 75, 43, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .edit-btn i,
+        .delete-btn i {
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .edit-btn:hover i,
+        .delete-btn:hover i {
+            transform: scale(1.1);
+        }
+
+        .success-message {
+            background: rgba(75, 192, 192, 0.2);
+            color: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .error-message {
+            background: rgba(255, 75, 43, 0.2);
+            color: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Glassmorphic Navigation -->
+    <div class="Nav-1">
+        <h1>EVibe</h1>
+        
+        <div class="Nav-Element">
+            <ul>
+                <a href="admin_panel.html"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="admin_register.html"><i class="fas fa-user-plus"></i> Register</a>
+                <a href="admin_add_category.html"><i class="fas fa-folder-plus"></i> Add Category</a>
+                <a href="admin_categories.html"><i class="fas fa-folder"></i> Categories</a>
+                <a href="admin_events.html"><i class="fas fa-calendar"></i> Events</a>
+                <a href="admin_users.html"><i class="fas fa-users"></i> Users</a>
+                <button id="logoutBtn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </ul>
+        </div>
+    </div>
+
+        <div class="categories-container">
+            <div class="categories-header">
+                <h2><i class="fas fa-folder"></i> Manage Categories</h2>
+            <a href="admin_add_category.html" class="add-category-btn">
+                <i class="fas fa-plus"></i> Add New Category
+                </a>
+            </div>
+
+        <div class="success-message" id="successMessage">
+            Category added successfully!
+        </div>
+
+        <div class="error-message" id="errorMessage">
+            Error adding category. Please try again.
+        </div>
+
+        <div class="categories-table">
+            <table class="table table-striped">
+                    <thead>
+                        <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Icon</th>
+                            <th>Created At</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                <tbody id="categoriesTableBody">
+                    <!-- Categories will be loaded here -->
+                    </tbody>
+                </table>
+        </div>
+    </div>
+
+    <script>
+        // Load categories when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCategories();
+            
+            // Check for success/error messages in URL
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('success') === '1') {
+                document.getElementById('successMessage').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('successMessage').style.display = 'none';
+                }, 3000);
+            }
+            if (urlParams.get('error')) {
+                document.getElementById('errorMessage').textContent = decodeURIComponent(urlParams.get('error'));
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+        });
+
+        function loadCategories() {
+            fetch('/kaif_evibe/php/admin/get_categories.php')
+                .then(response => response.json())
+                .then(categories => {
+                    const tableBody = document.getElementById('categoriesTableBody');
+                    tableBody.innerHTML = '';
+                    
+                    categories.forEach(category => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${category.category_id}</td>
+                            <td>${category.name}</td>
+                            <td>${category.icon}</td>
+                            <td>${category.created_at}</td>
+                            <td class="action-buttons">
+                                <a href="admin_edit_category.html?id=${category.category_id}" class="edit-btn">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <button onclick="deleteCategory(${category.category_id})" class="delete-btn">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading categories:', error);
+                    alert('Error loading categories');
+                });
+        }
+
+        function deleteCategory(categoryId) {
+            if (confirm('Are you sure you want to delete this category?')) {
+                fetch('/kaif_evibe/php/admin/delete_category.php', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ category_id: categoryId })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert(data.error);
+                    } else {
+                        alert('Category deleted successfully');
+                        loadCategories(); // Reload the categories table
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error deleting category');
+                });
+            }
+        }
+
+        $(document).ready(function() {
+            // Handle logout
+            $('#logoutBtn').on('click', function(e) {
+                e.preventDefault();
+                
+                $.ajax({
+                    url: '/kaif_evibe/templates/php/logout.php',
+                    method: 'POST',
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log('Logout response:', response);
+                        if(response && response.success) {
+                            window.location.href = '/kaif_evibe/templates/html/login.html';
+                        } else {
+                            alert('Error logging out: ' + (response ? response.message : 'Unknown error'));
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Logout error:', error);
+                        console.error('Status:', status);
+                        console.error('Response:', xhr.responseText);
+                        alert('Error connecting to server');
+                    }
+                });
+                
+                return false;
+            });
+        });
+    </script>
+</body>
+</html>

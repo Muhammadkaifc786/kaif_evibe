@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Event Analytics & History - EVibe</title>
+    <link rel="stylesheet" href="../css/organizer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <!-- Background Container -->
+    <div class="background-container"></div>
+
+    <div class="main-1">
+        <div class="Nav-1">
+            <h1>EVibe</h1>
+            
+            <div class="search-bar-pro">
+                <input type="text" name="search" id="srch" class="search-bar-pro-input" placeholder="Search history...">
+                <button id="searchButton" class="search-bar-pro-btn"><i class="fas fa-search"></i></button>
+            </div>
+            
+            <div class="Nav-Element">
+                <ul>
+                    <a href="user_panel.html"><li id="home">Home</li></a>
+                   
+                    <li class="dropdown" id="categories">
+                        <a href="javascript:void(0)" class="dropdown-toggle">Categories <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content" id="categoryDropdown">
+                            <!-- Categories will be loaded here -->
+                        </div>
+                    </li>
+                    <a href="Booked_event.html"><li id="booked">Booked Events</li></a>
+                    <a href="favorites.html"><li id="favorites">Favorites</li></a>
+                    <a href="history.html"><li id="history" class="active">History</li></a>
+                </ul>
+            </div>
+
+          
+
+            <button class="btn-logout" id="logoutBtn">Logout</button>
+        </div>
+
+        <div class="page-header">
+            <h1>Event Activity Analytics</h1>
+            <p>Comprehensive overview of your event engagement</p>
+            <div class="history-stats">
+                <div class="stat-item">
+                    <i class="fas fa-eye"></i>
+                    <span id="totalViewed">0</span> Viewed
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-ticket-alt"></i>
+                    <span id="totalBooked">0</span> Booked
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span id="totalAttended">0</span> Attended
+                </div>
+            </div>
+        </div>
+
+        <div class="history-tabs">
+            <button class="tab-btn active" data-tab="viewed"><i class="fas fa-eye"></i> Viewed Events</button>
+            <button class="tab-btn" data-tab="booked"><i class="fas fa-ticket-alt"></i> Booked Events</button>
+            <button class="tab-btn" data-tab="attended"><i class="fas fa-check-circle"></i> Attended Events</button>
+        </div>
+
+        <div class="history-container">
+            <div id="viewedEvents" class="history-section active">
+                <div class="event-grid">
+                    <!-- Viewed events will be loaded here -->
+                    <div class="loading-indicator">
+                        <i class="fas fa-spinner fa-pulse"></i>
+                        <p>Loading viewed events...</p>
+                    </div>
+                </div>
+            </div>
+            <div id="bookedEvents" class="history-section">
+                <div class="event-grid">
+                    <!-- Booked events will be loaded here -->
+                    <div class="loading-indicator">
+                        <i class="fas fa-spinner fa-pulse"></i>
+                        <p>Loading booked events...</p>
+                    </div>
+                </div>
+            </div>
+            <div id="attendedEvents" class="history-section">
+                <div class="event-grid">
+                    <!-- Attended events will be loaded here -->
+                    <div class="loading-indicator">
+                        <i class="fas fa-spinner fa-pulse"></i>
+                        <p>Loading attended events...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="empty-history-container" style="display: none;">
+            <div class="empty-state">
+                <i class="fas fa-history"></i>
+                <h2>No History Yet</h2>
+                <p>Your event history will appear here as you interact with events.</p>
+                <a href="user_panel.html" class="btn-primary">Explore Events</a>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About EVibe</h3>
+                    <p>Your one-stop platform for event management and ticket booking.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 EVibe. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Global function for creating event cards
+        function createEventCard(event) {
+            let imageUrl = event.image_url;
+            
+            // Handle image URL
+            if (imageUrl && !imageUrl.startsWith('/kaif_evibe/')) {
+                if (!imageUrl.startsWith('/')) {
+                    imageUrl = '/kaif_evibe/templates/' + imageUrl;
+                } else {
+                    imageUrl = '/kaif_evibe' + imageUrl;
+                }
+            }
+
+            if (!imageUrl) {
+                imageUrl = '/kaif_evibe/templates/images/default-event.jpg';
+            }
+
+            return `
+                <div class="event-card" data-event-id="${event.event_id}" data-booking-id="${event.booking_id}">
+                    <div class="event-image-container">
+                        <img src="${imageUrl}" alt="${event.title}" class="event-image">
+                        <div class="history-badge">
+                            <i class="fas ${event.type === 'viewed' ? 'fa-eye' : event.type === 'booked' ? 'fa-ticket-alt' : 'fa-check-circle'}"></i>
+                            <span>${event.type.charAt(0).toUpperCase() + event.type.slice(1)}</span>
+                        </div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-title-container">
+                            <h3 class="event-title">${event.title}</h3>
+                        </div>
+                        <div class="event-info">
+                            <p><i class="fas fa-calendar"></i> ${event.formatted_date}</p>
+                            <p><i class="fas fa-map-marker-alt"></i> ${event.venue}</p>
+                            <p><i class="fas fa-tag"></i> ${event.category}</p>
+                            <p><i class="fas fa-user"></i> Organizer: ${event.organizer_name || 'Unknown'}</p>
+                            <p><i class="fas fa-star"></i> ${event.rating} (${event.rating_count} reviews)</p>
+                            <p><i class="fas fa-ticket-alt"></i> $${event.price}</p>
+                        </div>
+                        <div class="event-actions">
+                            <button class="btn-view" onclick="viewEvent(${event.event_id})">
+                                <i class="fas fa-eye"></i> View Event
+                            </button>
+                            ${event.type === 'booked' ? `
+                                <button class="btn-download" onclick="downloadTicket(${event.event_id})">
+                                    <i class="fas fa-download"></i> Download Ticket
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        $(document).ready(function() {
+            // Check session status
+            function checkSession() {
+                $.ajax({
+                    url: '/kaif_evibe/templates/php/check_session.php',
+                    method: 'GET',
+                    success: function(response) {
+                        if (!response.logged_in) {
+                            window.location.href = 'login.html';
+                            return;
+                        }
+                        
+                        // Update user information
+                        $('#userName').text(response.name || 'User');
+                        
+                        // Load history
+                        loadHistory();
+                    },
+                    error: function() {
+                        window.location.href = 'login.html';
+                    }
+                });
+            }
+
+            // Load user's event history
+            function loadHistory() {
+                $.ajax({
+                    url: '/kaif_evibe/templates/php/get_user_history.php',
+                    method: 'GET',
+                    success: function(response) {
+                        if (response.success) {
+                            // Update stats
+                            $('#totalViewed').text(response.viewed_count || '0');
+                            $('#totalBooked').text(response.booked_count || '0');
+                            $('#totalAttended').text(response.attended_count || '0');
+
+                            // Load viewed events
+                            if (response.viewed_events && response.viewed_events.length > 0) {
+                                const $container = $('#viewedEvents .event-grid');
+                                $container.empty();
+                                $container.before('<div class="section-header"><h2><i class="fas fa-eye"></i> Viewed Events</h2></div>');
+                                response.viewed_events.forEach(event => {
+                                    event.type = 'viewed';
+                                    $container.append(createEventCard(event));
+                                });
+                            }
+
+                            // Load booked events
+                            if (response.booked_events && response.booked_events.length > 0) {
+                                const $container = $('#bookedEvents .event-grid');
+                                $container.empty();
+                                $container.before('<div class="section-header"><h2><i class="fas fa-ticket-alt"></i> Booked Events</h2><div class="section-actions"></div></div>');
+                                response.booked_events.forEach(event => {
+                                    event.type = 'booked';
+                                    // Make sure booking_id is included in the event data
+                                    if (!event.booking_id) {
+                                        console.error('Missing booking_id for event:', event);
+                                        return;
+                                    }
+                                    $container.append(createEventCard(event));
+                                });
+                            }
+
+                            // Load attended events
+                            if (response.attended_events && response.attended_events.length > 0) {
+                                const $container = $('#attendedEvents .event-grid');
+                                $container.empty();
+                                $container.before('<div class="section-header"><h2><i class="fas fa-check-circle"></i> Attended Events</h2></div>');
+                                response.attended_events.forEach(event => {
+                                    event.type = 'attended';
+                                    $container.append(createEventCard(event));
+                                });
+                            }
+
+                            // Show empty state if no history
+                            if (!response.viewed_events?.length && 
+                                !response.booked_events?.length && 
+                                !response.attended_events?.length) {
+                                $('.history-container').hide();
+                                $('.empty-history-container').show();
+                            } else {
+                                $('.history-container').show();
+                                $('.empty-history-container').hide();
+                            }
+                        } else {
+                            console.error('Error loading history:', response.message);
+                            showError('Error loading history. Please try again later.');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                        showError('Error loading history. Please try again later.');
+                    }
+                });
+            }
+
+            // Search functionality
+            function searchHistory(searchTerm) {
+                $.ajax({
+                    url: '/kaif_evibe/templates/php/search_history.php',
+                    method: 'GET',
+                    data: { q: searchTerm },
+                    success: function(response) {
+                        if (response.success) {
+                            // Clear all sections
+                            $('.event-grid').empty();
+                            
+                            // Update current active section with search results
+                            const activeTab = $('.tab-btn.active').data('tab');
+                            const $container = $(`#${activeTab}Events .event-grid`);
+                            
+                            if (response.events && response.events.length > 0) {
+                                response.events.forEach(event => {
+                                    event.type = activeTab;
+                                    $container.append(createEventCard(event));
+                                });
+                                $('.empty-history-container').hide();
+                                $('.history-container').show();
+                            } else {
+                                $container.html(`
+                                    <div class="no-results">
+                                        <i class="fas fa-search"></i>
+                                        <p>No events found matching "${searchTerm}"</p>
+                                    </div>
+                                `);
+                            }
+                        } else {
+                            showError('Error searching history. Please try again later.');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                        showError('Error searching history. Please try again later.');
+                    }
+                });
+            }
+
+            // Tab switching functionality
+            $('.tab-btn').on('click', function() {
+                const tab = $(this).data('tab');
+                
+                // Update active tab
+                $('.tab-btn').removeClass('active');
+                $(this).addClass('active');
+                
+                // Show corresponding section
+                $('.history-section').removeClass('active');
+                $(`#${tab}Events`).addClass('active');
+            });
+
+            // Search functionality
+            $('#searchButton').on('click', function() {
+                const searchTerm = $('#srch').val().trim();
+                if (searchTerm.length > 0) {
+                    searchHistory(searchTerm);
+                }
+            });
+
+            // Logout functionality
+            $('#logoutBtn').on('click', function() {
+                $.ajax({
+                    url: '/kaif_evibe/templates/php/logout.php',
+                    method: 'POST',
+                    success: function() {
+                        window.location.href = 'login.html';
+                    }
+                });
+            });
+
+            // Initial session check
+            checkSession();
+        });
+
+        function viewEvent(eventId) {
+            // First record this view in the database
+            $.ajax({
+                url: '/kaif_evibe/templates/php/record_event_view.php',
+                method: 'POST',
+                data: { event_id: eventId },
+                success: function(response) {
+                    console.log('View recorded:', response);
+                    // Then redirect to the event page
+                    window.location.href = `View_Event.html?id=${eventId}`;
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error recording view:', error);
+                    // Still redirect even if recording fails
+                    window.location.href = `View_Event.html?id=${eventId}`;
+                }
+            });
+        }
+
+        function downloadTicket(eventId) {
+            // Get the booking ID from the event card
+            const $eventCard = $(`#bookedEvents .event-card[data-event-id="${eventId}"]`);
+            const bookingId = $eventCard.data('booking-id');
+            
+            if (!bookingId) {
+                console.error('Booking ID not found for event:', eventId);
+                showError('Unable to find booking information. Please try again later.');
+                return;
+            }
+            
+            // Show loading indicator
+            showLoading('Generating ticket...');
+            
+            // Open the ticket generation URL in a new window/tab
+            const ticketUrl = `/kaif_evibe/templates/php/generate_ticket_pdf.php?booking_id=${bookingId}`;
+            const ticketWindow = window.open(ticketUrl, '_blank');
+            
+            // Hide loading indicator after a short delay
+            setTimeout(() => {
+                hideLoading();
+            }, 1000);
+        }
+
+        function showLoading(message) {
+            // Create loading overlay if it doesn't exist
+            if (!$('#loadingOverlay').length) {
+                $('body').append(`
+                    <div id="loadingOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+                        background: rgba(0, 0, 0, 0.7); z-index: 9999; display: flex; justify-content: center; align-items: center;">
+                        <div style="background: white; padding: 20px; border-radius: 10px; text-align: center;">
+                            <i class="fas fa-spinner fa-spin" style="font-size: 24px; margin-bottom: 10px;"></i>
+                            <p>${message}</p>
+                        </div>
+                    </div>
+                `);
+            }
+            $('#loadingOverlay').show();
+        }
+
+        function hideLoading() {
+            $('#loadingOverlay').hide();
+        }
+
+        function showError(message) {
+            $('.history-container').html(`
+                <div class="error-message">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <p>${message}</p>
+                </div>
+            `);
+        }
+    </script>
+
+    <style>
+    /* Professional header style */
+    .page-header {
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3));
+        border-radius: 10px;
+        padding: 25px 20px;
+        margin: 20px 0;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .page-header h1 {
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 2.2rem;
+        color: #ffffff;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        padding-bottom: 15px;
+        position: relative;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    
+    .page-header h1:after {
+        content: '';
+        position: absolute;
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(90deg, #4CAF50, #2196F3);
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .page-header p {
+        text-align: center;
+        color: #e0e0e0;
+        font-size: 1.1rem;
+        font-style: italic;
+        margin-bottom: 20px;
+    }
+    
+    /* Existing history page styles */
+    .history-stats {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin-top: 20px;
+    }
+
+    .stat-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 15px 25px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 25px;
+        color: #fff;
+        font-size: 1.2rem;
+    }
+
+    .stat-item i {
+        color: #ffcc00;
+    }
+
+    .stat-item span {
+        font-weight: bold;
+        color: #ffcc00;
+    }
+
+    .history-tabs {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin: 30px 0;
+        padding: 5px;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 40px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .tab-btn {
+        padding: 12px 25px;
+        background: transparent;
+        border: none;
+        border-radius: 30px;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 1.1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        flex: 1;
+        text-align: center;
+    }
+
+    .tab-btn:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+        z-index: -1;
+    }
+
+    .tab-btn:hover {
+        color: #fff;
+    }
+
+    .tab-btn:hover:before {
+        width: 100%;
+    }
+
+    .tab-btn.active {
+        background: #4CAF50;
+        color: white;
+        box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+    }
+
+    .tab-btn.active:before {
+        width: 100%;
+    }
+    
+    .tab-btn[data-tab="booked"].active {
+        background: #2196F3;
+        box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4);
+    }
+
+    .tab-btn[data-tab="attended"].active {
+        background: #9C27B0;
+        box-shadow: 0 4px 15px rgba(156, 39, 176, 0.4);
+    }
+    
+    .tab-btn i {
+        margin-right: 8px;
+    }
+    
+    /* Section header styling */
+    .section-header {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 15px 20px;
+        border-radius: 10px;
+        margin-bottom: 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .section-header h2 {
+        color: #fff;
+        font-size: 1.5rem;
+        margin: 0;
+    }
+    
+    .section-header .section-actions {
+        display: flex;
+        gap: 10px;
+    }
+    
+    /* Booked events special styling */
+    #bookedEvents .event-card {
+        border-left: 4px solid #2196F3;
+    }
+    
+    #bookedEvents .event-info i {
+        color: #2196F3;
+    }
+    
+    #bookedEvents .btn-download {
+        background: #ff9800;
+    }
+    
+    #bookedEvents .btn-download:hover {
+        background: #f57c00;
+    }
+    
+    #bookedEvents .history-badge {
+        background: rgba(33, 150, 243, 0.2);
+        backdrop-filter: blur(10px);
+    }
+    
+    #bookedEvents .history-badge i {
+        color: #2196F3;
+    }
+    
+    /* Enhance the section containers */
+    .history-section {
+        padding: 10px;
+        border-radius: 12px;
+        background: rgba(0, 0, 0, 0.1);
+        box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .history-section {
+        display: none;
+    }
+
+    .history-section.active {
+        display: block;
+    }
+
+    .history-badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .history-badge i {
+        color: #ffcc00;
+    }
+
+    .btn-download {
+        background: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    .btn-download:hover {
+        background: #45a049;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        margin: 20px;
+    }
+
+    .empty-state i {
+        font-size: 3rem;
+        color: #ffcc00;
+        margin-bottom: 15px;
+    }
+
+    .empty-state h2 {
+        color: #fff;
+        margin-bottom: 10px;
+    }
+
+    .empty-state p {
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 20px;
+    }
+
+    .btn-primary {
+        display: inline-block;
+        background: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background: #45a049;
+    }
+
+    .error-message {
+        text-align: center;
+        padding: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        margin: 20px;
+        color: #fff;
+    }
+
+    .error-message i {
+        font-size: 3rem;
+        color: #ff4444;
+        margin-bottom: 15px;
+    }
+
+    /* Enhanced Event Card Styles */
+    .event-card {
+        background: rgba(20, 20, 30, 0.7);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        margin-bottom: 15px;
+        width: 100%;
+        min-width: 300px; /* Ensure minimum width */
+    }
+    
+    .event-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+        border-color: rgba(255, 255, 255, 0.15);
+    }
+    
+    .event-image-container {
+        position: relative;
+        height: 180px;
+        overflow: hidden;
+    }
+    
+    .event-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    
+    .event-card:hover .event-image {
+        transform: scale(1.05);
+    }
+    
+    .event-title-container {
+        padding: 15px 15px 5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .event-title {
+        color: #ffffff;
+        font-size: 1.3rem;
+        margin: 0;
+        font-weight: 600;
+        line-height: 1.4;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+    
+    .event-info {
+        padding: 12px;
+        background: rgba(0, 0, 0, 0.2);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+    
+    .event-info p {
+        margin: 3px 0;
+        display: flex;
+        align-items: center;
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 0.85rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    /* Price and rating on one row */
+    .event-info p:nth-child(5), 
+    .event-info p:nth-child(6) {
+        grid-column: span 1;
+    }
+    
+    /* Make organizer name span full width */
+    .event-info p:nth-child(4) {
+        grid-column: span 2;
+    }
+    
+    .event-info i {
+        width: 20px;
+        color: #4CAF50;
+        margin-right: 8px;
+        flex-shrink: 0;
+    }
+    
+    .event-actions {
+        display: flex;
+        padding: 15px;
+        gap: 12px;
+        justify-content: space-between;
+        flex-wrap: wrap; /* Allow buttons to wrap on small screens */
+    }
+    
+    .btn-view, .btn-download {
+        flex: 1;
+        padding: 12px 10px;
+        min-width: 130px; /* Ensure minimum button width */
+        text-align: center;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        border-radius: 6px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.95rem;
+    }
+    
+    .btn-view {
+        background: #2196F3;
+        color: white;
+    }
+    
+    .btn-view:hover {
+        background: #1976D2;
+    }
+    
+    .btn-download {
+        background: #4CAF50;
+        color: white;
+    }
+    
+    .btn-download:hover {
+        background: #388E3C;
+    }
+    
+    .btn-view i, .btn-download i {
+        margin-right: 8px;
+    }
+    
+    .history-badge {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 8px 15px;
+        border-radius: 30px;
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .history-badge i {
+        color: #ffcc00;
+    }
+    
+    /* Responsive grid for event cards - updated for better visibility */
+    .event-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 20px;
+        padding: 15px;
+    }
+    
+    /* Make cards more responsive on mobile */
+    @media (max-width: 768px) {
+        .event-grid {
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        }
+        
+        .event-card {
+            width: 100%;
+            min-width: 280px;
+        }
+        
+        .event-actions {
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .btn-view, .btn-download {
+            width: 100%;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .event-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+    </style>
+</body>
+</html> 

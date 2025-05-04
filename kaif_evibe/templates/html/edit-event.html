@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Event - EVibe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/kaif_evibe/templates/css/edit.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Import Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Background Container */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/kaif_evibe/templates/images/bg.jpg') no-repeat center center/cover;
+            filter: blur(5px) brightness(0.7);
+            z-index: -1;
+        }
+
+        body {
+            color: #fff;
+            position: relative;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navigation Bar */
+        .Nav-1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.7);
+            width: 100%;
+            margin: 0;
+        }
+
+        .Nav-1 h1 {
+            color: #ffcc00;
+            font-weight: 600;
+        }
+
+        .Nav-Element {
+            margin-left: 100px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .Nav-Element ul {
+            list-style: none;
+            display: flex;
+            gap: 50px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .Nav-Element ul a {
+            text-decoration: none;
+            color: #fff;
+            transition: 0.3s;
+        }
+
+        .Nav-Element ul a:hover {
+            color: #ffcc00;
+        }
+
+        /* Search Bar */
+        .Search-bar {
+            margin-left: 70px;
+            margin-right: 20px;
+            width: 300px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            background: #fff;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .Search-bar input {
+            border: none;
+            outline: none;
+            height: 30px;
+            min-width: 290px;
+            font-size: 14px;
+            padding-left: 10px;
+        }
+
+        /* Profile and Logout */
+        .profile {
+            width: 40px;
+            height: 40px;
+            background: gray;
+            border-radius: 50%;
+            margin-left: 20px;
+        }
+
+        /* Logout Button Styling */
+        .btn {
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-left: 20px;
+        }
+
+        .btn:hover {
+            background-color: #ff6b81;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        /* Form Styling */
+        .form-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-container h2 {
+            text-align: center;
+            color: #ffcc00;
+            margin: 30px 0;
+            font-size: 2rem;
+        }
+
+        .post-event-form {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-text {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .button-group button,
+        .button-group a {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .button-group button:first-child,
+        .button-group a:first-child {
+            background-color: #ffcc00;
+            color: #000;
+        }
+
+        .button-group button:first-child:hover,
+        .button-group a:first-child:hover {
+            background-color: #e6b800;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 204, 0, 0.3);
+        }
+
+        .button-group button:last-child,
+        .button-group a:last-child {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .button-group button:last-child:hover,
+        .button-group a:last-child:hover {
+            background-color: #d32f2f;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(244, 67, 54, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                margin: 1rem;
+                padding: 1rem;
+            }
+
+            .Nav-Element {
+                margin-left: 20px;
+            }
+
+            .Search-bar {
+                margin-left: 20px;
+                width: 200px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .button-group button,
+            .button-group a {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container"></div>
+    
+    <!-- Navigation -->
+    <div class="Nav-1">
+        <h1>EVibe</h1>
+        
+        <div class="Nav-Element">
+            <ul>
+                <a href="organizer.html"><li id="home">Home</li></a>
+                <a href="post-event.html"><li id="post">Post Event</li></a>
+                <a href="manage-event.html"><li id="manage">Manage Events</li></a>
+                <a href="my-event.html"><li id="events">My Events</li></a>
+            </ul>
+        </div>
+        <div class="profile"></div>
+        <button class="btn" id="logoutBtn">Logout</button>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="form-container">
+            <h2>Edit Event</h2>
+            <form id="editEventForm" class="post-event-form">
+                <input type="hidden" id="event_id" name="event_id">
+                <input type="hidden" id="current_image" name="current_image">
+
+                <div class="form-group">
+                    <label for="event_image">Event Image</label>
+                    <input type="file" id="event_image" name="event_image" accept="image/*">
+                    <small class="form-text">Leave empty to keep current image. Supported formats: JPG, JPEG, PNG, GIF</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="title"><strong>Event Name:</strong></label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="category"><strong>Event Category:</strong></label>
+                    <select id="category" name="category_id" required>
+                        <option value="">Select Category</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="description"><strong>Event Description:</strong></label>
+                    <textarea id="description" name="description" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="event_date"><strong>Event Date and Time:</strong></label>
+                    <input type="datetime-local" id="event_date" name="event_date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="venue"><strong>Location:</strong></label>
+                    <input type="text" id="venue" name="venue" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="ticket_price"><strong>Event Price (PKR):</strong></label>
+                    <input type="number" id="ticket_price" name="ticket_price" min="0" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="total_tickets"><strong>Total Tickets:</strong></label>
+                    <input type="number" id="total_tickets" name="total_tickets" min="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="available_tickets"><strong>Available Tickets:</strong></label>
+                    <input type="number" id="available_tickets" name="available_tickets" min="0" required>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit">Update Event</button>
+                    <a href="organizer.html">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        // Check if user is logged in
+        $(document).ready(function() {
+            $.ajax({
+                url: '../php/check_session.php',
+                method: 'GET',
+                success: function(response) {
+                    if (!response.logged_in) {
+                        window.location.href = 'login.html';
+                    }
+                },
+                error: function() {
+                    window.location.href = 'login.html';
+                }
+            });
+
+            // Handle logout
+            $('#logoutBtn').on('click', function() {
+                $.ajax({
+                    url: '../php/logout.php',
+                    method: 'POST',
+                    dataType: 'json',
+                    success: function(response) {
+                        if(response && response.success) {
+                            window.location.href = 'login.html';
+                        } else {
+                            alert('Error logging out: ' + (response ? response.message : 'Unknown error'));
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Logout error:', error);
+                        alert('Error connecting to server');
+                    }
+                });
+            });
+        });
+
+        // Load categories
+        function loadCategories() {
+            fetch('../php/get_categories.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const categorySelect = document.getElementById('category');
+                        data.categories.forEach(category => {
+                            const option = document.createElement('option');
+                            option.value = category.category_id;
+                            option.textContent = category.name;
+                            categorySelect.appendChild(option);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        // Load event details
+        function loadEventDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const eventId = urlParams.get('id');
+
+            if (!eventId) {
+                alert('No event ID provided');
+                window.location.href = 'organizer.html';
+                return;
+            }
+
+            fetch(`../php/manage_events.php?event_id=${eventId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.event) {
+                        const event = data.event;
+                        
+                        // Fill form fields
+                        document.getElementById('event_id').value = event.event_id;
+                        document.getElementById('current_image').value = event.image_url;
+                        document.getElementById('title').value = event.title;
+                        document.getElementById('category').value = event.category_id;
+                        document.getElementById('description').value = event.description;
+                        document.getElementById('event_date').value = event.event_date.slice(0, 16);
+                        document.getElementById('venue').value = event.venue;
+                        document.getElementById('ticket_price').value = event.ticket_price;
+                        document.getElementById('total_tickets').value = event.total_tickets;
+                        document.getElementById('available_tickets').value = event.available_tickets;
+                    } else {
+                        alert('Error: ' + (data.message || 'Event not found'));
+                        window.location.href = 'organizer.html';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error loading event details: ' + error.message);
+                    window.location.href = 'organizer.html';
+                });
+        }
+
+        // Handle form submission
+        document.getElementById('editEventForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate form data
+            const formData = new FormData(this);
+            const requiredFields = ['title', 'category_id', 'description', 'event_date', 'venue', 'ticket_price', 'total_tickets', 'available_tickets'];
+            
+            for (const field of requiredFields) {
+                if (!formData.get(field)) {
+                    alert(`Please fill in the ${field.replace('_', ' ')}`);
+                    return;
+                }
+            }
+
+            // Validate numeric fields
+            if (isNaN(formData.get('ticket_price')) || parseFloat(formData.get('ticket_price')) < 0) {
+                alert('Please enter a valid ticket price');
+                return;
+            }
+            if (isNaN(formData.get('total_tickets')) || parseInt(formData.get('total_tickets')) < 1) {
+                alert('Please enter a valid number of total tickets');
+                return;
+            }
+            if (isNaN(formData.get('available_tickets')) || parseInt(formData.get('available_tickets')) < 0) {
+                alert('Please enter a valid number of available tickets');
+                return;
+            }
+            if (parseInt(formData.get('available_tickets')) > parseInt(formData.get('total_tickets'))) {
+                alert('Available tickets cannot be more than total tickets');
+                return;
+            }
+
+            formData.append('action', 'update');
+            
+            // Show loading state
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.textContent;
+            submitButton.disabled = true;
+            submitButton.textContent = 'Updating...';
+            
+            fetch('/evibe_database-update_with_php/templates/php/manage_events.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => {
+                        console.error('Server response:', text);
+                        throw new Error(`Server error: ${text || 'Unknown error'}`);
+                    });
+                }
+                return response.text().then(text => {
+                    try {
+                        if (!text) {
+                            throw new Error('Empty response from server');
+                        }
+                        console.log('Server response:', text);
+                        return JSON.parse(text);
+                    } catch (e) {
+                        console.error('Error parsing response:', e);
+                        console.error('Server response:', text);
+                        throw new Error('Invalid JSON response from server: ' + text);
+                    }
+                });
+            })
+            .then(data => {
+                if (data.success) {
+                    alert('Event updated successfully!');
+                    window.location.href = 'organizer.html';
+                } else {
+                    console.error('Server error:', data);
+                    alert('Error updating event: ' + (data.message || 'Unknown error'));
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error updating event: ' + error.message);
+            })
+            .finally(() => {
+                submitButton.disabled = false;
+                submitButton.textContent = originalButtonText;
+            });
+        });
+
+        // Load data when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCategories();
+            loadEventDetails();
+        });
+    </script>
+</body>
+</html> 

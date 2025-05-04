@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carousel Test</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .test-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        pre {
+            background-color: #f1f1f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow: auto;
+            max-height: 300px;
+        }
+        
+        /* Carousel Styles */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            margin: 30px auto;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .carousel-slider {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-slide {
+            flex: 0 0 100%;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .carousel-slide:hover img {
+            transform: scale(1.05);
+        }
+
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: white;
+            text-align: left;
+        }
+
+        .carousel-caption h3 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .carousel-caption p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .carousel-btn:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .prev-btn {
+            left: 20px;
+        }
+
+        .next-btn {
+            right: 20px;
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: #fff;
+            transform: scale(1.2);
+        }
+
+        .carousel-loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.1);
+            color: white;
+        }
+
+        .carousel-loading i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .carousel-btn-view {
+            margin-top: 10px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-btn-view:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="test-section">
+        <h1>Carousel Test Page</h1>
+        
+        <!-- Image Carousel Slider -->
+        <div class="carousel-container">
+            <div class="carousel-slider" id="imageCarousel">
+                <!-- Carousel images will be loaded here -->
+                <div class="carousel-loading">
+                    <i class="fas fa-spinner fa-pulse"></i>
+                    <p>Loading featured images...</p>
+                </div>
+            </div>
+            <button class="carousel-btn prev-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+            <button class="carousel-btn next-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+            <div class="carousel-dots" id="carouselDots"></div>
+        </div>
+        
+        <h2>API Response:</h2>
+        <pre id="apiResponse">Loading...</pre>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Load carousel images
+            loadCarouselImages();
+            
+            function loadCarouselImages() {
+                $.ajax({
+                    url: '/kaif_evibe/templates/php/get_carousel_images.php',
+                    method: 'GET',
+                    success: function(response) {
+                        // Display raw API response for debugging
+                        $('#apiResponse').text(JSON.stringify(response, null, 2));
+                        
+                        if (response.success && response.images && response.images.length > 0) {
+                            initCarousel(response.images);
+                        } else {
+                            // Fallback to default images if no images in database
+                            const defaultImages = [
+                                {
+                                    image_url: '../images/default-event.jpg',
+                                    title: 'Debugging Image 1',
+                                    description: 'This is a fallback image for debugging'
+                                },
+                                {
+                                    image_url: '../images/music.jpeg',
+                                    title: 'Debugging Image 2',
+                                    description: 'This is another fallback image'
+                                }
+                            ];
+                            initCarousel(defaultImages);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error loading carousel images:', error);
+                        $('#apiResponse').text('Error: ' + error + '\n\nResponse: ' + xhr.responseText);
+                        
+                        // Fallback to default images on error
+                        const defaultImages = [
+                            {
+                                image_url: '../images/default-event.jpg',
+                                title: 'Error Image',
+                                description: 'An error occurred loading images'
+                            }
+                        ];
+                        initCarousel(defaultImages);
+                    }
+                });
+            }
+
+            // Initialize carousel with images
+            function initCarousel(images) {
+                const carousel = $('#imageCarousel');
+                const dotsContainer = $('#carouselDots');
+                
+                // Clear loading and any existing content
+                carousel.empty();
+                dotsContainer.empty();
+                
+                // Add slides to carousel
+                images.forEach((image, index) => {
+                    console.log("Processing image:", image);
+                    
+                    const imageUrl = image.image_url || '../images/default-event.jpg';
+                    const eventId = image.event_id || 0;
+                    
+                    const slide = $(`
+                        <div class="carousel-slide" data-index="${index}" data-id="${eventId}">
+                            <img src="${imageUrl}" alt="${image.title || 'Event Image'}" onerror="this.src='../images/default-event.jpg'">
+                            <div class="carousel-caption">
+                                <h3>${image.title || 'Featured Event'}</h3>
+                                <p>${image.description || 'Check out this exciting event'}</p>
+                                <button class="carousel-btn-view" onclick="viewEvent(${eventId})">
+                                    <i class="fas fa-eye"></i> View Details
+                                </button>
+                            </div>
+                        </div>
+                    `);
+                    
+                    carousel.append(slide);
+                    
+                    // Add dot for this slide
+                    const dot = $(`<div class="carousel-dot ${index === 0 ? 'active' : ''}" data-index="${index}"></div>`);
+                    dotsContainer.append(dot);
+                });
+                
+                // Set up carousel functionality
+                let currentIndex = 0;
+                const slideCount = images.length;
+                
+                // Show first slide
+                updateCarousel();
+                
+                // Auto-play carousel
+                let autoplayInterval = setInterval(nextSlide, 5000);
+                
+                // Navigation button handlers
+                $('#prevBtn').on('click', function() {
+                    prevSlide();
+                    resetAutoplay();
+                });
+                
+                $('#nextBtn').on('click', function() {
+                    nextSlide();
+                    resetAutoplay();
+                });
+                
+                // Dot navigation
+                $('.carousel-dot').on('click', function() {
+                    currentIndex = parseInt($(this).data('index'));
+                    updateCarousel();
+                    resetAutoplay();
+                });
+                
+                // Pause autoplay on hover
+                $('.carousel-container').hover(
+                    function() { clearInterval(autoplayInterval); },
+                    function() { autoplayInterval = setInterval(nextSlide, 5000); }
+                );
+                
+                function nextSlide() {
+                    currentIndex = (currentIndex + 1) % slideCount;
+                    updateCarousel();
+                }
+                
+                function prevSlide() {
+                    currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+                    updateCarousel();
+                }
+                
+                function updateCarousel() {
+                    // Update slide position
+                    carousel.css('transform', `translateX(-${currentIndex * 100}%)`);
+                    
+                    // Update dots
+                    $('.carousel-dot').removeClass('active');
+                    $(`.carousel-dot[data-index="${currentIndex}"]`).addClass('active');
+                }
+                
+                function resetAutoplay() {
+                    clearInterval(autoplayInterval);
+                    autoplayInterval = setInterval(nextSlide, 5000);
+                }
+            }
+        });
+        
+        // Placeholder function for view event
+        function viewEvent(eventId) {
+            alert('View event: ' + eventId);
+            // In real implementation: window.location.href = `view_event.html?id=${eventId}`;
+        }
+    </script>
+</body>
+</html> 

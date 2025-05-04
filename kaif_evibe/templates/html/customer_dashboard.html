@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard - EVibe</title>
+    <link rel="stylesheet" href="/kaif_evibe/templates/css/customer_dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <h1>EVibe</h1>
+        </div>
+        
+        <div class="nav-search">
+            <input type="text" placeholder="Search events...">
+            <button><i class="fas fa-search"></i></button>
+        </div>
+        
+        <div class="nav-menu">
+            <a href="customer_dashboard.html" class="active"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="customer_events.html"><i class="fas fa-calendar"></i> Events</a>
+            <a href="customer_bookings.html"><i class="fas fa-ticket-alt"></i> My Bookings</a>
+            <a href="customer_favorites.html"><i class="fas fa-heart"></i> Favorites</a>
+            <a href="customer_chat.html"><i class="fas fa-comments"></i> Messages</a>
+            <div class="nav-profile">
+                <img src="/evibe_database-update_with_php/templates/images/default-avatar.png" alt="Profile">
+                <div class="profile-dropdown">
+                    <a href="customer_profile.html"><i class="fas fa-user"></i> Profile</a>
+                    <a href="customer_settings.html"><i class="fas fa-cog"></i> Settings</a>
+                    <a href="customer_payments.html"><i class="fas fa-credit-card"></i> Payments</a>
+                    <a href="../php/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <div class="welcome-content">
+                <h1>Welcome back, <span id="user-name">User</span>!</h1>
+                <p>Discover amazing events happening around you</p>
+            </div>
+            <div class="quick-stats">
+                <div class="stat-card">
+                    <i class="fas fa-ticket-alt"></i>
+                    <div class="stat-info">
+                        <span class="stat-value">3</span>
+                        <span class="stat-label">Upcoming Events</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-heart"></i>
+                    <div class="stat-info">
+                        <span class="stat-value">5</span>
+                        <span class="stat-label">Saved Events</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-calendar-check"></i>
+                    <div class="stat-info">
+                        <span class="stat-value">8</span>
+                        <span class="stat-label">Past Events</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trending Events -->
+        <section class="trending-events">
+            <div class="section-header">
+                <h2><i class="fas fa-fire"></i> Trending Events</h2>
+                <a href="customer_events.html" class="view-all">View All</a>
+            </div>
+            <div class="events-grid">
+                <!-- Trending Event Cards -->
+                <div class="event-card">
+                    <img src="/evibe_database-update_with_php/templates/images/event1.jpg" alt="Summer Music Festival">
+                    <div class="event-content">
+                        <div class="event-date">July 15, 2024</div>
+                        <h3>Summer Music Festival</h3>
+                        <div class="event-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Clifton Beach, Karachi
+                        </div>
+                        <div class="event-price">PKR 2,500</div>
+                        <div class="event-actions">
+                            <button class="view-details" onclick="viewEventDetails(1)">
+                                <i class="fas fa-info-circle"></i> View Details
+                            </button>
+                            <button class="book-now" onclick="bookEvent(1)">
+                                <i class="fas fa-ticket-alt"></i> Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more trending event cards here -->
+            </div>
+        </section>
+
+        <!-- Events Near You -->
+        <section class="events-near-you">
+            <div class="section-header">
+                <h2><i class="fas fa-map-marker-alt"></i> Events Near You</h2>
+                <a href="customer_events.html" class="view-all">View All</a>
+            </div>
+            <div class="events-grid">
+                <!-- Nearby Event Cards -->
+                <div class="event-card">
+                    <img src="/evibe_database-update_with_php/templates/images/event2.jpg" alt="Food Festival">
+                    <div class="event-content">
+                        <div class="event-date">July 20, 2024</div>
+                        <h3>Food Festival 2024</h3>
+                        <div class="event-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            DHA, Karachi
+                        </div>
+                        <div class="event-price">PKR 1,500</div>
+                        <div class="event-actions">
+                            <button class="view-details" onclick="viewEventDetails(2)">
+                                <i class="fas fa-info-circle"></i> View Details
+                            </button>
+                            <button class="book-now" onclick="bookEvent(2)">
+                                <i class="fas fa-ticket-alt"></i> Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more nearby event cards here -->
+            </div>
+        </section>
+
+        <!-- Upcoming Bookings -->
+        <section class="upcoming-bookings">
+            <div class="section-header">
+                <h2><i class="fas fa-calendar-alt"></i> Upcoming Bookings</h2>
+                <a href="customer_bookings.html" class="view-all">View All</a>
+            </div>
+            <div class="bookings-list">
+                <!-- Booking Items -->
+                <div class="booking-item">
+                    <div class="booking-image">
+                        <img src="/evibe_database-update_with_php/templates/images/event3.jpg" alt="Tech Conference">
+                    </div>
+                    <div class="booking-info">
+                        <h3>Tech Conference 2024</h3>
+                        <div class="booking-meta">
+                            <span><i class="far fa-calendar-alt"></i> July 25, 2024</span>
+                            <span><i class="fas fa-ticket-alt"></i> 2 Tickets</span>
+                        </div>
+                        <div class="booking-status pending">Pending Confirmation</div>
+                    </div>
+                    <div class="booking-actions">
+                        <button class="view-booking" onclick="viewBooking(1)">
+                            <i class="fas fa-eye"></i> View
+                        </button>
+                        <button class="download-tickets" onclick="downloadTickets(1)">
+                            <i class="fas fa-download"></i> Tickets
+                        </button>
+                    </div>
+                </div>
+                <!-- Add more booking items here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- AI Chatbot -->
+    <div class="chatbot-container">
+        <button class="chatbot-toggle" id="chatbot-toggle">
+            <i class="fas fa-robot"></i>
+            <span>Need Help?</span>
+        </button>
+        <div class="chatbot-window" id="chatbot-window">
+            <div class="chatbot-header">
+                <h3>EVibe Assistant</h3>
+                <button class="close-chatbot"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="chatbot-messages" id="chatbot-messages">
+                <!-- Messages will be loaded dynamically -->
+            </div>
+            <div class="chatbot-input">
+                <input type="text" placeholder="Type your message...">
+                <button><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/evibe_database-update_with_php/templates/js/customer_dashboard.js"></script>
+</body>
+</html> 

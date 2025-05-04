@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Database - EVibe</title>
+    <link rel="stylesheet" href="/kaif_evibe/templates/css/tickets.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .update-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .update-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .update-button:hover {
+            background-color: #3958c9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(73, 108, 250, 0.3);
+        }
+        
+        .result-container {
+            margin-top: 30px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: left;
+            white-space: pre-wrap;
+            display: none;
+        }
+        
+        .update-info {
+            margin-bottom: 20px;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container"></div>
+    
+    <div class="main-1">
+        <div class="Nav-1">
+            <h1>EVibe</h1>
+            <button class="btn-logout" id="backBtn">Back to Tickets</button>
+        </div>
+        
+        <div class="update-container">
+            <h2>Database Update Utility</h2>
+            
+            <div class="update-info">
+                <p>This utility will add a 'status' column to the bookings table with a default value of 'valid' for existing records. It will also set statuses to 'expired' for past events automatically.</p>
+                <p>Click the button below to run the update.</p>
+            </div>
+            
+            <button id="updateBtn" class="update-button">Update Database</button>
+            
+            <div id="resultContainer" class="result-container"></div>
+        </div>
+    </div>
+    
+    <script>
+        $(document).ready(function() {
+            $('#updateBtn').on('click', function() {
+                $(this).prop('disabled', true).text('Updating...');
+                
+                $.ajax({
+                    url: '../php/update_bookings_table.php',
+                    method: 'GET',
+                    success: function(response) {
+                        $('#resultContainer').text(response).show();
+                        $('#updateBtn').prop('disabled', false).text('Update Database');
+                    },
+                    error: function(xhr, status, error) {
+                        $('#resultContainer').text('Error: ' + error).show();
+                        $('#updateBtn').prop('disabled', false).text('Update Database');
+                    }
+                });
+            });
+            
+            $('#backBtn').on('click', function() {
+                window.location.href = 'tickets.html';
+            });
+        });
+    </script>
+</body>
+</html> 

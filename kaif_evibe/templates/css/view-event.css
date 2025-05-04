@@ -1,0 +1,261 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #121212;
+    color: #fff;
+    overflow-x: hidden;
+    text-align: center;
+}
+
+.container {
+    background: url('/kaif_evibe/templates/images/bg.jpg')
+    min-height: 100vh;
+    padding-bottom: 20px;
+}
+
+/* Navigation Bar */
+.Nav-1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    margin: 0;
+}
+
+.Nav-1 h1 {
+    color: #ffcc00;
+    font-weight: 600;
+}
+.Nav-Element {
+    margin-left: 100px;
+    display: flex;
+    gap: 20px; /* Space between navigation items */
+    align-items: center;
+}
+
+.Nav-Element ul {
+    list-style: none;
+    display: flex;
+    gap: 50px; /* Space between menu items */
+    padding: 0;
+    margin: 0;
+}
+
+.Nav-Element ul a {
+    text-decoration: none;
+    color: black;
+}
+
+.notifications {
+    margin-left: auto; /* Push notifications and profile to the right */
+    padding: 0 15px;
+}
+
+#notify-img {
+    width: 30px; /* Adjust size if needed */
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+#notify-img:hover {
+    background-color: rgba(255, 255, 0, 0.753);
+    border-radius: 50%; /* Make it look smoother */
+    padding: 5px;
+}
+
+.profile {
+    width: 40px;
+    height: 40px;
+    background: gray; /* Placeholder for profile picture */
+    border-radius: 50%;
+    margin-left: 20px;
+}
+
+.btn-logout {
+    margin-left: 20px;
+    padding: 8px 15px;
+    background: yellow;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.btn-logout:hover {
+    background: yellow;
+}
+.Search-bar {
+    margin-left: 70px;
+    margin-right: 20px;
+    width: 300px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+
+#srch{
+    height: 40px;
+    width: 60px;
+}
+.Search-bar input {
+    border: none;
+    outline: none;
+    height: 30px; /* Increase height */
+    
+        min-width: 290px; /* Ensures enough space */
+    
+    
+    font-size: 14px; /* Increase font size for better visibility */
+    padding-left: 10px; /* Add some padding */
+}
+
+
+.Nav-Element ul {
+    display: flex;
+    list-style: none;
+}
+
+.Nav-Element ul a {
+    text-decoration: none;
+    color: #fff;
+    margin: 0 10px;
+    transition: 0.3s;
+}
+
+.Nav-Element ul a:hover {
+    color: #ffcc00;
+}
+
+/* Logout Button */
+.btn-logout {
+    background: yellow;
+    border: none;
+    padding: 8px 15px;
+    font-size: 16px;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-logout:hover {
+    background: grey;
+}
+
+/* Event Heading */
+.Event-Header {
+    text-align: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 20px auto;
+    border-radius: 10px;
+    width: 80%;
+}
+
+.Event-Header h2 {
+    font-size: 28px;
+    color: #ffcc00;
+    margin-bottom: 5px;
+}
+
+.Event-Header p {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+/* Event Details */
+.Event-details {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    width: 80%;
+    
+    box-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
+}
+
+.Event-details img {
+    width: 100%;
+    height: 700px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 20px;
+   
+}
+
+h3 {
+    margin-top: 15px;
+    color: #ffcc00;
+    font-size: 20px;
+}
+
+p {
+    font-size: 16px;
+    margin: 8px 0;
+}
+
+strong {
+    color: #ffcc00;
+}
+
+/* Button Container */
+.button-container {
+    
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin-top: 50px;
+   
+}
+
+button {
+    background: #f4b400;
+    border: none;
+    padding: 12px 20px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #d49400;
+}
+
+/* Reviews Section */
+.reviews {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+    text-align: left;
+}
+
+.reviews p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+/* Google Maps */
+iframe {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 10px;
+}
